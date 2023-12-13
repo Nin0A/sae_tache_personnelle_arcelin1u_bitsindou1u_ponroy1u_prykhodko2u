@@ -10,4 +10,7 @@ public class Colonne extends ComposantAListe {
         taches = new ArrayList<TacheMere>();
     }
 
+    public ArrayList<TacheMere> getTaches() {
+        return taches;
+    }
 }

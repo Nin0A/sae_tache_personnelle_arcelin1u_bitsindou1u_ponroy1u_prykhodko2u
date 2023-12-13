@@ -19,4 +19,7 @@ public abstract class Composant {
         return nom.equals(composant.nom);
     }
 
+    public String getNom() {
+        return nom;
+    }
 }

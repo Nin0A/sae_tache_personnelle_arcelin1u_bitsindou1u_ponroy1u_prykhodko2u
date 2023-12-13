@@ -12,6 +12,10 @@ public abstract class ComposantAListe extends Composant {
         liste = new ArrayList<>();
     }
 
+    public ArrayList<Composant> getListe() {
+        return liste;
+    }
+
     public void supprimerComposant(Composant c) {
         liste.remove(c);
     }
@@ -23,5 +27,6 @@ public abstract class ComposantAListe extends Composant {
     {
         //TODO
     }
+
 */
 }

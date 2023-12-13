@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Tache extends Composant {
     private double duree;
 
-    Tache(String desc, int duree) {
+    Tache(String desc, double duree) {
         super(desc);
         this.duree = duree;
     }

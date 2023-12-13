@@ -18,14 +18,16 @@ public class Tableau extends ComposantAListe implements Sujet {
         super(n);
         obsTab = new ArrayList<>();
         archive = new Colonne("Archive");
-        colonnes = new ArrayList<Colonne>();
     }
 
-    //Colonne depart, Colonne arriv / tache att colonne courante
-    public void deplacerTache(TacheMere t, Colonne c) {
+    public void deplacerTache(TacheMere t, Colonne depart, Colonne arrivee) {
+        depart.supprimerComposant(t);
+        arrivee.ajouterComposant(t);
     }
 
-    public void archiverTache(TacheMere t) {
+    public void archiverTache(TacheMere t, Colonne depart) {
+        depart.supprimerComposant(t);
+        archive.ajouterComposant(t);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class Tableau extends ComposantAListe implements Sujet {
     @Override
     public void notifierObservateur(Observateur o) {
         for (Observateur obs : obsTab) {
-            obs.actualiser();
+            obs.actualiser(this);
         }
     }
 }
