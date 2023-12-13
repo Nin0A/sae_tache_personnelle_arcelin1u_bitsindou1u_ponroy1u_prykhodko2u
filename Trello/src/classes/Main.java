@@ -1,5 +1,6 @@
 package classes;
-//classe temporelle pour tester les classes
+
+//Classe éphémère pour tester les classes
 
 public class Main {
     public static void main(String[] args) {
