@@ -2,7 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 
-public class Tableau extends ComposantAListe implements Sujet {
+public class Tableau extends Composant implements Sujet {
 
 
     private ArrayList<Observateur> obsTab;
@@ -16,6 +16,7 @@ public class Tableau extends ComposantAListe implements Sujet {
 
     Tableau(String n) {
         super(n);
+        liste = new ArrayList<Colonne>();
         obsTab = new ArrayList<>();
         archive = new Colonne("Archive");
         colonnes = new ArrayList<Colonne>();

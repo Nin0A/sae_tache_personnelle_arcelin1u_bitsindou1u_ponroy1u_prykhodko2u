@@ -2,9 +2,9 @@ package classes;
 
 import java.util.ArrayList;
 
-public abstract class ComposantAListe extends Composant {
+public abstract class ComposantAListe<T> extends Composant {
 
-    protected ArrayList<Composant> liste;
+    protected ArrayList<T> liste;
 
 
     ComposantAListe(String n) {
@@ -12,16 +12,5 @@ public abstract class ComposantAListe extends Composant {
         liste = new ArrayList<>();
     }
 
-    public void supprimerComposant(Composant c) {
-        liste.remove(c);
-    }
 
-    public void ajouterComposant(Composant c) {
-        liste.add(c);
-    }
-    /*public void modifierComposant(Composant c)
-    {
-        //TODO
-    }
-*/
 }

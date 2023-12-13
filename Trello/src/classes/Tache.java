@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Tache extends Composant {
     private double duree;
@@ -8,16 +9,18 @@ public abstract class Tache extends Composant {
     Tache(String desc, int duree) {
         super(desc);
         this.duree = duree;
+        this.liste = new ArrayList<Tache>();
     }
-    private ArrayList<TacheMere> antecedents;
+
     public void  ajouterAntecedent(TacheMere t){
-        this.antecedents.add(t);
+        this.liste.add(t);
     }
     public void supprimerAntecedent(TacheMere t){
-        this.antecedents.remove(t);
+        this.liste.remove(t);
     }
     @Override
     public String toString() {
         return this.nom + " "+duree+ " ";
     }
+
 }
