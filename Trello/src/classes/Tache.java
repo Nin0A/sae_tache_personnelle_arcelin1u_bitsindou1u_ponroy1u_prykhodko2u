@@ -1,12 +1,11 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public abstract class Tache extends Composant<Tache> {
 
     //constructeurs
-    private double duree; //durée de la tache
+    private double duree; //durée de la tache en jours
     private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
     /**
