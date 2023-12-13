@@ -8,6 +8,8 @@ out/
 mvnw
 mvnw.cmd
 pom.xml
+resources/
+hello-view.fxml
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
