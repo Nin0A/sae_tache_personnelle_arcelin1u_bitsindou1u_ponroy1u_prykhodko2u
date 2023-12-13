@@ -3,7 +3,7 @@ package classes;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Tache extends Composant {
+public abstract class Tache extends Composant<Tache> {
 
     //constructeurs
     private double duree; //durée de la tache
