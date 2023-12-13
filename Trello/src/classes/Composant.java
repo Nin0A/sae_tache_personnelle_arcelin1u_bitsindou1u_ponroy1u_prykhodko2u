@@ -1,15 +1,15 @@
-package main.java.classes;
+package classes;
 
 public abstract class Composant {
     protected String nom;
 
-    Composant(String n){
+    Composant(String n) {
         nom = n;
     }
 
-   public void modifierNom(String nom){
+    public void modifierNom(String nom) {
         this.nom = nom;
-   }
+    }
 
     @Override
     public boolean equals(Object o) {

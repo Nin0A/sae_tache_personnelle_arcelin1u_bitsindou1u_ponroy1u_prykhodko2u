@@ -1,4 +1,4 @@
-package main.java.classes;
+package classes;
 
 import java.util.ArrayList;
 
@@ -7,24 +7,26 @@ public class Tableau extends ComposantAListe implements Sujet {
 
     private ArrayList<Observateur> obsTab;
 
-    private Colonne archiv;
+    private Colonne archive;
 
-//    super
-   private ArrayList<Colonne> colonnes;
+    //    super
+    private ArrayList<Colonne> colonnes;
 
     private String nom;
 
-    Tableau(String n){
+    Tableau(String n) {
         super(n);
         obsTab = new ArrayList<>();
-        archiv = new Colonne("Archive");
+        archive = new Colonne("Archive");
         colonnes = new ArrayList<Colonne>();
     }
 
     //Colonne depart, Colonne arriv / tache att colonne courante
-   public void deplacerTache(Tache t, Colonne c){}
+    public void deplacerTache(TacheMere t, Colonne c) {
+    }
 
-    public void archiverTache(Tache t){}
+    public void archiverTache(TacheMere t) {
+    }
 
     @Override
     public void enregistrerObservateur(Observateur o) {
@@ -38,7 +40,7 @@ public class Tableau extends ComposantAListe implements Sujet {
 
     @Override
     public void notifierObservateur(Observateur o) {
-        for (Observateur obs: obsTab ) {
+        for (Observateur obs : obsTab) {
             obs.actualiser();
         }
     }
