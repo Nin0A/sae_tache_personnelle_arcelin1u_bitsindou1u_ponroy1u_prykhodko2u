@@ -3,7 +3,9 @@ package classes;
 
 public class Main {
     public static void main(String[] args) {
-        Tache t = new Tache("Hello", 7);
+        TacheMere t = new TacheMere("Hello", 7);
+        TacheMere s = new TacheMere("Hello", 10);
         System.out.println(t);
+        System.out.println(t.equals(s));
     }
 }
