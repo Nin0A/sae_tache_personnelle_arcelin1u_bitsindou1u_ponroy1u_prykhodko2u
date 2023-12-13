@@ -1,4 +1,4 @@
-package classes;
+package main.java.classes;
 
 import java.util.ArrayList;
 
@@ -10,13 +10,15 @@ public class Tableau extends ComposantAListe implements Sujet {
     private Colonne archiv;
 
 //    super
-//    private ArrayList<Colonne> colonnes;
+   private ArrayList<Colonne> colonnes;
 
     private String nom;
 
     Tableau(String n){
         super(n);
         obsTab = new ArrayList<>();
+        archiv = new Colonne("Archive");
+        colonnes = new ArrayList<Colonne>();
     }
 
     //Colonne depart, Colonne arriv / tache att colonne courante

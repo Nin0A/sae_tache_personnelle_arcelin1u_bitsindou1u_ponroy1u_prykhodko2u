@@ -1,4 +1,4 @@
-package classes;
+package main.java.classes;
 
 public abstract class Composant {
     protected String nom;
