@@ -10,7 +10,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     private Colonne archive;
 
     //    super
-    private ArrayList<Colonne> colonnes;
+    //private ArrayList<Colonne> colonnes;
 
     private String nom;
 
@@ -18,14 +18,16 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         super(n);
         obsTab = new ArrayList<>();
         archive = new Colonne("Archive");
-        colonnes = new ArrayList<Colonne>();
     }
 
-    //Colonne depart, Colonne arriv / tache att colonne courante
-    public void deplacerTache(TacheMere t, Colonne c) {
+    public void deplacerTache(TacheMere t, Colonne depart, Colonne arrivee) {
+        depart.liste.remove(t);
+        arrivee.liste.add(t);
     }
 
-    public void archiverTache(TacheMere t) {
+    public void archiverTache(TacheMere t, Colonne depart) {
+        depart.liste.remove(t);
+        archive.liste.add(t);
     }
 
     @Override
@@ -41,7 +43,11 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     @Override
     public void notifierObservateur(Observateur o) {
         for (Observateur obs : obsTab) {
-            obs.actualiser();
+            obs.actualiser(this);
         }
+    }
+
+    public ArrayList<Colonne> getColonnes() {
+        return liste;
     }
 }

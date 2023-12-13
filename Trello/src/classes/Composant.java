@@ -24,9 +24,6 @@ public abstract class Composant<T> {
         this.nom = nom;
     }
 
-    public String getNom() {
-        return nom;
-    }
 
     /**
      * Méthode equals qui compare 2 objets de type Composant
@@ -42,4 +39,7 @@ public abstract class Composant<T> {
         return nom.equals(composant.nom);
     }
 
+    public String getNom() {
+        return nom;
+    }
 }

@@ -26,7 +26,7 @@ public class Systeme implements Sujet {
     @Override
     public void notifierObservateur(Observateur o) {
         for (Observateur obs : obsTab) {
-            obs.actualiser();
+            obs.actualiser(this);
         }
     }
 
