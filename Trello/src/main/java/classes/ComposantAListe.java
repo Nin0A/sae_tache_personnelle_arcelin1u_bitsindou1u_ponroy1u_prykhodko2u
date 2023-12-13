@@ -20,10 +20,9 @@ public abstract class ComposantAListe extends Composant {
     {
         liste.add(c);
     }
-    public void modifierComposant(Composant c)
+    /*public void modifierComposant(Composant c)
     {
-        liste.remove(c);
-        liste.add(c);
+        //TODO
     }
-
+*/
 }
