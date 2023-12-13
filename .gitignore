@@ -5,6 +5,11 @@ out/
 *.class
 .DS_Store
 .vscode/
+mvnw
+mvnw.cmd
+pom.xml
+resources/
+hello-view.fxml
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
