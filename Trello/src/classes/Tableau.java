@@ -19,6 +19,12 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         obsTab = new ArrayList<>();
         archive = new Colonne("Archive");
     }
+    public void ajouterColonne(Colonne c){
+        this.liste.add(c);
+    }
+    public void supprimerColonne(Colonne c){
+        this.liste.remove(c);
+    }
 
     public void deplacerTache(TacheMere t, Colonne depart, Colonne arrivee) {
         depart.liste.remove(t);

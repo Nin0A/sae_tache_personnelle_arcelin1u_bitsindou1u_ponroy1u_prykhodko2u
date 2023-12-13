@@ -5,7 +5,7 @@ public class VueListe implements Observateur{
     @Override
     public void actualiser(Sujet sujet) {
         Tableau tab = (Tableau) sujet;
-        System.out.println("Liste : " + tab.getNom());
+        System.out.println("VueListe : " + tab.getNom());
         for (Composant c : tab.getColonnes()) {
             System.out.println(" -->" + c.getNom()+" :");
             for (Tache tache :((Colonne)c).getTaches()) {

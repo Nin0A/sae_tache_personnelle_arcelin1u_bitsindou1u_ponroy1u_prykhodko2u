@@ -5,16 +5,15 @@ public class Main {
     public static void main(String[] args) {
         TacheMere t = new TacheMere("Hello", 7);
         TacheMere s = new TacheMere("Hi", 10);
-
+        TacheMere s2 = new TacheMere("Hi2", 10);
         Tableau tab = new Tableau("Tableau");
         Colonne col = new Colonne("Colonne");
-        tab.ajouterComposant(col);
-        col.ajouterComposant(t);
-        col.ajouterComposant(s);
-        System.out.println("Liste1 : " + tab.getNom());
-        System.out.println("Col "+col.getNom()+" :");
-        System.out.println(col.getTaches().get(0).getNom());
-        System.out.println(col.getTaches().get(1).getNom());
+        Colonne col2 = new Colonne("Colonne2");
+        tab.ajouterColonne(col);
+        tab.ajouterColonne(col2);
+        col.ajouterTache(t);
+        col.ajouterTache(s);
+        col2.ajouterTache(s2);
         VueListe vue = new VueListe();
         tab.enregistrerObservateur(vue);
         tab.notifierObservateur(vue);
