@@ -1,12 +1,13 @@
-package main.java.classes;
+package classes;
 
 import java.util.ArrayList;
 
-public class Systeme implements Sujet{
+public class Systeme implements Sujet {
 
     private Tableau tab;
     private ArrayList<Observateur> obsTab;
-    Systeme(Tableau t){
+
+    Systeme(Tableau t) {
         tab = t;
         obsTab = new ArrayList<>();
     }
@@ -24,7 +25,7 @@ public class Systeme implements Sujet{
 
     @Override
     public void notifierObservateur(Observateur o) {
-        for (Observateur obs: obsTab ) {
+        for (Observateur obs : obsTab) {
             obs.actualiser();
         }
     }

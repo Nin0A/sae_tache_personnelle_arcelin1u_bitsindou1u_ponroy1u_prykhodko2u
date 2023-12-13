@@ -1,8 +1,8 @@
-package main.java.classes;
+package classes;
 
 import java.util.ArrayList;
 
-public class Colonne extends ComposantAListe{
+public class Colonne extends ComposantAListe {
     private ArrayList<Tache> taches;
 
     Colonne(String n) {
