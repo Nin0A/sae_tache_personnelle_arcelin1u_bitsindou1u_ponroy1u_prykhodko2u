@@ -24,20 +24,16 @@ public abstract class Composant<T> {
         this.nom = nom;
     }
 
-<<<<<<< HEAD
     public String getNom() {
         return nom;
     }
 
-
-
-=======
     /**
      * Méthode equals qui compare 2 objets de type Composant
      * @param o objet avec lequel on compare
      * @return true si les 2 objets sont pareils, sinon false
      */
->>>>>>> c8d1fb3ab3242f93ca84c759f4d786823783ca1b
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
