@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Colonne extends Composant<Tache> {
 
     //constructeur
-    Colonne(String n) {
+    public Colonne(String n) {
         super(n);
     }
 

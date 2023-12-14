@@ -17,7 +17,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     private String nom;
 
     //constructeur
-    Tableau(String n) {
+    public Tableau(String n) {
         super(n);
         obsTab = new ArrayList<>();
         archive = new Colonne("Archive");

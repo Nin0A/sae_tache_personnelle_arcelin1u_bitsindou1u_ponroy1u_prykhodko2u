@@ -10,7 +10,7 @@ public class TacheMere extends Tache {
     private ArrayList<Tache> sousTaches; //liste de sous-taches
 
     //constructeur
-    TacheMere(String desc, int duree) {
+    public TacheMere(String desc, int duree) {
         super(desc,duree);
     }
 
