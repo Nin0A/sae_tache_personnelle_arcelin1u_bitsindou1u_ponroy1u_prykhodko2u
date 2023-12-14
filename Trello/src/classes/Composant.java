@@ -3,11 +3,13 @@ package classes;
 
 import java.util.ArrayList;
 
+//Classe Composant
+
 public abstract class Composant<T> {
 
-    protected ArrayList<T> liste;
+    //attributs
+    protected ArrayList<T> liste; //liste d'objets de type Composant
 
-    //constructeur
     protected String nom; //nom du composant crée
 
     //constructeur
@@ -39,6 +41,10 @@ public abstract class Composant<T> {
         return nom.equals(composant.nom);
     }
 
+    /**
+     * Méthode getNom qui retourne le nom du composant
+     * @return le nom du composant
+     */
     public String getNom() {
         return nom;
     }

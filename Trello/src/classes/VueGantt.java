@@ -1,6 +1,12 @@
 package classes;
 
-public class VueGaant implements Observateur {
+//Classe VueGantt
+public class VueGantt implements Observateur {
+
+    /**
+     * Méhtode actualiser qui permet d'actualiser le sujet
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         Tableau tab = (Tableau) sujet;

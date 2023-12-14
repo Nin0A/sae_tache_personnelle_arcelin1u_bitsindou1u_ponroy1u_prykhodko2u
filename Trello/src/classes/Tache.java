@@ -2,17 +2,15 @@ package classes;
 
 import java.util.ArrayList;
 
+//Classe Tache
+
 public abstract class Tache extends Composant<Tache> {
 
-    //constructeurs
+    //attributs
     private double duree; //durée de la tache en jours
     private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
-    /**
-     * Constructeur
-     * @param desc nom de la tache cree
-     * @param duree duree de la tache cree
-     */
+    //constructeur
     Tache(String desc, int duree) {
         super(desc);
         this.duree = duree;
@@ -39,7 +37,7 @@ public abstract class Tache extends Composant<Tache> {
     }
 
     /**
-     * Méthide toString qui affiche le nom de la tache et sa duree
+     * Méthode toString qui affiche le nom de la tache et sa duree
      * @return l'affichage
      */
     @Override
