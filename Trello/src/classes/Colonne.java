@@ -23,6 +23,21 @@ public class Colonne extends Composant<Tache> {
      * @param t tache à ajouter à la liste
      */
     public void supprimerTache(Tache t){
+
+        // On vérifie si la tache est une TacheMere pour supprimer ses sous-taches si il n'y en a
+        if (t instanceof TacheMere){
+            TacheMere tM = (TacheMere) t;
+
+            // On récupère la liste des sous-taches de la tache mère
+            ArrayList<Tache> sousTaches = tM.getSousTaches();
+
+            // On les supprime une par une de la colonne
+            for (Tache sousTache : sousTaches){
+                ((TacheMere) t).supprimerSousTache(sousTache);
+            }
+        }
+
+        // On supprime la tache de la liste de taches de la colonne
         this.liste.remove(t);
     }
 
