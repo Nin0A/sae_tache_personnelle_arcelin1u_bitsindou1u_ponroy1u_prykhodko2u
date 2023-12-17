@@ -4,7 +4,7 @@ package classes;
 public class VueListe implements Observateur{
 
     /**
-     * Méhtode actualiser qui permet d'actualiser le sujet
+     * Méhtode actualiser qui permet d'actualiser le sujet sous forme de liste
      * @param sujet sujet à actualiser
      */
     @Override

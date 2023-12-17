@@ -18,5 +18,6 @@ public class Main {
         VueListe vue = new VueListe();
         tab.enregistrerObservateur(vue);
         tab.notifierObservateur(vue);
+
     }
 }
