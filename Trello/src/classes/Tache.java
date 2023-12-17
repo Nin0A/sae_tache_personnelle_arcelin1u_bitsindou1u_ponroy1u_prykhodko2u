@@ -8,13 +8,13 @@ public abstract class Tache extends Composant<Tache> {
 
     //attributs
     private double duree; //durée de la tache en jours
-    private ArrayList<Tache> antecedents; //liste des antécedents de la tache
+   // private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
     //constructeur
     public Tache(String desc, int duree) {
         super(desc);
         this.duree = duree;
-        this.antecedents = new ArrayList<Tache>();
+        //this.antecedents = new ArrayList<Tache>();
     }
 
 
@@ -25,8 +25,8 @@ public abstract class Tache extends Composant<Tache> {
      */
     public void ajouterAntecedent(Tache t){
         //on vérifie que la tache n'est pas déjà dans la liste
-        if (!this.antecedents.contains(t)) {
-            this.antecedents.add(t);
+        if (!this.liste.contains(t)) {
+            this.liste.add(t);
         }
     }
 
@@ -36,8 +36,7 @@ public abstract class Tache extends Composant<Tache> {
      * @param t la tache antécédente à supprimer de la liste
      */
     public void supprimerAntecedent(Tache t){
-
-        this.antecedents.remove(t);
+        this.liste.remove(t);
     }
 
     /**
@@ -45,7 +44,7 @@ public abstract class Tache extends Composant<Tache> {
      * @return la liste des antécedents
      */
     public ArrayList<Tache> getAntecedent() {
-        return antecedents;
+        return liste;
     }
 
     /**
