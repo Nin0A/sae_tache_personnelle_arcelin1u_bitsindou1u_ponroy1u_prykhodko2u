@@ -65,5 +65,11 @@ public class Colonne extends Composant<Tache> {
     public ArrayList<Tache> getTaches() {
         return liste;
     }
+    public void afficher(){
+        System.out.println(" -->" + this.nom+" :");
+        for (Tache t : this.liste) {
+            t.afficher();
+        }
+    }
 
 }
