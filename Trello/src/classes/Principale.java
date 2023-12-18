@@ -2,10 +2,7 @@ package classes;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -22,6 +19,32 @@ public class Principale extends Application{
     }
 
     public void start(Stage stage) {
+
+        //test
+        TacheMere t = new TacheMere("Tache t", 7);
+        TacheMere s = new TacheMere("Tache s", 10);
+        TacheMere s2 = new TacheMere("Tache s2", 10);
+        TacheMere s3 = new TacheMere("Tache s3", 10);
+        TacheMere s4 = new TacheMere("Tache s4", 10);
+        SousTache st = new SousTache("Soustache st", 10);
+        t.ajouterSousTache(st);
+        t.ajouterSousTache(s);
+        s.ajouterSousTache(s2);
+
+        Tableau tab = new Tableau("Tableau");
+        Colonne col = new Colonne("Colonne");
+        Colonne col2 = new Colonne("Colonne2");
+        Colonne col3 = new Colonne("Colonne3");
+        Colonne col4 = new Colonne("Colonne4");
+        Colonne col5 = new Colonne("Colonne5");
+        tab.ajouterColonne(col);
+        tab.ajouterColonne(col2);
+        tab.ajouterColonne(col3);
+        tab.ajouterColonne(col4);
+        tab.ajouterColonne(col5);
+        col.ajouterTache(t);
+        col.ajouterTache(s3);
+        col2.ajouterTache(s4);
 
         // Panel principal
         HBox pane= new HBox();
@@ -46,10 +69,16 @@ public class Principale extends Application{
         main.getChildren().addAll(choixDeVues);
 
         //zone vue !!! à modifier selon la vue !!!
-        HBox vue = new HBox();
-        vue.setPadding(new Insets(680,1000,0,0));
-        vue.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
-        main.getChildren().addAll(vue);
+
+
+        VueBureau vb =new VueBureau();
+        vb.actualiser(tab);
+
+        ScrollPane scrollPane = new ScrollPane(vb);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Barre de défilement horizontale selon les besoins
+
+
+        main.getChildren().addAll(scrollPane);
 
         pane.getChildren().addAll(listeTableau,main);
         Scene scene = new Scene(pane, 1300, 800);
