@@ -55,5 +55,8 @@ public abstract class Tache extends Composant<Tache> {
     public String toString() {
         return this.nom + " "+duree+ " ";
     }
+    public boolean avoirAntecedent(Tache t){
+        return this.liste.contains(t);
+    }
 
 }

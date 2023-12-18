@@ -20,7 +20,7 @@ public class TacheMere extends Tache {
      */
     public void ajouterSousTache(Tache t){
         //on vérifie que la sous tache n'est pas déjà dans la liste
-        if (!this.sousTaches.contains(t)) {
+        if (!this.sousTaches.contains(t)&& t!=null) {
             this.sousTaches.add(t);
         }
     }
