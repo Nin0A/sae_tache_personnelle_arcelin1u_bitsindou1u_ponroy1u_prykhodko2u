@@ -2,6 +2,7 @@ package classes;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -33,10 +34,18 @@ public class Principale extends Application{
 
         //zone de droite
         VBox main = new VBox();
-        main.setPadding(new Insets(50,30,40,40));
+        main.setPadding(new Insets(0,30,40,40));
         main.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
 
-        //zone vue
+        ComboBox <String> choixDeVues = new ComboBox();
+        choixDeVues .getItems().add("Vue Tableau");
+        choixDeVues .getItems().add("Vue Liste");
+        choixDeVues .getItems().add("Vue Gantt");
+        choixDeVues .setValue("Vue Tableau");
+
+        main.getChildren().addAll(choixDeVues);
+
+        //zone vue !!! à modifier selon la vue !!!
         HBox vue = new HBox();
         vue.setPadding(new Insets(680,1000,0,0));
         vue.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
