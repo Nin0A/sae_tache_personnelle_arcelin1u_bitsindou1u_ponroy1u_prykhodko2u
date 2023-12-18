@@ -88,4 +88,6 @@ public abstract class Tache extends Composant<Tache> {
         return res;
 
     }
+
+    public void reinitialiser(){}
 }
