@@ -1,4 +1,4 @@
-package MVC;
+package classes;
 
 public interface Controleur {
 }

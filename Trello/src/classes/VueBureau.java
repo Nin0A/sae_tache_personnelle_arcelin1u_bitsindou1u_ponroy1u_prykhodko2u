@@ -1,8 +1,5 @@
 package classes;
 
-import MVC.Observateur;
-import MVC.Sujet;
-
 import java.util.ArrayList;
 
 public class VueBureau implements Observateur {
