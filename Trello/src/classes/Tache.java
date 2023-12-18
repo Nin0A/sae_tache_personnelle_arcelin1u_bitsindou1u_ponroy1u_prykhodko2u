@@ -1,23 +1,20 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.Objects;
+
+//Classe Tache
 
 public abstract class Tache extends Composant<Tache> {
 
-    //constructeurs
-    private double duree; //durée de la tache
-    private ArrayList<Tache> antecedents; //liste des antécedents de la tache
+    //attributs
+    private double duree; //durée de la tache en jours
+   // private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
-    /**
-     * Constructeur
-     * @param desc nom de la tache cree
-     * @param duree duree de la tache cree
-     */
-    Tache(String desc, int duree) {
+    //constructeur
+    public Tache(String desc, int duree) {
         super(desc);
         this.duree = duree;
-        this.liste = new ArrayList<Tache>();
+        //this.antecedents = new ArrayList<Tache>();
     }
 
 
@@ -26,8 +23,11 @@ public abstract class Tache extends Composant<Tache> {
      * à la liste des antécedents
      * @param t la tache antécédente à ajouter à la liste
      */
-    public void  ajouterAntecedent(Tache t){
-        this.antecedents.add(t);
+    public void ajouterAntecedent(Tache t){
+        //on vérifie que la tache n'est pas déjà dans la liste
+        if (!this.liste.contains(t)) {
+            this.liste.add(t);
+        }
     }
 
     /**
@@ -36,16 +36,27 @@ public abstract class Tache extends Composant<Tache> {
      * @param t la tache antécédente à supprimer de la liste
      */
     public void supprimerAntecedent(Tache t){
-        this.antecedents.remove(t);
+        this.liste.remove(t);
     }
 
     /**
-     * Méthide toString qui affiche le nom de la tache et sa duree
+     * Méthode getAntecedents qui retourne la liste des antécedents d'une tache
+     * @return la liste des antécedents
+     */
+    public ArrayList<Tache> getAntecedent() {
+        return liste;
+    }
+
+    /**
+     * Méthode toString qui affiche le nom de la tache et sa duree
      * @return l'affichage
      */
     @Override
     public String toString() {
         return this.nom + " "+duree+ " ";
+    }
+    public boolean avoirAntecedent(Tache t){
+        return this.liste.contains(t);
     }
 
     public void setDuree(double duree) {
@@ -61,7 +72,7 @@ public abstract class Tache extends Composant<Tache> {
 
     public boolean etreAntecedent(Tache t){
         boolean res = false;
-        for (Tache tache : antecedents ) {
+        for (Tache tache : this.liste ) {
             if (tache.equals(t)){
                 res = true;
                 break;

@@ -7,7 +7,6 @@ public abstract class Composant<Type> {
 
     protected ArrayList<Type> liste;
 
-    //constructeur
     protected String nom; //nom du composant crée
 
     //constructeur
@@ -39,6 +38,10 @@ public abstract class Composant<Type> {
         return nom.equals(composant.nom);
     }
 
+    /**
+     * Méthode getNom qui retourne le nom du composant
+     * @return le nom du composant
+     */
     public String getNom() {
         return nom;
     }
