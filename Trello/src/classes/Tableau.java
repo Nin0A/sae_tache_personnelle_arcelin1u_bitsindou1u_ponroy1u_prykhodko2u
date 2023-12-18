@@ -102,4 +102,10 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public ArrayList<Colonne> getColonnes() {
         return liste;
     }
+    public void  afficher() {
+        System.out.println(this.getNom()+" :");
+        for (Colonne c : this.getColonnes()) {
+            c.afficher();
+        }
+    }
 }

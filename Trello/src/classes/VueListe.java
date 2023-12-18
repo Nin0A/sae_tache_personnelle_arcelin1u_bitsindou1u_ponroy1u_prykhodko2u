@@ -13,9 +13,7 @@ public class VueListe implements Observateur {
     @Override
     public void actualiser(Sujet sujet) {
         Tableau tab = (Tableau) sujet;
-        System.out.println("VueListe : " + tab.getNom());
-        for (Composant c : tab.getColonnes()) {
-            ((Colonne)c).afficher();
-        }
+        System.out.println("VueListe : ");
+       tab.afficher();
     }
 }

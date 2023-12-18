@@ -12,6 +12,7 @@ public class Main {
         SousTache st = new SousTache("Soustache st", 10);
         t.ajouterSousTache(st);
         t.ajouterSousTache(s);
+        s.ajouterSousTache(s2);
 
         Tableau tab = new Tableau("Tableau");
         Colonne col = new Colonne("Colonne");
