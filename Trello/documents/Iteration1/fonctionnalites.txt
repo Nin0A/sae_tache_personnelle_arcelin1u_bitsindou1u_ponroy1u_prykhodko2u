@@ -1,0 +1,13 @@
+Liste des fonctionnalités de l'itération n°1 :
+
+    - Implémenter la classe Tableau --> Yehor
+
+    - Implémenter la classe Colonne --> Yehor,Célie
+
+    - Implémenter la classe Tache --> Yehor,Célie
+
+    - Tester les méthodes ajouterAntecedents et supprimerAntecedents --> Maëlle
+
+    - Gérer les dépendances d'une tâche (méthodes ajouterAntecedants et supprimerAntecedents) --> Célie, Nino
+
+    - Implémenter le MVC (observateurs) --> Célie, Nino
