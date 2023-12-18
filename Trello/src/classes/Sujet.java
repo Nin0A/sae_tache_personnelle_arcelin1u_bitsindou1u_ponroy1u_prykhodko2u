@@ -1,4 +1,4 @@
-package MVC;
+package classes;
 
 //Interface Sujet
 public interface Sujet {

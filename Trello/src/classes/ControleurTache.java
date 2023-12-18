@@ -1,12 +1,10 @@
-package MVC;
+package classes;
 
 import classes.Tableau;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.EventObject;
-
-public class ControleurTache implements Controleur{
+public class ControleurTache implements EventHandler<ActionEvent>, Controleur{
 
     //attributs
     private Tableau modele;
@@ -16,14 +14,14 @@ public class ControleurTache implements Controleur{
         this.modele = modele;
     }
 
+
+
     /**
      * Méthode handle qui gère les évènements d'une tache
-     * @param event évènement à gérer
+     * @param actionEvent évènement à gérer
      */
     @Override
-    public void handle(EventObject event) {
-
-
+    public void handle(ActionEvent actionEvent) {
 
     }
 

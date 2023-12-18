@@ -1,4 +1,4 @@
-package MVC;
+package classes;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
