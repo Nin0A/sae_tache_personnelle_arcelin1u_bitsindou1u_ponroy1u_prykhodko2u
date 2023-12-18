@@ -1,9 +1,5 @@
 package classes;
 
-import MVC.Observateur;
-import MVC.Sujet;
-import classes.Tableau;
-
 import java.util.ArrayList;
 
 //Classe Système

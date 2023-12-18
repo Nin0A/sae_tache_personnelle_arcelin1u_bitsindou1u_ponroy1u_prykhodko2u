@@ -1,8 +1,5 @@
 package classes;
 
-import MVC.Sujet;
-import MVC.Observateur;
-
 import java.util.ArrayList;
 
 //Classe Tableau

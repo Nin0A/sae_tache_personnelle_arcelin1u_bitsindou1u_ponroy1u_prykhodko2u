@@ -1,8 +1,5 @@
 package classes;
 
-import MVC.Observateur;
-import MVC.Sujet;
-
 //Classe VueListe
 public class VueListe implements Observateur {
 
