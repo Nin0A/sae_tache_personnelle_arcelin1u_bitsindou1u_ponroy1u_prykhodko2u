@@ -33,12 +33,12 @@ public class Principale extends Application{
 
         //zone de droite
         VBox main = new VBox();
-        main.setPadding(new Insets(520));
+        main.setPadding(new Insets(50,30,40,40));
         main.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
 
         //zone vue
         HBox vue = new HBox();
-        vue.setPadding(new Insets(50));
+        vue.setPadding(new Insets(680,1000,0,0));
         vue.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         main.getChildren().addAll(vue);
 
