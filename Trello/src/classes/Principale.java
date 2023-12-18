@@ -21,6 +21,7 @@ public class Principale extends Application{
     }
 
     public void start(Stage stage) {
+        Tableau tab = new Tableau("Tableau");
 
         // Panel principal
         HBox pane= new HBox();
@@ -37,10 +38,13 @@ public class Principale extends Application{
         main.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
 
         //zone vue
-        HBox vue = new HBox();
+        //HBox vue = new HBox();
+        VueListe vue = new VueListe();
         vue.setPadding(new Insets(680,1000,0,0));
         vue.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         main.getChildren().addAll(vue);
+        tab.enregistrerObservateur(vue);
+        tab.notifierObservateur();
 
         pane.getChildren().addAll(listeTableau,main);
         Scene scene = new Scene(pane, 1300, 800);

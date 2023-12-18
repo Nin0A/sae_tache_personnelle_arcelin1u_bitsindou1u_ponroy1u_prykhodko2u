@@ -87,7 +87,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param o observateur observé à mettre à jour
      */
     @Override
-    public void notifierObservateur(Observateur o) {
+    public void notifierObservateur() {
         for (Observateur obs : obsTab) {
             obs.actualiser(this);
         }

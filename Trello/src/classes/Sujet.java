@@ -20,7 +20,6 @@ public interface Sujet {
     /**
      * Méhtode notifierObservateur qui mettra à jour les changements de l'observateur
      * observé
-     * @param o observateur observé
      */
-    public void notifierObservateur(Observateur o);
+    public void notifierObservateur();
 }

@@ -22,9 +22,9 @@ public class Main {
         col.ajouterTache(t);
         col.ajouterTache(s3);
         col2.ajouterTache(s4);
-        VueListe vue = new VueListe();
+        /*VueListe vue = new VueListe();
         tab.enregistrerObservateur(vue);
         tab.notifierObservateur(vue);
-        System.out.println(s.getAntecedent());
+        System.out.println(s.getAntecedent());*/
     }
 }
