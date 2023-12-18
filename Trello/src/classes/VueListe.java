@@ -12,10 +12,7 @@ public class VueListe implements Observateur {
         Tableau tab = (Tableau) sujet;
         System.out.println("VueListe : " + tab.getNom());
         for (Composant c : tab.getColonnes()) {
-            System.out.println(" -->" + c.getNom()+" :");
-            for (Tache tache :((Colonne)c).getTaches()) {
-                System.out.println("         - " + tache.getNom());
-            }
+            ((Colonne)c).afficher();
         }
     }
 }

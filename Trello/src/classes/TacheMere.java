@@ -41,4 +41,12 @@ public class TacheMere extends Tache {
         return sousTaches;
     }
 
+    @Override
+    public void afficher() {
+        super.afficher();
+        for (Tache t : sousTaches) {
+            System.out.print("\t");
+            t.afficher();
+        }
+    }
 }
