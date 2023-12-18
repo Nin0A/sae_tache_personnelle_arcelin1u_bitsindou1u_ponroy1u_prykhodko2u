@@ -4,6 +4,7 @@ import MVC.Sujet;
 import MVC.Observateur;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 //Classe Tableau
 
@@ -102,4 +103,5 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public ArrayList<Colonne> getColonnes() {
         return liste;
     }
+
 }
