@@ -58,7 +58,31 @@ public abstract class Tache extends Composant<Tache> {
     public boolean avoirAntecedent(Tache t){
         return this.liste.contains(t);
     }
-    public void afficher(){
+
+    public void afficher() {
         System.out.println("\t\t- " + this.nom);
+    }
+
+    public void setDuree(double duree) {
+        this.duree = duree;
+    }
+
+    public void ajoutSupprAntecedent(Tache t){
+        if (etreAntecedent(t))
+            liste.remove(t);
+        else
+            liste.add(t);
+    }
+
+    public boolean etreAntecedent(Tache t){
+        boolean res = false;
+        for (Tache tache : this.liste ) {
+            if (tache.equals(t)){
+                res = true;
+                break;
+            }
+        }
+        return res;
+
     }
 }

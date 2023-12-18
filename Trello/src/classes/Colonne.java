@@ -10,6 +10,23 @@ public class Colonne extends Composant<Tache> {
         super(n);
     }
 
+
+    /**
+     * Méthode modifierDureeTache qui modifie la durée d'une tache
+     * @param duree durée de la tache en jours
+     * @param nomTache nom de la tache à modifier
+     */
+    public boolean modifierDureeTache(int duree, String nomTache){
+        if (duree<0)
+            return false;
+        for (Tache t : this.liste){
+            if (t.nom.equals(nomTache)){
+                t.setDuree(duree);
+            }
+        }
+        return true;
+    }
+
     /**
      * Méthode ajouterTache qui ajoute une tache à la liste de taches de la colonne
      * @param t tache à ajouter à la liste
@@ -45,18 +62,18 @@ public class Colonne extends Composant<Tache> {
         }
     }
 
-    /**
-     * Méthode modifierDureeTache qui modifie la durée d'une tache
-     * @param duree durée de la tache en jours
-     * @param nomTache nom de la tache à modifier
-     */
-    public void modifierDureeTache(int duree, String nomTache){
-        for (Composant c : this.liste){
-            if (c.nom.equals(nomTache)){
-
+    public void modifierNomDelaTache(String nomTacheAvant, String nomTacheApres) {
+        for (Tache t : this.liste){
+            if (t.nom.equals(nomTacheAvant)){
+                t.setNom(nomTacheApres);
             }
         }
     }
+
+    public void modifierAntecedent(){
+
+    }
+
 
     /**
      * Méthode getTaches qui retourne la liste de toutes les tâches de la colonne this

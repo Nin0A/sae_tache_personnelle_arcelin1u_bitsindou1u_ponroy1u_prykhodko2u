@@ -3,12 +3,9 @@ package classes;
 
 import java.util.ArrayList;
 
-//Classe Composant
+public abstract class Composant<Type> {
 
-public abstract class Composant<T> {
-
-    //attributs
-    protected ArrayList<T> liste; //liste d'objets de type Composant
+    protected ArrayList<Type> liste;
 
     protected String nom; //nom du composant crée
 
@@ -47,5 +44,9 @@ public abstract class Composant<T> {
      */
     public String getNom() {
         return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 }
