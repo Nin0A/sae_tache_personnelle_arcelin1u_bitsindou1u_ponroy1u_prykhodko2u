@@ -1,6 +1,8 @@
-package classes;
+package MVC;
 
 //Interface Observateur
+
+import MVC.Sujet;
 
 public interface Observateur {
 

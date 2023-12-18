@@ -1,7 +1,10 @@
 package classes;
 
+import MVC.Observateur;
+import MVC.Sujet;
+
 //Classe VueListe
-public class VueListe implements Observateur{
+public class VueListe implements Observateur {
 
     /**
      * Méhtode actualiser qui permet d'actualiser le sujet sous forme de liste

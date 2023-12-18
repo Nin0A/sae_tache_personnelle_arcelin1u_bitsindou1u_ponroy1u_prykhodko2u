@@ -1,3 +1,4 @@
+import classes.Tableau;
 import classes.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
