@@ -1,7 +1,7 @@
 package classes;
 
 public class SousTache extends Tache{
-    public SousTache(String desc, int duree) {
-        super(desc, duree);
+    public SousTache(String desc, int duree, int jour, int mois, int annee) {
+        super(desc, duree, jour, mois, annee);
     }
 }
