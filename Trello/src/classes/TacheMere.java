@@ -10,7 +10,7 @@ public class TacheMere extends Tache {
     private ArrayList<Tache> sousTaches = new ArrayList<>(); //liste de sous-taches
 
     //constructeur
-    public TacheMere(String desc, int duree, int jour, int mois, int annee) {
+    public TacheMere(String desc, double duree, int jour, int mois, int annee) {
         super(desc,duree, jour, mois, annee);
     }
 
@@ -48,5 +48,12 @@ public class TacheMere extends Tache {
             System.out.print("\t");
             t.afficher();
         }
+    }
+
+    /**
+     * Méthode reinitialiser qui supprime toutes les sous-taches de la tache
+     */
+    public void reinitialiser(){
+        sousTaches = new ArrayList<Tache>();
     }
 }

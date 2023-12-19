@@ -47,15 +47,12 @@ public class Colonne extends Composant<Tache> {
         if (t instanceof TacheMere){
             TacheMere tM = (TacheMere) t;
 
-            // On récupère la liste des sous-taches de la tache mère
-            // On les supprime une par une de la colonne
-            for (Tache sousTache : tM.getSousTaches()){
-                ((TacheMere) t).supprimerSousTache(sousTache);
-            }
+            tM.reinitialiser();
         }
 
         // On supprime la tache de la liste de taches de la colonne
         this.liste.remove(t);
+
         //supprimer les dépendances de la tache supprimée
         for (Tache tache : this.liste){
             if (tache.avoirAntecedent(t)){
