@@ -240,6 +240,36 @@ public class TestTableau {
     }
 
     //teste la methode deplacerTache quand on deplace une tache mere avec des antecedents
+    /*@Test
+    public void testDeplacerTache_tache_mere_avec_antecedents(){ //test 17 A FINIR
+
+        //on déplace la tache 3 de la colonne A à la colonne B
+        tab.deplacerTache(t3, col, col2);
+
+        //on vérifie que la tache 3 a bien été déplacée dans la colonne B
+        assertTrue(col2.getTaches().contains(t3));
+
+        //on vérifie que la tache 3 n'est plus dans la colonne A
+        assertFalse(col.getTaches().contains(t3));
+
+        //on vérifie que la tache 1 a bien été déplacée dans la colonne B
+        assertTrue(col2.getTaches().contains(t1));
+
+        //on vérifie que la tache 1 n'est plus dans la colonne A
+        assertFalse(col.getTaches().contains(t1));
+
+        //on vérifie que la tache 2 a bien été déplacée dans la colonne B
+        assertTrue(col2.getTaches().contains(t2));
+
+        //on vérifie que la tache 2 n'est plus dans la colonne A
+        assertFalse(col.getTaches().contains(t2));
+
+        //on vérifie que la tache 4 a bien été déplacée dans la colonne B
+        assertTrue(col2.getTaches().contains(t4));
+
+        //on vérifie que la tache 4 n'est plus dans la colonne A
+        assertFalse(col.getTaches().contains(t4));
+    }*/
 
     //teste la methode archiverTache quand la tache existe dans la colonne et que c'est une tache mere avec sous tache
     @Test
@@ -249,10 +279,74 @@ public class TestTableau {
         tab.archiverTache(t1, col);
 
         //on vérifie que la tache a bien été archivée
-        //assertTrue(col.getTachesArchivees().contains(t1));
+        assertTrue(tab.getArchive().getTaches().contains(t1));
 
         //on vérifie que la tache n'est plus dans la colonne
         assertFalse(col.getTaches().contains(t1));
     }
+
+    //teste la methode archiverTache quand la tache n'existe pas dans la colonne
+    @Test
+    public void testArchiverTache_inexistante(){ //test 18
+
+        //on crée une nouvelle tache
+        Tache t7 = new TacheMere("Tache 7", 5);
+
+        //on vérifie que l'exception a bien été levée
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t7, col));
+    }
+
+    //teste la methode archiverTache quand la colonne est null
+    @Test
+    public void testArchiverTache_colonne_null(){ //test 19
+
+        //on vérifie que l'exception a bien été levée
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t1, null));
+    }
+
+    //teste la methode archiverTache quand la tache est null
+    @Test
+    public void testArchiverTache_tache_null(){ //test 20
+
+        //on vérifie que l'exception a bien été levée
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(null, col));
+    }
+
+    //teste la methode archiverTache quand la tache est une sous tache
+    @Test
+    public void testArchiverTache_sous_tache(){ //test 21
+
+        //on vérifie que l'exception a bien été levée
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t5, col));
+    }
+
+    //teste la methode archiverTache quand on veut archiver une tache mere avec des sous taches
+    @Test
+    public void testArchiverTache_tache_mere_avec_sous_taches(){ //test 22
+
+        //on archive la tache 1
+        tab.archiverTache(t1, col);
+
+        //on vérifie que la tache a bien été archivée
+        assertTrue(tab.getArchive().getTaches().contains(t1));
+
+        //on vérifie que la tache n'est plus dans la colonne
+        assertFalse(col.getTaches().contains(t1));
+
+        //on vérifie que la sous tache 5 a bien été archivée
+        assertTrue(tab.getArchive().getTaches().contains(t5));
+
+        //on vérifie que la sous tache 5 n'est plus dans la colonne
+        assertFalse(col.getTaches().contains(t5));
+
+        //on vérifie que la sous tache 6 a bien été archivée
+        assertTrue(tab.getArchive().getTaches().contains(t6));
+
+        //on vérifie que la sous tache 6 n'est plus dans la colonne
+        assertFalse(col.getTaches().contains(t6));
+    }
+
+    //teste la methode archiverTache quand on deplace une tache mere avec des antecedents
+
 }
 

@@ -151,6 +151,10 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         if (!depart.liste.contains(t)) {
             throw new IllegalArgumentException("La tache n'existe pas dans la colonne de départ");
         }
+        //on vérifie que la tache ne soit pas une sous tache
+        if (t instanceof SousTache) {
+            throw new IllegalArgumentException("La tache est une sous tache");
+        }
 
         //Liste des sous taches de la tache
         ArrayList<Tache> sousTaches = new ArrayList<>();
@@ -215,6 +219,14 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     public ArrayList<Colonne> getColonnes() {
         return liste;
+    }
+
+    /**
+     * Méthode getArchive qui permet de retourner la colonne des archives
+     * @return la colonne des archives
+     */
+    public Colonne getArchive() {
+        return archive;
     }
 
     public void  afficher() {
