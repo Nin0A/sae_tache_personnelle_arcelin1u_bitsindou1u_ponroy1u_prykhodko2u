@@ -22,6 +22,7 @@ public class VueBureau extends HBox implements Observateur {
         @Override
         public void actualiser(Sujet sujet) {
             Tableau tab = (Tableau) sujet;
+            this.getChildren().clear();
             /*
             System.out.println("VueBureau : " + tab.getNom());
 
@@ -69,10 +70,6 @@ public class VueBureau extends HBox implements Observateur {
             ajoutColonne.setPadding(new Insets(50));
             ajoutColonne.getChildren().addAll(new Button("Ajouter Colonne"));
             this.getChildren().addAll(ajoutColonne);
-
-
-
-
 
         }
 

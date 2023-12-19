@@ -1,6 +1,7 @@
 package classes;
 
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -64,25 +65,44 @@ public class Principale extends Application{
 
 
         ComboBox <String> choixDeVues = new ComboBox();
-        choixDeVues .getItems().add("Vue Tableau");
+        choixDeVues .getItems().add("Vue Bureau");
         choixDeVues .getItems().add("Vue Liste");
         choixDeVues .getItems().add("Vue Gantt");
-        choixDeVues .setValue("Vue Tableau");
+        choixDeVues .setValue("Vue Bureau");
         main.getChildren().addAll(choixDeVues);
 
 
 
         //zone vue !!! à modifier selon la vue !!!
-        VueListe vue = new VueListe();
-        //VueBureau vue =new VueBureau();
-        tab.enregistrerObservateur(vue);
-        tab.notifierObservateur();
 
-        ScrollPane scrollPane = new ScrollPane(vue);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Barre de défilement horizontale selon les besoins
+        Vue vue = new Vue(tab);
 
 
-        main.getChildren().addAll(scrollPane);
+        choixDeVues.setOnAction(e -> {
+            ComboBox<String> cb = (ComboBox<String>) e.getSource();
+
+            // Supprimez l'ancien contenu
+            main.getChildren().removeIf(node -> node instanceof ScrollPane);
+
+            // Mettez à jour le contenu avec le nouveau choix
+            vue.changerVue(cb.getValue());
+            tab.notifierObservateur();
+            // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
+            ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
+            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+            // Ajoutez le nouveau contenu à main
+            //main.getChildren().add((Node) vue.getCourant());
+            // Ajoutez le ScrollPane à main
+            main.getChildren().add(scrollPane);
+
+        });
+
+
+
+
+
 
         pane.getChildren().addAll(listeTableau,main);
         Scene scene = new Scene(pane, 1300, 800);
