@@ -52,12 +52,14 @@ public class Principale extends Application{
 
         //zone de gauche (Tableau)
         VBox listeTableau = new VBox();
-        listeTableau.setPadding(new Insets(100));
+        listeTableau.setMinHeight(100); //dimensions
+        listeTableau.setMinWidth(250);
         listeTableau.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
 
         //zone de droite
         VBox main = new VBox();
-        main.setPadding(new Insets(0,30,40,40));
+        main.setMinHeight(100);
+        main.setMinWidth(800);
         main.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
 
         ComboBox <String> choixDeVues = new ComboBox();
@@ -65,7 +67,6 @@ public class Principale extends Application{
         choixDeVues .getItems().add("Vue Liste");
         choixDeVues .getItems().add("Vue Gantt");
         choixDeVues .setValue("Vue Tableau");
-
         main.getChildren().addAll(choixDeVues);
 
         //zone vue !!! à modifier selon la vue !!!

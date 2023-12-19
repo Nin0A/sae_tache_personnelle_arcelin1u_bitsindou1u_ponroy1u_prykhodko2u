@@ -41,16 +41,25 @@ public class VueBureau extends HBox implements Observateur {
                 colonnetmp= new VBox();
                 colonnetmp.setStyle("-fx-border-color: purple; -fx-border-width: 2px;");
                 colonnetmp.setPadding(new Insets(50));
-                HBox titrecolonnetmp = new HBox();
-                titrecolonnetmp.getChildren().addAll(new Label(tab.getColonnes().get(i).getNom()),new Button("Modifier"),new Button("Supprimer"));
+                HBox zoneHauteColonne = new HBox();
 
-                colonnetmp.getChildren().addAll(titrecolonnetmp);
+                Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
+
+                titreColonne.setStyle("-fx-font-family: 'Arial';" +
+                                        "-fx-font-size: 20;" +
+                                        "-fx-font-weight: bold;" +
+                                        "-fx-text-fill: blue;");
+
+                zoneHauteColonne.getChildren().addAll(titreColonne,new Button("Modifier"),new Button("Supprimer"));
+
+                colonnetmp.getChildren().addAll(zoneHauteColonne);
                 for(Tache t : tab.getColonnes().get(i).getTaches()){
                     HBox tachetmp = new HBox();
                     tachetmp.getChildren().addAll(new Label(t.getNom()),new Button("Modifier"),new Button("Archiver"),new Button("Supprimer"));
                     colonnetmp.getChildren().addAll(tachetmp);
                 }
                 colonnetmp.getChildren().addAll(new Button("Ajouter une tâche"));
+                colonnetmp.setMinHeight(810);
                 this.getChildren().addAll(colonnetmp);
             }
 
