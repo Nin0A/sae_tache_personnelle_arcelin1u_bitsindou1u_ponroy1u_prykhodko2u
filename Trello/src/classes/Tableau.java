@@ -107,5 +107,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             c.afficher();
         }
     }
+    @Override
+    public String toString() {
+        return this.nom;
+    }
 
 }
