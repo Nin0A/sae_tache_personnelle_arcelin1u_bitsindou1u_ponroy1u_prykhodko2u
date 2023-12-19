@@ -46,6 +46,11 @@ public class Colonne extends Composant<Tache> {
             TacheMere tM = (TacheMere) t;
 
             tM.reinitialiser();
+        }else if (t instanceof SousTache){
+            SousTache sT = (SousTache) t;
+
+            // On supprime la tache de la liste de sous-taches de la tache mere
+            sT.getTacheMere().supprimerSousTache(sT);
         }
 
         // On supprime la tache de la liste de taches de la colonne
@@ -59,18 +64,33 @@ public class Colonne extends Composant<Tache> {
         }
     }
 
+    /**
+     * Méthode modifierNomDelaTache qui modifie le nom d'une tache
+     * @param nomTacheAvant nom de la tache à modifier
+     * @param nomTacheApres nouveau nom de la tache
+     */
     public void modifierNomDelaTache(String nomTacheAvant, String nomTacheApres) {
-        for (Tache t : this.liste){
-            if (t.nom.equals(nomTacheAvant)){
+        boolean tacheTrouvee = false; // on initialise un indicateur à faux pour savoir si la tache est trouvée ou non
+
+        // On parcourt la liste de tâches de la colonne
+        for (Tache t : this.liste) {
+            if (t.getNom().equals(nomTacheAvant)) {
                 t.setNom(nomTacheApres);
+                System.out.println("Le nom de la tâche a été modifié");
+                tacheTrouvee = true; // on met l'indicateur à vrai si la tache est trouvée
             }
+        }
+
+        // Lève une exception si la tâche n'a pas été trouvée après avoir parcouru toute la liste
+        if (!tacheTrouvee) {
+            throw new IllegalArgumentException("Le nom de la tâche n'est pas dans la liste");
         }
     }
 
-    public void modifierAntecedent(){
-
-    }
-
+    /**
+     * Méthode toString qui affiche le nom de la colonne
+     * @return l'affichage du nom de la colonne
+     */
     @Override
     public String toString() {
         return this.nom;
@@ -83,6 +103,10 @@ public class Colonne extends Composant<Tache> {
     public ArrayList<Tache> getTaches() {
         return liste;
     }
+
+    /**
+     * Méthode afficher qui affiche toutes les taches de la colonne correctement indentées
+     */
     public void afficher(){
         System.out.println(" -->" + this.nom+" :");
         for (Tache t : this.liste) {
