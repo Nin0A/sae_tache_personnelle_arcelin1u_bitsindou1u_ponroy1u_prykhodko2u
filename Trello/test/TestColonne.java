@@ -3,7 +3,7 @@ import classes.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestColonne {
 
@@ -28,8 +28,8 @@ public class TestColonne {
         t4 = new TacheMere("Tache 4", 5);
 
         //creer 2 sous taches
-        t5 = new SousTache("Tache 5", 5);
-        t6 = new SousTache("Tache 6", 5);
+        t5 = new SousTache("Tache 5", 5, t1);
+        t6 = new SousTache("Tache 6", 5, t1);
 
         //on ajoute la colonne à la liste de colonnes du tableau
         tab.ajouterColonne(col);
@@ -90,21 +90,25 @@ public class TestColonne {
         assertEquals(false,col.getTaches().contains(t4));
     }
 
-    //teste la methode supprimerTache quand c'est une sous tache qui est supprimée
+    //teste la methode supprimerTache quand c'est une sous tache d'une tache mere qui est supprimée
     @Test
     public void test_supprimerTache_sous_tache() { //test 3
 
         //on vérifie que la tache 6 est bien une sous tache de la tache 1
-        assertEquals(true, t1.getSousTaches().contains(t6));
+        assertTrue(t1.getSousTaches().contains(t6));
+
+        //on verifie que la tache 6 est bien dans la liste de taches de la colonne
+        assertTrue(col.getTaches().contains(t6));
 
         //on supprime la tache 6 de la colonne
         col.supprimerTache(t6);
 
-        //on vérifie que la tache 6 n'est plus dans la liste de taches de la colonne
-        assertEquals(false,col.getTaches().contains(t6));
+        //on verifie que la tache 6 est bien dans la liste de taches de la colonne
+        assertFalse(col.getTaches().contains(t6));
 
         //on vérifie que la tache 6 n'est plus dans la liste de sous taches de la tache 1
-        assertEquals(false,t1.getSousTaches().contains(t6));
+        assertFalse(t1.getSousTaches().contains(t6));
+        col.afficher();
     }
 
 

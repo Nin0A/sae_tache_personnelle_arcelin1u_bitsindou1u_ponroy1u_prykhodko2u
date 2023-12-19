@@ -46,6 +46,11 @@ public class Colonne extends Composant<Tache> {
             TacheMere tM = (TacheMere) t;
 
             tM.reinitialiser();
+        }else if (t instanceof SousTache){
+            SousTache sT = (SousTache) t;
+
+            // On supprime la tache de la liste de sous-taches de la tache mere
+            sT.getTacheMere().supprimerSousTache(sT);
         }
 
         // On supprime la tache de la liste de taches de la colonne

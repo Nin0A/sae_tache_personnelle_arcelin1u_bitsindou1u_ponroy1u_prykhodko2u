@@ -28,8 +28,8 @@ public class TestTache {
          t4 = new TacheMere("Tache 4", 5);
 
          //creer 2 sous taches
-        t5 = new SousTache("Tache 5", 5);
-        t6 = new SousTache("Tache 6", 5);
+        t5 = new SousTache("Tache 5", 5,t1);
+        t6 = new SousTache("Tache 6", 5,t1);
 
         //on ajoute la colonne à la liste de colonnes du tableau
         tab.ajouterColonne(col);

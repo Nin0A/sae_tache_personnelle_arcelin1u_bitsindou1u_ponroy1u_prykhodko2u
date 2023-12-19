@@ -26,7 +26,7 @@ public class Principale extends Application{
         TacheMere s2 = new TacheMere("Tache s2", 10);
         TacheMere s3 = new TacheMere("Tache s3", 10);
         TacheMere s4 = new TacheMere("Tache s4", 10);
-        SousTache st = new SousTache("Soustache st", 10);
+        SousTache st = new SousTache("Soustache st", 10, t);
         t.ajouterSousTache(st);
         t.ajouterSousTache(s);
         s.ajouterSousTache(s2);
