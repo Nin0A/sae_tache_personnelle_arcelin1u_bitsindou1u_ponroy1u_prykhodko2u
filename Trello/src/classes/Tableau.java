@@ -27,6 +27,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param c colonne à ajouter
      */
     public void ajouterColonne(Colonne c){
+
         //on vérifie que la colonne à ajouter n'est pas null
         if (c == null) {
             throw new IllegalArgumentException("La colonne à ajouter est null");
@@ -35,10 +36,13 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         //on vérifie que la colonne n'est pas déjà dans la liste
         if (!this.liste.contains(c)) {
             this.liste.add(c);
+            notifierObservateur();
         } else {
             //Sinon on genere une exception
             throw new IllegalArgumentException("La colonne existe déjà");
         }
+
+
     }
 
     /**
@@ -58,6 +62,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         }
 
         this.liste.remove(c);
+        notifierObservateur();
     }
 
     /**
@@ -119,6 +124,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
 
         //on ajoute aussi ses sous taches à la colonne d'arrivée
         arrivee.liste.addAll(sousTaches);
+
+        notifierObservateur();
+
     }
 
     /**
@@ -165,6 +173,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
 
         //on ajoute aussi ses sous taches à la colonne des archives
         archive.liste.addAll(sousTaches);
+
+        notifierObservateur();
+
     }
 
     /**
