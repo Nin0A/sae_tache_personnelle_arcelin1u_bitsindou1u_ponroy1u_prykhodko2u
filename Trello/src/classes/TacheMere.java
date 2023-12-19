@@ -49,4 +49,11 @@ public class TacheMere extends Tache {
             t.afficher();
         }
     }
+
+    /**
+     * Méthode reinitialiser qui supprime toutes les sous-taches de la tache
+     */
+    public void reinitialiser(){
+        sousTaches = new ArrayList<Tache>();
+    }
 }
