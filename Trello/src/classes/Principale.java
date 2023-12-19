@@ -62,6 +62,7 @@ public class Principale extends Application{
         main.setMinWidth(800);
         main.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
 
+
         ComboBox <String> choixDeVues = new ComboBox();
         choixDeVues .getItems().add("Vue Tableau");
         choixDeVues .getItems().add("Vue Liste");
@@ -69,13 +70,15 @@ public class Principale extends Application{
         choixDeVues .setValue("Vue Tableau");
         main.getChildren().addAll(choixDeVues);
 
+
+
         //zone vue !!! à modifier selon la vue !!!
+        VueListe vue = new VueListe();
+        //VueBureau vue =new VueBureau();
+        tab.enregistrerObservateur(vue);
+        tab.notifierObservateur();
 
-
-        VueBureau vb =new VueBureau();
-        vb.actualiser(tab);
-
-        ScrollPane scrollPane = new ScrollPane(vb);
+        ScrollPane scrollPane = new ScrollPane(vue);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Barre de défilement horizontale selon les besoins
 
 

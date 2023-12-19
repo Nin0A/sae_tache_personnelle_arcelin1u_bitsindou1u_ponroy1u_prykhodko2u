@@ -76,6 +76,10 @@ public class Colonne extends Composant<Tache> {
 
     }
 
+    @Override
+    public String toString() {
+        return this.nom;
+    }
 
     /**
      * Méthode getTaches qui retourne la liste de toutes les tâches de la colonne this

@@ -87,7 +87,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param o observateur observé à mettre à jour
      */
     @Override
-    public void notifierObservateur(Observateur o) {
+    public void notifierObservateur() {
         for (Observateur obs : obsTab) {
             obs.actualiser(this);
         }
@@ -106,6 +106,10 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         for (Colonne c : this.getColonnes()) {
             c.afficher();
         }
+    }
+    @Override
+    public String toString() {
+        return this.nom;
     }
 
 }
