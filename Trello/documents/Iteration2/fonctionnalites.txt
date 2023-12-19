@@ -1,0 +1,11 @@
+Liste des fonctionnalités de l'itération n°1 :
+
+    - Implémenter Vue Bureau --> Nino
+
+    - Implémenter Vue Liste --> Célie
+
+    - Implémenter Vue Gantt et dépendance --> Yehor
+
+    - Implémentation du moteur de l'application --> Nino
+
+    - Test et optimisation --> Maëlle
