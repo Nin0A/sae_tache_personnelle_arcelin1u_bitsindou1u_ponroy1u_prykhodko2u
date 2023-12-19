@@ -183,6 +183,10 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     }
 
     /**
+     * Méthode verifier qui permet de v
+     */
+
+    /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur
      * observé en paramètre à la liste d'observateurs
      * @param o observateur observé à ajouter
