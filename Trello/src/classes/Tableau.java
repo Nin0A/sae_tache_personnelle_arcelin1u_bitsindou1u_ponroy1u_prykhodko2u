@@ -12,8 +12,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
 
     private Colonne archive; //Colonne des archives
 
-    //    super
-    //private ArrayList<Colonne> colonnes;
 
     private String nom;
 
@@ -30,6 +28,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     public void ajouterColonne(Colonne c){
         this.liste.add(c);
+        notifierObservateur();
     }
 
     /**
@@ -38,6 +37,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     public void supprimerColonne(Colonne c){
         this.liste.remove(c);
+        notifierObservateur();
     }
 
     /**
@@ -49,6 +49,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public void deplacerTache(Tache t, Colonne depart, Colonne arrivee) {
         depart.liste.remove(t);
         arrivee.liste.add(t);
+        notifierObservateur();
     }
 
     /**
@@ -59,6 +60,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public void archiverTache(Tache t, Colonne depart) {
         depart.liste.remove(t);
         archive.liste.add(t);
+        notifierObservateur();
     }
 
     /**
