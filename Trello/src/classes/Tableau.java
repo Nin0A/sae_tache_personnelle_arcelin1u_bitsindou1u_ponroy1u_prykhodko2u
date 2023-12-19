@@ -86,7 +86,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     /**
      * Méhtode notifierObservateur qui met à jour l'observateur
      * observé en paramètre de la liste d'observateurs
-     * @param o observateur observé à mettre à jour
      */
     @Override
     public void notifierObservateur() {
