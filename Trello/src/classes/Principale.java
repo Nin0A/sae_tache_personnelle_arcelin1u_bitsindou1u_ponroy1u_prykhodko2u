@@ -2,10 +2,7 @@ package classes;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -22,7 +19,8 @@ public class Principale extends Application{
     }
 
     public void start(Stage stage) {
-        Tableau tab = new Tableau("Tableau");
+
+        //test
         TacheMere t = new TacheMere("Tache t", 7);
         TacheMere s = new TacheMere("Tache s", 10);
         TacheMere s2 = new TacheMere("Tache s2", 10);
@@ -33,10 +31,17 @@ public class Principale extends Application{
         t.ajouterSousTache(s);
         s.ajouterSousTache(s2);
 
+        Tableau tab = new Tableau("Tableau");
         Colonne col = new Colonne("Colonne");
         Colonne col2 = new Colonne("Colonne2");
+        Colonne col3 = new Colonne("Colonne3");
+        Colonne col4 = new Colonne("Colonne4");
+        Colonne col5 = new Colonne("Colonne5");
         tab.ajouterColonne(col);
         tab.ajouterColonne(col2);
+        tab.ajouterColonne(col3);
+        tab.ajouterColonne(col4);
+        tab.ajouterColonne(col5);
         col.ajouterTache(t);
         col.ajouterTache(s3);
         col2.ajouterTache(s4);
@@ -47,12 +52,14 @@ public class Principale extends Application{
 
         //zone de gauche (Tableau)
         VBox listeTableau = new VBox();
-        listeTableau.setPadding(new Insets(100));
+        listeTableau.setMinHeight(100); //dimensions
+        listeTableau.setMinWidth(250);
         listeTableau.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
 
         //zone de droite
         VBox main = new VBox();
-        main.setPadding(new Insets(0,30,40,40));
+        main.setMinHeight(100);
+        main.setMinWidth(800);
         main.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
 
 
@@ -61,18 +68,21 @@ public class Principale extends Application{
         choixDeVues .getItems().add("Vue Liste");
         choixDeVues .getItems().add("Vue Gantt");
         choixDeVues .setValue("Vue Tableau");
-
         main.getChildren().addAll(choixDeVues);
 
 
-        //zone vue
-        //HBox vue = new HBox();
-        VueListe vue = new VueListe();
-        vue.actualiser(tab);
-        main.getChildren().add(vue);
 
-        //tab.enregistrerObservateur(vue);
-        //tab.notifierObservateur();
+        //zone vue !!! à modifier selon la vue !!!
+        VueListe vue = new VueListe();
+        //VueBureau vue =new VueBureau();
+        tab.enregistrerObservateur(vue);
+        tab.notifierObservateur();
+
+        ScrollPane scrollPane = new ScrollPane(vue);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Barre de défilement horizontale selon les besoins
+
+
+        main.getChildren().addAll(scrollPane);
 
         pane.getChildren().addAll(listeTableau,main);
         Scene scene = new Scene(pane, 1300, 800);
