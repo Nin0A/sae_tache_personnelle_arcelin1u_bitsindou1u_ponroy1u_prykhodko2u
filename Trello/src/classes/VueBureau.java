@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -50,21 +51,32 @@ public class VueBureau extends HBox implements Observateur {
                                         "-fx-font-size: 20;" +
                                         "-fx-font-weight: bold;" +
                                         "-fx-text-fill: blue;");
+                ControleurColonne cc = new ControleurColonne(tab,tab.getColonnes().get(i));
+                Button modif = new Button("Modifier");
+                modif.setOnAction(cc);
 
-                zoneHauteColonne.getChildren().addAll(titreColonne,new Button("Modifier"),new Button("Supprimer"));
+                Button suppr = new Button("Supprimer");
+                suppr.setOnAction(cc);
+
+                zoneHauteColonne.getChildren().addAll(titreColonne,modif,suppr);
 
                 colonnetmp.getChildren().addAll(zoneHauteColonne);
                 for(Tache t : tab.getColonnes().get(i).getTaches()){
                     HBox tachetmp = new HBox();
-                    String[] action= {"Modifier","Archiver","Supprimer"};
+                    tachetmp.getChildren().add(new Label(t.getNom()));
+
+                    //Button et Controleur
                     ControleurTache ct = new ControleurTache(tab,t);
-                    Button[] buttons = new Button[3];
-                    for(int j = 0 ; j<3; j++ ){
-                    buttons[j] = new Button(action[j]);
-                    buttons[j].setOnAction(ct);
-                    }
-                    tachetmp.getChildren().addAll(new Label(t.getNom()),buttons[0],buttons[1],buttons[2]);
+                    ajouterBouton(tachetmp,ct);
                     colonnetmp.getChildren().addAll(tachetmp);
+                    //Sous taches
+                    if(t instanceof TacheMere) {
+                        ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t,tab);
+                        for (HBox hbox : listeSoustache) {
+                            colonnetmp.getChildren().addAll(hbox);
+                        }
+                    }
+
                 }
                 colonnetmp.getChildren().addAll(new Button("Ajouter une tâche"));
                 colonnetmp.setMinHeight(810);
@@ -79,5 +91,28 @@ public class VueBureau extends HBox implements Observateur {
             this.getChildren().addAll(ajoutColonne);
 
         }
+        public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab){
+            ArrayList<HBox> taches = new ArrayList<HBox>();
+            for(Tache st : t.getSousTaches()){
+                HBox soutache = new HBox();
+                ControleurTache ct = new ControleurTache(tab,st);
+                soutache.getChildren().add(new Label(st.getNom()));
+                ajouterBouton(soutache,ct);
+                taches.add(soutache);
+                if(st instanceof TacheMere){
+                    ajoutersoustache( (TacheMere) st, tab);
+                }
+            }
+            return taches;
 
+        }
+        public void ajouterBouton(HBox tache, Controleur c){
+            String[] action= {"Modifier","Archiver","Supprimer"};
+            Button[] buttons = new Button[3];
+            for(int j = 0 ; j<3; j++ ){
+                buttons[j] = new Button(action[j]);
+                buttons[j].setOnAction(c);
+            }
+            tache.getChildren().addAll(buttons[0],buttons[1],buttons[2]);
+        }
 }
