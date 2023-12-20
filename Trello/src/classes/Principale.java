@@ -27,10 +27,15 @@ public class Principale extends Application{
                 TacheMere s2 = new TacheMere("Tache s2", 3, 5, 1, 2023);
                 TacheMere s3 = new TacheMere("Tache s3", 10, 4, 2, 2023);
                 TacheMere s4 = new TacheMere("Tache s4", 10, 10, 3, 2023);
+                TacheMere t2 = new TacheMere("Tache t2", 10, 2, 1, 2023);
                 SousTache st = new SousTache("Soustache st", 10, t, 1 , 1, 2023);
                 t.ajouterSousTache(st);
                 t.ajouterSousTache(s);
                 s.ajouterSousTache(s2);
+
+                s4.ajouterAntecedent(s3);
+                s4.ajouterAntecedent(t);
+                t2.ajouterAntecedent(t);
 
                 Tableau tab = new Tableau("Tableau");
                 Colonne col = new Colonne("Colonne");
@@ -44,6 +49,7 @@ public class Principale extends Application{
                 tab.ajouterColonne(col4);
                 tab.ajouterColonne(col5);
                 col.ajouterTache(t);
+                col.ajouterTache(t2);
                 col.ajouterTache(s3);
                 col2.ajouterTache(s4);
 
