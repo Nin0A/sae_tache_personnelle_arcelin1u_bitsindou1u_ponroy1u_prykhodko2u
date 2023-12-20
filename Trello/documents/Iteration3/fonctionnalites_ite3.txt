@@ -1,0 +1,6 @@
+Fonctionnalités prévues lors de l'itération n°3 :
+
+    - Implémenter les controlleurs pour les entités de l'application dont les controlleurs pour la fonctionnalité drag
+    and drop.
+    -
+    - Améliorer l'interface graphique de l'application.
