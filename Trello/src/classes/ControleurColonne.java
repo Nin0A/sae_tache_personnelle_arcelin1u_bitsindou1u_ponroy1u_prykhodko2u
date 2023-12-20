@@ -1,11 +1,9 @@
 package classes;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class ControleurTableau implements EventHandler<ActionEvent>, Controleur{
-
+public class ControleurColonne implements Controleur {
     @Override
     public void handle(ActionEvent actionEvent) {
         Button boutton = (Button) actionEvent.getSource();
@@ -14,7 +12,7 @@ public class ControleurTableau implements EventHandler<ActionEvent>, Controleur{
                 break;
             case "Supprimer":
                 break;
-            case "Ajouter une tache":
+            case "Ajouter Colonne":
                 break;
         }
     }

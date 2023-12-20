@@ -40,6 +40,7 @@ public class VueListe extends VBox implements Observateur {
             TreeView<Composant> tree  = new TreeView<>(colonne);
             this.getChildren().add(tree);
         }
+
     }
 
     /**

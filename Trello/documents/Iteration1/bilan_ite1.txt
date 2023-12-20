@@ -1,6 +1,6 @@
 Bilan de l'itération n°1 :
 
-Lors de l'itération n°1, nous avons reussi à faire :
+Lors de l'itération n°1, nous avons reussi à faire:
 
     - La classe Tableau --> Yehor, Maëlle
 
@@ -14,4 +14,5 @@ Lors de l'itération n°1, nous avons reussi à faire :
 
     - Implémenter le MVC (observateurs) --> Célie, Nino
 
-Nous avons réussi à faire tout ce qui était prévu pour cette itération. Nous avons donc pu commencer l'itération n°2.
+Nous avons réussi à faire tout ce qui était prévu pour cette itération.
+Nous avons donc pu commencer l'itération n°2 comme nous le souhaitions.
