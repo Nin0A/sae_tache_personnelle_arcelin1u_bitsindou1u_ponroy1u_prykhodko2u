@@ -1,0 +1,18 @@
+Bilan de l'itération n°1 :
+
+Lors de l'itération n°1, nous avons reussi à faire:
+
+    - La classe Tableau --> Yehor, Maëlle
+
+    - La classe Colonne --> Yehor,Célie
+
+    - La classe Tache --> Yehor,Célie
+
+    - Le début des tests des classes Tableau, Colonne et Tache--> Maëlle
+
+    - Gérer les dépendances d'une tâche (méthodes ajouterAntecedants et supprimerAntecedents) --> Célie, Nino
+
+    - Implémenter le MVC (observateurs) --> Célie, Nino
+
+Nous avons réussi à faire tout ce qui était prévu pour cette itération.
+Nous avons donc pu commencer l'itération n°2 comme nous le souhaitions.

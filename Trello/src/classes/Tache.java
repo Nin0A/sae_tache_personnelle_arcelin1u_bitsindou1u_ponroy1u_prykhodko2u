@@ -1,8 +1,11 @@
 package classes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.Objects;
+
 
 //Classe Tache
 
@@ -10,15 +13,15 @@ public abstract class Tache extends Composant<Tache> {
 
     //attributs
     private double duree; //durée de la tache en jours
-    private Date dateDebut; //date de début de la tache
+    private LocalDate dateDebut; //date de début de la tache
 
    // private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
     //constructeur
-    public Tache(String desc, int duree) {
+    public Tache(String desc, double duree, int jourDebut, int moisDebut ,int anneeDebut) {
         super(desc);
         this.duree = duree;
-        //this.antecedents = new ArrayList<Tache>();
+        this.dateDebut = LocalDate.of(anneeDebut, moisDebut, jourDebut);
     }
 
 
@@ -90,7 +93,16 @@ public abstract class Tache extends Composant<Tache> {
 
     }
 
+
+    public double getDuree() {
+        return duree;
+    }
+
+    public LocalDate getDateDebut() {
+        return dateDebut;
+    }
     public void reinitialiser(){}
+
 
     @Override
     public boolean equals(Object o) {
@@ -100,5 +112,6 @@ public abstract class Tache extends Composant<Tache> {
         Tache tache = (Tache) o;
         return tache.nom.equals(this.nom);
     }
+
 
 }

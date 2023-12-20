@@ -1,0 +1,18 @@
+Bilan de l'itération n°2 :
+
+Lors de l'itération n°2, nous avons reussi à faire:
+
+    - L'implémentation de Vue Bureau --> Nino
+
+    - L'implémentation de Vue Liste --> Célie
+
+    - L'implémentation de Vue Gantt et l'affichage des dépendance --> Yehor
+
+    - Début de l'implémentation de la classe Principale (pour le JavaFx)--> Nino
+
+    - Test et optimisation des classes crées  --> Maëlle
+
+Nous avons réussi à faire tout ce qui était prévu pour cette itération. La Vue Gantt nous aprosé quelques difficultés
+mais nous avons réussi à les surmonter. Nous avons aussi eu quelques difficultésmais nous avons réussi à les surmonter.
+Nous avons donc pu commencer l'itération n°3 comme nous le souhaitions, et démarrer les controller et la gestion du "drag
+and drop ".

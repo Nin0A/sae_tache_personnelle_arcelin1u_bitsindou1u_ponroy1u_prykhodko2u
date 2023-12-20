@@ -4,14 +4,14 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 //Classe VueListe
 public class VueListe extends VBox implements Observateur {
     VueListe(){
         super();
-        this.setPadding(new Insets(0));
-        this.setStyle("-fx-border-color: #aa00ff; -fx-border-width: 2px;");
+        this.setMinWidth(Integer.MAX_VALUE);
     }
 
     /**
@@ -38,10 +38,6 @@ public class VueListe extends VBox implements Observateur {
             TreeView<Composant> tree  = new TreeView<>(colonne);
             this.getChildren().add(tree);
         }
-
-
-
-
 
     }
 

@@ -1,0 +1,15 @@
+Fonctionnalités prévues lors de l'itération n°2 :
+
+    - Implémenter Vue Bureau
+
+    - Implémenter Vue Liste
+
+    - Implémenter Vue Gantt et dépendances
+
+    - Implémentation du moteur de l'application
+
+    - Test et optimisation des classes crées
+
+    - Implementer la classe ControleurVue
+
+    - Début de l'implémentation de la classe Principale (pour le JavaFx)

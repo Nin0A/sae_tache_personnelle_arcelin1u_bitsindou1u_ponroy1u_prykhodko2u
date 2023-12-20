@@ -1,0 +1,13 @@
+Fonctionnalités prévues lors de l'itération n°1 :
+
+    - Implémenter la classe Tableau
+
+    - Implémenter la classe Colonne
+
+    - Implémenter la classe Tache
+
+    - Tester les classes Tableau, Colonne et Tache
+
+    - Gérer les dépendances d'une tâche (méthodes ajouterAntecedants et supprimerAntecedents)
+
+    - Implémenter le MVC
