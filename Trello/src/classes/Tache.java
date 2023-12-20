@@ -2,6 +2,7 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 //Classe Tache
 
@@ -90,4 +91,14 @@ public abstract class Tache extends Composant<Tache> {
     }
 
     public void reinitialiser(){}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Tache tache = (Tache) o;
+        return tache.nom.equals(this.nom);
+    }
+
 }

@@ -4,7 +4,7 @@ package classes;
 
 public class Main {
     public static void main(String[] args) {
-        TacheMere t = new TacheMere("Tache t", 7);
+        /*TacheMere t = new TacheMere("Tache t", 7);
         TacheMere s = new TacheMere("Tache s", 10);
         TacheMere s2 = new TacheMere("Tache s2", 10);
         TacheMere s3 = new TacheMere("Tache s3", 10);
@@ -21,7 +21,10 @@ public class Main {
         tab.ajouterColonne(col2);
         col.ajouterTache(t);
         col.ajouterTache(s3);
-        col2.ajouterTache(s4);
+        col2.ajouterTache(s4);*/
+        Tache t1 = new TacheMere("Tache 1", 7);
+        Tache t2 = new TacheMere("Tache 1", 8);
+        System.out.println(t1.equals(t2));
         /*VueListe vue = new VueListe();
         tab.enregistrerObservateur(vue);
         tab.notifierObservateur(vue);

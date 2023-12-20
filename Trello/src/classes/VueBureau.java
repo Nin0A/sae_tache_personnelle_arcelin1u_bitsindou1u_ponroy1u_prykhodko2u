@@ -56,7 +56,14 @@ public class VueBureau extends HBox implements Observateur {
                 colonnetmp.getChildren().addAll(zoneHauteColonne);
                 for(Tache t : tab.getColonnes().get(i).getTaches()){
                     HBox tachetmp = new HBox();
-                    tachetmp.getChildren().addAll(new Label(t.getNom()),new Button("Modifier"),new Button("Archiver"),new Button("Supprimer"));
+                    String[] action= {"Modifier","Archiver","Supprimer"};
+                    ControleurTache ct = new ControleurTache(tab,t);
+                    Button[] buttons = new Button[3];
+                    for(int j = 0 ; j<3; j++ ){
+                    buttons[j] = new Button(action[j]);
+                    buttons[j].setOnAction(ct);
+                    }
+                    tachetmp.getChildren().addAll(new Label(t.getNom()),buttons[0],buttons[1],buttons[2]);
                     colonnetmp.getChildren().addAll(tachetmp);
                 }
                 colonnetmp.getChildren().addAll(new Button("Ajouter une tâche"));

@@ -132,9 +132,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     /**
      * Méthode archiverTache qui permet d'archiver la tache en parametre
      * @param t tache que l'on veut archiver
-     * @param depart colonne courante de la tache
      */
-    public void archiverTache(Tache t, Colonne depart) {
+    public void archiverTache(Tache t) {
+        Colonne depart = chercherColonne(t);
         //on vérifie que la tache à archiver n'est pas null
         if (t == null) {
             throw new IllegalArgumentException("La tache à archiver est null");
@@ -143,14 +143,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         if (depart == null) {
             throw new IllegalArgumentException("La colonne de départ est null");
         }
-        //on vérifie que la colonne de départ est dans la liste des colonnes du tableau
-        if (!this.liste.contains(depart)) {
-            throw new IllegalArgumentException("La colonne de départ n'existe pas");
-        }
-        //on vérifie que la tache est dans la liste des taches de la colonne de départ
-        if (!depart.liste.contains(t)) {
-            throw new IllegalArgumentException("La tache n'existe pas dans la colonne de départ");
-        }
+
         //on vérifie que la tache ne soit pas une sous tache
         if (t instanceof SousTache) {
             throw new IllegalArgumentException("La tache est une sous tache");
@@ -180,6 +173,27 @@ public class Tableau extends Composant<Colonne> implements Sujet {
 
         notifierObservateur();
 
+    }
+    public void supprimerTache(Tache tache){
+       Colonne colonne = chercherColonne(tache);
+       colonne.supprimerTache(tache);
+       notifierObservateur();
+    }
+    public void creerTache(Colonne colonne, Tache tache){
+        if(chercherColonne(tache)==null) {
+            colonne.ajouterTache(tache);}
+    }
+    public Colonne chercherColonne(Tache t){
+        Colonne colonne = null;
+        for(Colonne coltmp : liste){
+            System.out.println("boucle");
+            System.out.println(coltmp.getTaches().contains(t));
+            if (coltmp.getTaches().contains(t)) {
+                colonne = coltmp;
+                System.out.println("trouvé");
+            }
+        }
+       return colonne;
     }
 
     /**
