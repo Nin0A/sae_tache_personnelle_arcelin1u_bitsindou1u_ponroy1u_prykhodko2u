@@ -5,15 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 
-import java.security.Key;
-public class Principale extends Application{
+public class Principale extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -48,28 +44,65 @@ public class Principale extends Application{
         col2.ajouterTache(s4);
 
         // Panel principal
-        HBox pane= new HBox();
+        HBox pane = new HBox();
         pane.setPadding(new Insets(10));
+        pane.setStyle("-fx-background-color: #f0f0f0;"); // Set background color
 
-        //zone de gauche (Tableau)
+        // Zone de gauche (Tableau)
         VBox listeTableau = new VBox();
-        listeTableau.setMinHeight(100); //dimensions
+        listeTableau.setMinHeight(100);
         listeTableau.setMinWidth(250);
-        listeTableau.setStyle("-fx-border-color: black; -fx-border-width: 2px;");
+        listeTableau.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 50px;");
 
-        //zone de droite
+        // Zone de droite
         VBox main = new VBox();
         main.setMinHeight(100);
-        main.setMinWidth(800);
-        main.setStyle("-fx-border-color: blue; -fx-border-width: 2px;");
+        main.setMinWidth(1000);
+        main.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 50px;");
+
+        ComboBox<String> choixDeVues = new ComboBox<>();
+        choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt");
+        choixDeVues.setValue("Vue Bureau");
+        // Style avancé avec CSS
+        choixDeVues.setStyle(
+                "-fx-font-size: 14px; " +
+                "-fx-padding: 5px; " +
+                "-fx-background-color: #ffe1fd; " + // Couleur de fond
+                "-fx-text-fill: #ff0000; " + // Couleur du texte
+                "-fx-border-color: #555555; " + // Couleur de la bordure
+                "-fx-border-width: 2px; "+
+                "-fx-border-radius: 50px;" + // Bordure arrondie
+                "-fx-background-radius: 50px;" // Coin arrondi pour le fond
+        );
+
+        // Style pour le survol
+        choixDeVues.setOnMouseEntered(e -> choixDeVues.setStyle(
+                "-fx-font-size: 14px; " +
+                "-fx-padding: 5px; " +
+                "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
+                "-fx-text-fill: white; " + // Nouvelle couleur du texte au survol
+                "-fx-border-color: #555555; "+
+                "-fx-border-width: 2px; "+
+                "-fx-border-radius: 50px;" + // Bordure arrondie
+                "-fx-background-radius: 50px;"+
+                "-fx-text-fill: white;"// Coin arrondi pour le fond// Nouvelle couleur de bordure au survol
+        ));
+
+        // Style par défaut après le survol
+        choixDeVues.setOnMouseExited(e -> choixDeVues.setStyle(
+                "-fx-font-size: 14px; " +
+                "-fx-padding: 5px; " +
+                "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
+                        "-fx-text-fill: #b07171; " + // Retour à la couleur du texte blanche
+                        "-fx-border-color: #555555; " + // Retour à la couleur de bordure initiale
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-radius: 50px;" + // Bordure arrondie
+                        "-fx-background-radius: 50px;" // Coin arrondi pour le fond
+        ));
 
 
-        ComboBox <String> choixDeVues = new ComboBox();
-        choixDeVues .getItems().add("Vue Bureau");
-        choixDeVues .getItems().add("Vue Liste");
-        choixDeVues .getItems().add("Vue Gantt");
-        choixDeVues .setValue("Vue Bureau");
         main.getChildren().addAll(choixDeVues);
+        main.setPadding(new Insets(20));
 
 
 
@@ -103,7 +136,7 @@ public class Principale extends Application{
 
 
 
-
+        pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
         pane.getChildren().addAll(listeTableau,main);
         Scene scene = new Scene(pane, 1300, 800);
         stage.setScene(scene);
