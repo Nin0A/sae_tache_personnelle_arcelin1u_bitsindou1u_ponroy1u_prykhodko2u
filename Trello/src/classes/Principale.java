@@ -11,37 +11,28 @@ import javafx.geometry.Insets;
 
 public class Principale extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+        public static void main(String[] args) {
+                launch(args);
+        }
 
-    public void start(Stage stage) {
+        public void start(Stage stage) {
 
-        //test
-        TacheMere t = new TacheMere("Tache t", 7);
-        TacheMere s = new TacheMere("Tache s", 10);
-        TacheMere s2 = new TacheMere("Tache s2", 10);
-        TacheMere s3 = new TacheMere("Tache s3", 10);
-        TacheMere s4 = new TacheMere("Tache s4", 10);
-        SousTache st = new SousTache("Soustache st", 10, t);
-        t.ajouterSousTache(st);
-        t.ajouterSousTache(s);
-        s.ajouterSousTache(s2);
+                //test
+                TacheMere t = new TacheMere("Tache t", 15, 1 , 1 , 2023);
+                TacheMere s = new TacheMere("Tache s", 5, 10, 1 ,2023);
+                TacheMere s2 = new TacheMere("Tache s2", 3, 5, 1, 2023);
+                TacheMere s3 = new TacheMere("Tache s3", 10, 4, 2, 2023);
+                TacheMere s4 = new TacheMere("Tache s4", 10, 10, 3, 2023);
+                TacheMere t2 = new TacheMere("Tache t2", 10, 2, 1, 2023);
+                SousTache st = new SousTache("Soustache st", 10, t, 1 , 1, 2023);
+                t.ajouterSousTache(st);
+                t.ajouterSousTache(s);
+                s.ajouterSousTache(s2);
 
-        Tableau tab = new Tableau("Tableau");
-        Colonne col = new Colonne("Colonne");
-        Colonne col2 = new Colonne("Colonne2");
-        Colonne col3 = new Colonne("Colonne3");
-        Colonne col4 = new Colonne("Colonne4");
-        Colonne col5 = new Colonne("Colonne5");
-        tab.ajouterColonne(col);
-        tab.ajouterColonne(col2);
-        tab.ajouterColonne(col3);
-        tab.ajouterColonne(col4);
-        tab.ajouterColonne(col5);
-        col.ajouterTache(t);
-        col.ajouterTache(s3);
-        col2.ajouterTache(s4);
+                s4.ajouterAntecedent(s3);
+                s4.ajouterAntecedent(t);
+                t2.ajouterAntecedent(t);
+
 
         // Panel principal
         HBox pane = new HBox();
@@ -103,37 +94,53 @@ public class Principale extends Application {
 
         main.getChildren().addAll(choixDeVues);
         main.setPadding(new Insets(20));
+////
+                Tableau tab = new Tableau("Tableau");
+                Colonne col = new Colonne("Colonne");
+                Colonne col2 = new Colonne("Colonne2");
+                Colonne col3 = new Colonne("Colonne3");
+                Colonne col4 = new Colonne("Colonne4");
+                Colonne col5 = new Colonne("Colonne5");
+                tab.ajouterColonne(col);
+                tab.ajouterColonne(col2);
+                tab.ajouterColonne(col3);
+                tab.ajouterColonne(col4);
+                tab.ajouterColonne(col5);
+                col.ajouterTache(t);
+                col.ajouterTache(t2);
+                col.ajouterTache(s3);
+                col2.ajouterTache(s4);
 
 
 
-        //zone vue !!! à modifier selon la vue !!!
-
-        Vue vue = new Vue(tab);
+////
 
 
-        choixDeVues.setOnAction(e -> {
-            ComboBox<String> cb = (ComboBox<String>) e.getSource();
+                //zone vue !!! à modifier selon la vue !!!
 
-            // Supprimez l'ancien contenu
-            main.getChildren().removeIf(node -> node instanceof ScrollPane);
-
-            // Mettez à jour le contenu avec le nouveau choix
-            vue.changerVue(cb.getValue());
-            tab.notifierObservateur();
-            // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
-            ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
-            scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-            scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-            // Ajoutez le nouveau contenu à main
-            //main.getChildren().add((Node) vue.getCourant());
-            // Ajoutez le ScrollPane à main
-            main.getChildren().add(scrollPane);
-
-        });
+                Vue vue = new Vue(tab);
 
 
+                choixDeVues.setOnAction(e -> {
+                        ComboBox<String> cb = (ComboBox<String>) e.getSource();
 
+                        // Supprimez l'ancien contenu
+                        main.getChildren().removeIf(node -> node instanceof ScrollPane);
+
+                        // Mettez à jour le contenu avec le nouveau choix
+                        vue.changerVue(cb.getValue());
+                        tab.notifierObservateur();
+                        // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
+                        ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
+                        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+                        // Ajoutez le nouveau contenu à main
+                        //main.getChildren().add((Node) vue.getCourant());
+                        // Ajoutez le ScrollPane à main
+                        main.getChildren().add(scrollPane);
+
+                });
 
 
         pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
@@ -144,3 +151,4 @@ public class Principale extends Application {
         stage.show();
     }
 }
+

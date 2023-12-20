@@ -10,8 +10,8 @@ public class TacheMere extends Tache {
     private ArrayList<Tache> sousTaches = new ArrayList<>(); //liste de sous-taches
 
     //constructeur
-    public TacheMere(String desc, int duree) {
-        super(desc,duree);
+    public TacheMere(String desc, double duree, int jour, int mois, int annee) {
+        super(desc,duree, jour, mois, annee);
     }
 
     /**
