@@ -14,8 +14,6 @@ public class ControleurTableau implements EventHandler<ActionEvent>, Controleur{
                 break;
             case "Supprimer":
                 break;
-            case "Ajouter une tache":
-                break;
         }
     }
 }

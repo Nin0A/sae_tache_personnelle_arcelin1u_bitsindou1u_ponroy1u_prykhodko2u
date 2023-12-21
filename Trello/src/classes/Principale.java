@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
@@ -18,7 +17,7 @@ public class Principale extends Application {
         public void start(Stage stage) {
 
                 //test
-                TacheMere t = new TacheMere("Tache t", 15, 1 , 1 , 2023);
+                TacheMere t = new TacheMere("Tache blablablablblablblab", 15, 1 , 1 , 2023);
                 TacheMere s = new TacheMere("Tache s", 5, 10, 1 ,2023);
                 TacheMere s2 = new TacheMere("Tache s2", 3, 5, 1, 2023);
                 TacheMere s3 = new TacheMere("Tache s3", 10, 4, 2, 2023);
@@ -43,13 +42,13 @@ public class Principale extends Application {
         VBox listeTableau = new VBox();
         listeTableau.setMinHeight(100);
         listeTableau.setMinWidth(250);
-        listeTableau.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 50px;");
+        listeTableau.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
 
         // Zone de droite
         VBox main = new VBox();
         main.setMinHeight(100);
         main.setMinWidth(1000);
-        main.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 50px;");
+        main.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
 
         ComboBox<String> choixDeVues = new ComboBox<>();
         choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt");
@@ -84,11 +83,11 @@ public class Principale extends Application {
                 "-fx-font-size: 14px; " +
                 "-fx-padding: 5px; " +
                 "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
-                        "-fx-text-fill: #b07171; " + // Retour à la couleur du texte blanche
-                        "-fx-border-color: #555555; " + // Retour à la couleur de bordure initiale
-                        "-fx-border-width: 2px; " +
-                        "-fx-border-radius: 50px;" + // Bordure arrondie
-                        "-fx-background-radius: 50px;" // Coin arrondi pour le fond
+                "-fx-text-fill: #b07171; " + // Retour à la couleur du texte blanche
+                "-fx-border-color: #555555; " + // Retour à la couleur de bordure initiale
+                "-fx-border-width: 2px; " +
+                "-fx-border-radius: 50px;" + // Bordure arrondie
+                "-fx-background-radius: 50px;" // Coin arrondi pour le fond
         ));
 
 
@@ -111,15 +110,9 @@ public class Principale extends Application {
                 col.ajouterTache(s3);
                 col2.ajouterTache(s4);
 
-
-
-////
-
-
                 //zone vue !!! à modifier selon la vue !!!
 
                 Vue vue = new Vue(tab);
-
 
                 choixDeVues.setOnAction(e -> {
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
@@ -133,7 +126,7 @@ public class Principale extends Application {
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
                         ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
                         // Ajoutez le nouveau contenu à main
                         //main.getChildren().add((Node) vue.getCourant());
@@ -142,9 +135,11 @@ public class Principale extends Application {
 
                 });
 
+                pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
 
-        pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
+
         pane.getChildren().addAll(listeTableau,main);
+        pane.setSpacing(5);
         Scene scene = new Scene(pane, 1300, 800);
         stage.setScene(scene);
         stage.setTitle("Gestionnaire Tâche Personnelle");

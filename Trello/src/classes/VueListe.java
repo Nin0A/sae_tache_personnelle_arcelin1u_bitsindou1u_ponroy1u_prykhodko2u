@@ -12,6 +12,8 @@ public class VueListe extends VBox implements Observateur {
     VueListe(){
         super();
         this.setMinWidth(Integer.MAX_VALUE);
+        this.setStyle("-fx-background-color: rgb(255,255,255,0.5)");
+
     }
 
     /**
