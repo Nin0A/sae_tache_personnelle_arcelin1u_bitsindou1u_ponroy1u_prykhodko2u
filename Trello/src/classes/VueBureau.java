@@ -153,7 +153,6 @@ public class VueBureau extends HBox implements Observateur {
                 }
             }
             return taches;
-
         }
         public void ajouterBouton(HBox tache, Controleur c){
             String[] action= {"Modifier","Archiver","Supprimer"};
