@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 
 //Classe VueListe
 public class VueListe extends VBox implements Observateur {
+
     VueListe(){
         super();
         this.setMinWidth(Integer.MAX_VALUE);
