@@ -65,6 +65,17 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
     }
 
+    public Colonne getColonneByName(String s){
+        Colonne res =null;
+        for(int i=0; i<this.liste.size();i++) {
+            System.out.println("lolulol");
+            if (this.liste.get(i).getNom().equals(s))
+                res = this.liste.get(i);
+        }
+
+        return res;
+    }
+
     /**
      * Méthode deplacerTache qui deplace une tache d'une colonne à une autre
      * @param t tache à déplacer
@@ -193,6 +204,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
        notifierObservateur();
     }
 
+
     /**
      * Méthode ajouterTache qui permet de créer une tache
      * @param colonne colonne où l'on veut créer la tache
@@ -204,6 +216,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         }
         notifierObservateur();
     }
+
 
     /**
      * Méthode verifierNom qui verifie que le nom d'une tache ou sous-tache soit unique dans tout le tableau
@@ -231,14 +244,14 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public Colonne chercherColonne(Tache t){
         Colonne colonne = null;
         for(Colonne coltmp : liste){
-          for (Tache tachetmp : coltmp.getTaches()){
+            for (Tache tachetmp : coltmp.getTaches()){
                 if(tachetmp.tacheExiste(t.getNom())){
-                colonne = coltmp;
-                break;
+                    colonne = coltmp;
+                    break;
                 }
             }
         }
-       return colonne;
+        return colonne;
     }
 
     /**
