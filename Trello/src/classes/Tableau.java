@@ -65,6 +65,15 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
     }
 
+    public Colonne getColonneByName(String s){
+        Colonne res =null;
+        for(int i=0; i<this.liste.size();i++)
+            if(this.liste.get(i).getNom().equals(s))
+                res=this.liste.get(i);
+
+        return res;
+    }
+
     /**
      * Méthode deplacerTache qui deplace une tache d'une colonne à une autre
      * @param t tache à déplacer
@@ -179,10 +188,12 @@ public class Tableau extends Composant<Colonne> implements Sujet {
        colonne.supprimerTache(tache);
        notifierObservateur();
     }
+
     public void creerTache(Colonne colonne, Tache tache){
         if(chercherColonne(tache)==null) {
             colonne.ajouterTache(tache);}
     }
+
     public Colonne chercherColonne(Tache t){
         Colonne colonne = null;
         for(Colonne coltmp : liste){

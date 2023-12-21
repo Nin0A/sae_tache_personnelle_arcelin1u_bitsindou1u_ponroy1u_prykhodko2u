@@ -36,8 +36,8 @@ public class VueBureau extends HBox implements Observateur {
 
             VBox colonnetmp;
 
-            for(int i=0;i<tab.getColonnes().size();i++){
-                colonnetmp= new VBox();
+            for(int i=0;i<tab.getColonnes().size();i++) {
+                colonnetmp = new VBox();
                 colonnetmp.setSpacing(10);
                 colonnetmp.setMinWidth(250);
                 colonnetmp.setStyle("-fx-border-color: purple; -fx-border-width: 5px;-fx-border-radius: 50px;-fx-background-color: rgb(255,255,255,0.5) ; -fx-background-radius:50px; ");
@@ -48,37 +48,40 @@ public class VueBureau extends HBox implements Observateur {
                 Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
 
                 titreColonne.setStyle("-fx-font-family: 'Arial';" +
-                                        "-fx-font-size: 20;" +
-                                        "-fx-font-weight: bold;" +
-                                        "-fx-text-fill: blue;");
-                ControleurColonne cc = new ControleurColonne(tab,tab.getColonnes().get(i));
+                        "-fx-font-size: 20;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-text-fill: #b40047;" +
+                        "-fx-font-family: Krungthep;");
+
+                ControleurColonne cc = new ControleurColonne(tab, tab.getColonnes().get(i));
                 Button modif = new Button("Modifier");
                 modif.setOnAction(cc);
 
                 Button suppr = new Button("Supprimer");
                 suppr.setOnAction(cc);
 
-                zoneHauteColonne.getChildren().addAll(titreColonne,modif,suppr);
+                zoneHauteColonne.getChildren().addAll(titreColonne, modif, suppr);
 
 
                 VBox vbox = new VBox();
 
-                vbox.getChildren().addAll(titreColonne,zoneHauteColonne);
+                vbox.getChildren().addAll(titreColonne, zoneHauteColonne);
                 zoneHauteColonne.setAlignment(Pos.CENTER);
                 vbox.setPadding(new Insets(20));
                 vbox.setAlignment(Pos.CENTER);
                 colonnetmp.getChildren().addAll(vbox);
-                for(Tache t : tab.getColonnes().get(i).getTaches()){
+                ControleurTache ct = null;
+                for (Tache t : tab.getColonnes().get(i).getTaches()) {
                     HBox tachetmp = new HBox();
                     tachetmp.getChildren().add(new Label(t.getNom()));
 
                     //Button et Controleur
-                    ControleurTache ct = new ControleurTache(tab,t);
-                    ajouterBouton(tachetmp,ct);
+                    ct = new ControleurTache(tab, t);
+                    ajouterBouton(tachetmp, ct);
                     colonnetmp.getChildren().addAll(tachetmp);
                     //Sous taches
-                    if(t instanceof TacheMere) {
-                        ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t,tab);
+                    if (t instanceof TacheMere) {
+                        ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab);
                         for (HBox hbox : listeSoustache) {
                             colonnetmp.getChildren().addAll(hbox);
                         }
@@ -87,6 +90,7 @@ public class VueBureau extends HBox implements Observateur {
                 }
 
                 Button ajouterTache = new Button("Ajouter une tâche");
+                ajouterTache.setOnAction(ct);
 
                 ////***** Buton supprimer //////
 
@@ -96,7 +100,7 @@ public class VueBureau extends HBox implements Observateur {
                                 "-fx-background-color: #ffe1fd; " + // Couleur de fond
                                 "-fx-text-fill: #000000; " + // Couleur du texte
                                 "-fx-border-color: #cea1c9; " + // Couleur de la bordure
-                                "-fx-border-width: 2px; "+
+                                "-fx-border-width: 2px; " +
                                 "-fx-border-radius: 50px;" + // Bordure arrondie
                                 "-fx-background-radius: 50px;" // Coin arrondi pour le fond
                 );
@@ -107,8 +111,8 @@ public class VueBureau extends HBox implements Observateur {
                                 "-fx-padding: 5px; " +
                                 "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
                                 "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                                "-fx-border-color: #ffc3f8; "+
-                                "-fx-border-width: 2px; "+
+                                "-fx-border-color: #ffc3f8; " +
+                                "-fx-border-width: 2px; " +
                                 "-fx-border-radius: 50px;" + // Bordure arrondie
                                 "-fx-background-radius: 50px;"
                 ));
