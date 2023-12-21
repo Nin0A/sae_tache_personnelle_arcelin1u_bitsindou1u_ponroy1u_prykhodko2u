@@ -51,6 +51,21 @@ public class TacheMere extends Tache {
     }
 
     /**
+     * Méthode tacheExiste le nom est utilisée
+     * @param t nom recherché
+     * @return true si le nom est utilisé, false sinon
+     */
+    public boolean tacheExiste(String t){
+        boolean res = this.nom.equals(t);
+        for(Tache tache : sousTaches){
+            if(tache.tacheExiste(t)){
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    /**
      * Méthode reinitialiser qui supprime toutes les sous-taches de la tache
      */
     public void reinitialiser(){

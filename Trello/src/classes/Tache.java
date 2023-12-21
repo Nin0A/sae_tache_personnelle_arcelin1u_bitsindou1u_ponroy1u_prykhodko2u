@@ -66,6 +66,15 @@ public abstract class Tache extends Composant<Tache> {
         return this.liste.contains(t);
     }
 
+    /**
+     * Méthode tacheExiste le nom est utilisée
+     * @param t nom recherché
+     * @return true si le nom est utilisé, false sinon
+     */
+    public boolean tacheExiste(String t){
+        return this.nom.equals(t);
+    }
+
     public void afficher() {
         System.out.println("\t\t- " + this.nom);
     }

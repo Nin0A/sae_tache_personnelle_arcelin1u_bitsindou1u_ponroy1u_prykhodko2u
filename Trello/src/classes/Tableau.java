@@ -219,7 +219,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         boolean res = true;
         for (Colonne colonne : liste) {
             for (Tache tache : colonne.getTaches()) {
-                if (tache.getNom().equals(nom)) {
+                if (tache.tacheExiste(nom)) {
                     res = false;
                     break;
                 }
@@ -229,18 +229,18 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     }
 
     /**
-     * Méthode chercherColonne qui permet de chercher la colonne d'une tache
+     * Méthode chercherColonne qui permet de chercher la colonne d'une tache ou soustache
      * @param t tache dont on veut chercher la colonne
      * @return la colonne de la tache
      */
     public Colonne chercherColonne(Tache t){
         Colonne colonne = null;
         for(Colonne coltmp : liste){
-            System.out.println("boucle");
-            System.out.println(coltmp.getTaches().contains(t));
-            if (coltmp.getTaches().contains(t)) {
+          for (Tache tachetmp : coltmp.getTaches()){
+                if(tachetmp.tacheExiste(t.getNom())){
                 colonne = coltmp;
-                System.out.println("trouvé");
+                break;
+                }
             }
         }
        return colonne;
