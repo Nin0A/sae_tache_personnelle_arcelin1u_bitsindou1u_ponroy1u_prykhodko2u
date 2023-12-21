@@ -80,4 +80,10 @@ public class VueBureau extends HBox implements Observateur {
 
         }
 
+
+    private VBox createPlaceholder(int index) {
+        VBox placeholder = new VBox();
+        placeholder.setUserData(index);
+        return placeholder;
+    }
 }
