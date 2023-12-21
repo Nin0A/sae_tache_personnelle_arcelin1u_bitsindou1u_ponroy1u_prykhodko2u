@@ -11,7 +11,7 @@ public class TestTache {
     Tableau tab;
     Colonne col;
     private TacheMere t1, t2, t3, t4;
-    private Tache t5, t6;
+    private SousTache t5, t6;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -164,6 +164,19 @@ public class TestTache {
     public void test_getAntecedent_liste_vide(){
         //vérifier que la liste des antécédents de la tache 1 est vide
         assertEquals(0, t1.getAntecedent().size());
+    }
+
+    //verifie qu'une sous tache puisse se transformer en tache mere
+    @Test
+    public void test_sous_tache_en_tache_mere(){
+        //on vérifie que la tache 5 est bien une sous tache
+        assertTrue(t5 instanceof SousTache);
+
+        //on transforme la sous tache 5 en tache mere
+        TacheMere tacheMere = new TacheMere(t5);
+
+        //on vérifie que la tache 5 est bien une tache mere
+        assertTrue(tacheMere instanceof TacheMere);
     }
 
 }
