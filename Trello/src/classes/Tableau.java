@@ -164,11 +164,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             throw new IllegalArgumentException("La tache est null");
         }
 
-        //on vérifie que la tache ne soit pas une sous tache
-        if (t instanceof SousTache) {
-            throw new IllegalArgumentException("La tache est une sous tache");
-        }
-
     }
 
     /**

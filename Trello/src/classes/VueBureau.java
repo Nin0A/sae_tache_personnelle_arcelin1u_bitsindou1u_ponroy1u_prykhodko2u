@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class VueBureau extends HBox implements Observateur {
 
-    //POUR L'ITERATION 2 /!\
+
         /**
         * Méhtode actualiser qui permet d'actualiser le sujet colonnes par colonnes
         * @param sujet sujet à actualiser

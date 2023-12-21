@@ -5,6 +5,7 @@ public class Vue {
     private VueBureau vueBureau;
     private VueListe vueListe;
     private VueGantt vueGantt;
+    private VueArchive vueArchive;
     private Observateur courant;
 
     Vue(Tableau tableau ){
@@ -14,6 +15,8 @@ public class Vue {
         tableau.enregistrerObservateur(vueListe);
         this.vueGantt = new VueGantt();
         tableau.enregistrerObservateur(vueGantt);
+        this.vueArchive = new VueArchive();
+        tableau.enregistrerObservateur(vueArchive);
         courant=vueBureau;
     }
 
@@ -25,6 +28,9 @@ public class Vue {
             break;
             case "Vue Gantt":
                 courant= vueGantt;
+                break;
+            case "Vue Archive":
+                courant= vueArchive;
                 break;
             default:
                 courant=vueBureau;
