@@ -10,8 +10,8 @@ public class TestColonne {
     //attributs
     Tableau tab;
     Colonne col;
-    private TacheMere t1, t2, t3, t4;
-    private Tache t5, t6;
+    private TacheMere t1, t2, t3, t4, t6;
+    private Tache t5, t7;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -28,13 +28,12 @@ public class TestColonne {
         t4 = new TacheMere("Tache 4", 5, 1 , 1, 1);
 
         //creer 2 sous taches
-<<<<<<< HEAD
-        t5 = new SousTache("Tache 5", 5, 1 , 1, 1);
-        t6 = new SousTache("Tache 6", 5, 1 , 1, 1);
-=======
-        t5 = new SousTache("Tache 5", 5, t1);
-        t6 = new SousTache("Tache 6", 5, t1);
->>>>>>> 73d393a59a4d0472fe25f00fba38a8038b467654
+        t5 = new SousTache("Tache 5", 5,  1, 1, 1);
+        t6 = new TacheMere("Tache 6", 5 , 1, 1, 1);
+        t7 = new SousTache("Tache 7", 5 , 1, 1, 1);
+        t6.ajouterSousTache(t7);
+        //créer des sous taches
+
 
         //on ajoute la colonne à la liste de colonnes du tableau
         tab.ajouterColonne(col);
@@ -45,7 +44,7 @@ public class TestColonne {
         col.ajouterTache(t3);
         col.ajouterTache(t4);
         col.ajouterTache(t5);
-        col.ajouterTache(t6);
+        //col.ajouterTache(t6);
 
         //on ajoute les sous taches 5 et 6 à la tache 1
         t1.ajouterSousTache(t5);
@@ -91,13 +90,16 @@ public class TestColonne {
         //on supprime la tache 4 de la colonne
         col.supprimerTache(t4);
 
+        //affiche toutes les taches de la colonne
+        col.afficher();
+
         //on vérifie que la tache 4 n'est plus dans la liste de taches de la colonne
         assertEquals(false,col.getTaches().contains(t4));
     }
 
     //teste la methode supprimerTache quand c'est une sous tache d'une tache mere qui est supprimée
     @Test
-    public void test_supprimerTache_sous_tache() { //test 3
+    public void test_supprimerTache_sous_tache() { //test 3 NE FONCTIONNE PAS
 
         //on vérifie que la tache 6 est bien une sous tache de la tache 1
         assertTrue(t1.getSousTaches().contains(t6));
@@ -121,7 +123,7 @@ public class TestColonne {
 
     //teste la methode supprimerTache quand la sous tache à supprimer à des antecedents
     @Test
-    public void test_supprimerTache_sous_tache_avec_antecedents() { //test 4
+    public void test_supprimerTache_sous_tache_avec_antecedents() { //test 4 NE FONCTIONNE PAS
 
         //on supprime la tache 5 de la colonne
         col.supprimerTache(t5);
@@ -188,7 +190,7 @@ public class TestColonne {
 
     //teste la méthode getTaches quand la colonne existe
     @Test
-    public void test_getTaches() { //test 10
+    public void test_getTaches() { //test 10 NE FONCTIONNE PAS
 
         //on vérifie que la méthode getTaches retourne bien la liste de taches de la colonne
         assertEquals(6, col.getTaches().size());
@@ -223,7 +225,7 @@ public class TestColonne {
     public void test_ajouterTache_tache_mere() { //test 14
 
         //on crée une nouvelle tache mere
-        TacheMere tache = new TacheMere("Tache 7", 5);
+        TacheMere tache = new TacheMere("Tache 7", 5, 1 , 1 , 2023);
 
         //on ajoute la tache mere à la colonne
         col.ajouterTache(tache);
@@ -237,7 +239,7 @@ public class TestColonne {
     public void test_ajouterTache_sous_tache() { //test 15
 
         //on crée une nouvelle sous tache
-        SousTache tache = new SousTache("Tache 7", 5, t1);
+        SousTache tache = new SousTache("Tache 7", 5, 1 , 1, 2023);
 
         //on ajoute la sous tache à la colonne
         col.ajouterTache(tache);
