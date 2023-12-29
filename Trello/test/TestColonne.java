@@ -248,7 +248,12 @@ public class TestColonne {
         assertTrue(col.getTaches().contains(tache));
     }
 
+    //teste la methode getTacheMere
+     @Test
+    public void test_getTacheMere() { //test 16
 
+         //on vérifie que la méthode getTacheMere retourne bien la tache mere de la sous tache 7
+         assertEquals(t6, col.getTacheMere(t7, null, col.getTaches()));
 
-
+    }
 }

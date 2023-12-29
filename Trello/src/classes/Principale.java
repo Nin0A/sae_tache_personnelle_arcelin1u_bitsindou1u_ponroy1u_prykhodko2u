@@ -51,7 +51,7 @@ public class Principale extends Application {
         main.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
 
         ComboBox<String> choixDeVues = new ComboBox<>();
-        choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt");
+        choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt","Vue Archive");
         choixDeVues.setValue("Vue Bureau");
         // Style avancé avec CSS
         choixDeVues.setStyle(
@@ -142,7 +142,7 @@ public class Principale extends Application {
         pane.setSpacing(5);
         Scene scene = new Scene(pane, 1300, 800);
         stage.setScene(scene);
-        stage.setTitle("Gestionnaire Tâche Personnelle");
+        stage.setTitle("Gestionnaire de tâches personnelles");
         stage.show();
     }
 }

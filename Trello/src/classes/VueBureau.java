@@ -36,6 +36,7 @@ public class VueBureau extends HBox implements Observateur {
 
             VBox colonnetmp;
 
+            //On créer les colonnes et on les ajoute à la vue
             for(int i=0;i<tab.getColonnes().size();i++) {
                 colonnetmp = new VBox();
                 colonnetmp.setSpacing(10);
@@ -45,6 +46,7 @@ public class VueBureau extends HBox implements Observateur {
                 colonnetmp.setAlignment(Pos.TOP_CENTER);
                 HBox zoneHauteColonne = new HBox();
 
+                //On créer les titres des colonnes et on les ajoute à la vue
                 Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
 
                 titreColonne.setStyle("-fx-font-family: 'Arial';" +
@@ -53,6 +55,7 @@ public class VueBureau extends HBox implements Observateur {
                         "-fx-text-fill: #b40047;" +
                         "-fx-font-family: Krungthep;");
 
+                //On créer les boutons de modification et de suppression des colonnes et on les ajoute à la vue
                 ControleurColonne cc = new ControleurColonne(tab, tab.getColonnes().get(i));
                 Button modif = new Button("Modifier");
                 modif.setOnAction(cc);
@@ -158,7 +161,13 @@ public class VueBureau extends HBox implements Observateur {
             }
             return taches;
         }
-        public void ajouterBouton(HBox tache, Controleur c){
+
+    /**
+     * Méthode ajouterBouton qui permet d'ajouter un bouton à une tache
+     * @param tache tache à laquelle on veut ajouter un bouton
+     * @param c controleur du bouton
+     */
+    public void ajouterBouton(HBox tache, Controleur c){
             String[] action= {"Modifier","Archiver","Supprimer"};
             Button[] buttons = new Button[3];
             for(int j = 0 ; j<3; j++ ){

@@ -52,7 +52,7 @@ public class Colonne extends Composant<Tache> {
             SousTache sT = (SousTache) t;
 
             // On supprime la tache de la liste de sous-taches de la tache mere
-            getTacheMere(sT).supprimerSousTache(sT);
+            getTacheMere(sT,null, this.liste).supprimerSousTache(sT);
         }
 
         // On supprime la tache de la liste de taches de la colonne
@@ -67,19 +67,33 @@ public class Colonne extends Composant<Tache> {
     }
 
     /**
-     * Méthode getTacheMere qui retourne la tache mere d'une sous tache
-     * @param t sous tache dont on veut la tache mere
-     * @return la tache mere de la sous tache
+     * Méthode getTacheMere qui retourne la tache mère d'une sous-tache
+     * @param tCherchee sous-tache dont on veut la tache mère
+     * @param tM   tache mère de la sous-tache
+     * @param list liste de taches
+     * @return la tache mère de la sous-tache
      */
-    public TacheMere getTacheMere(SousTache t) {
-        TacheMere tM = null;
-        for (Tache tache : this.liste) {
-            if (tache instanceof TacheMere && (tM.getSousTaches().contains(t))) {
-                tM = (TacheMere) tache;
-
+    public TacheMere getTacheMere(Tache tCherchee, TacheMere tM, ArrayList<Tache> list) {
+        TacheMere tacheMere = null;
+        System.out.println("début");
+        boolean trouve = false;
+        int i = 0;
+        while (!trouve && i<list.size()){
+                Tache tache = list.get(i);
+            if (tache == tCherchee) {
+                System.out.println("tache trouvée : " + tache+"tache mère : "+tM);
+                tacheMere = tM;
+                trouve=true;
+            }else {
+                if (tache instanceof TacheMere){
+                    System.out.println("tache mere : " + tache);
+                    TacheMere tachetmp = (TacheMere) tache;
+                    tacheMere = getTacheMere(tCherchee,tachetmp,tachetmp.getSousTaches());
+                }
             }
+            i++;
         }
-        return tM;
+        return tacheMere;
     }
 
     /**
@@ -121,6 +135,7 @@ public class Colonne extends Composant<Tache> {
     public ArrayList<Tache> getTaches() {
         return liste;
     }
+
 
     /**
      * Méthode afficher qui affiche toutes les taches de la colonne correctement indentées
