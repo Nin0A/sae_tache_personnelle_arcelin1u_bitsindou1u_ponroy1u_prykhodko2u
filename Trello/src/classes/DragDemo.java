@@ -58,16 +58,6 @@ public class DragDemo extends Application {
             }
         });
 
-//        displayBox.setOnDragExited(new EventHandler<DragEvent>() {
-//            @Override
-//            public void handle(DragEvent dragEvent) {
-//                if(!dragEvent.isAccepted()) {
-//                    displayBox.setStyle("-fx-border-width:2px;-fx-border-color:black;");
-//                    System.out.println(33333);
-//                    dragEvent.consume();
-//                }
-//            }
-//        });
 
         displayBox.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
@@ -98,6 +88,7 @@ public class DragDemo extends Application {
                 content.putString(color);
                 db.setContent(content);
                 mouseEvent.consume();
+                System.out.println("dragdetected");
             }
         });
         return node;

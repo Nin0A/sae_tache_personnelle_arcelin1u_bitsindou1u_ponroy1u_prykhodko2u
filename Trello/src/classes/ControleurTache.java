@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class ControleurTache implements Controleur{
+public class ControleurTache implements Controleur<ActionEvent>{
 
     //attributs
     private Tableau modele;
@@ -28,6 +28,7 @@ public class ControleurTache implements Controleur{
         Button boutton = (Button) actionEvent.getSource();
         switch (boutton.getText()){
             case "Modifier":
+                //pop la fenetre de modification
                 break;
             case "Supprimer":
                 modele.supprimerTache(tache);
@@ -35,8 +36,9 @@ public class ControleurTache implements Controleur{
             case "Archiver":
                 modele.archiverTache(tache);
                 break;
-            //case "Ajouter une tache":
-            //    break;
+            case "Ajouter une tache":
+                //savoir la colonne ?
+                break;
         }
     }
 

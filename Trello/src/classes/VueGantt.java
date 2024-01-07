@@ -34,6 +34,7 @@ public class VueGantt extends Pane implements Observateur {
     private void buildGantt() {
 
         this.getChildren().clear();
+        this.setStyle("-fx-background-color: rgb(255,255,255,0.5)");
 
         LocalDate baseDate = determinerBaseDate(tableau).get(0);
         LocalDate endDate = determinerBaseDate(tableau).get(1);
@@ -49,11 +50,6 @@ public class VueGantt extends Pane implements Observateur {
             }
         }
 
-        for (Tache t: taskPositions.keySet()){
-            System.out.println(t.toString());
-            System.out.println(taskPositions.get(t)[0] + "------" + taskPositions.get(t)[1] );
-//            drawArrowLine(0,120,1020,220,this);
-        }
         drawDependencies();
 
         yPos = 100;
@@ -148,6 +144,8 @@ public class VueGantt extends Pane implements Observateur {
         Label label = new Label(tache.getNom());
         label.setLayoutX(rect.getX() + 5);
         label.setLayoutY(rect.getY() + 5);
+        label.setStyle("-fx-text-fill: white;");
+
 
         Pane taskPane = new Pane();
         taskPane.getChildren().addAll(rect, label);
@@ -157,7 +155,7 @@ public class VueGantt extends Pane implements Observateur {
     }
 
     private double addTaskAndSubtasks(Tache tache, double yPos, LocalDate baseDate, int depth) {
-        Color color = (depth == 0) ? Color.BLUE : Color.GREEN;
+        Color color = (depth == 0) ? Color.rgb(225,142,255) : Color.rgb(255,142,188);
         if (depth==0){
             LocalDate startDate = tache.getDateDebut();
             double startOffset = ChronoUnit.DAYS.between(baseDate, startDate);
@@ -186,8 +184,7 @@ public class VueGantt extends Pane implements Observateur {
 
 
     private void drawArrowLine(double startX, double startY, double endX, double endY, Pane pane) {
-        double controlOffsetX = (endX - startX) * 0.5; // Контрольная точка на полпути по X
-        double controlOffsetY = 60; // Смещение контрольной точки вниз на 20 пикселей
+        double controlOffsetY = 60;
 
         double controlX = startX;
         double controlY = startY + controlOffsetY;
@@ -230,10 +227,10 @@ public class VueGantt extends Pane implements Observateur {
 
 
     private void drawDependencies(){
-        for (Tache t : taskPositions.keySet()){
-            for (Tache t2 : taskPositions.keySet()){
-                if (t.etreAntecedent(t2)){
-                    drawArrowLine(taskPositions.get(t2)[0], taskPositions.get(t2)[1],taskPositions.get(t)[0], taskPositions.get(t)[1],this);
+        for (Tache to : taskPositions.keySet()){
+            for (Tache from : taskPositions.keySet()){
+                if (to.etreAntecedent(from)){
+                    drawArrowLine(taskPositions.get(from)[0], taskPositions.get(from)[1],taskPositions.get(to)[0], taskPositions.get(to)[1],this);
                 }
             }
         }
