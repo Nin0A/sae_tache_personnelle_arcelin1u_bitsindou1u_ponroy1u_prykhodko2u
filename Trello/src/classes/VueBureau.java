@@ -1,5 +1,6 @@
 package classes;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,12 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import test.DraggableColumn;
 
 import java.util.ArrayList;
 
@@ -28,15 +29,7 @@ public class VueBureau extends HBox implements Observateur {
         //===============================================
         private void setContr(VBox col){
 
-            col.setOnDragDetected(event -> {
-                Dragboard db = startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(col.getId());
-                db.setContent(content);
-                event.consume();
-                System.out.println(1111111);
-            });
-
+            col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
 
             col.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
@@ -193,12 +186,45 @@ public class VueBureau extends HBox implements Observateur {
             ajoutColonne.setStyle("-fx-border-color: green; -fx-border-width: 5px;-fx-border-radius: 50px");
             ajoutColonne.setPadding(new Insets(50));
             Button ajouterColonne = new Button("Ajouter Colonne");
+            ajouterColonne.setStyle(
+                    "-fx-font-size: 10px; " +
+                    "-fx-background-color: #aedc93; " + // Couleur de fond
+                    "-fx-text-fill: #ffffff; " + // Couleur du texte
+                    "-fx-border-color: #6a8759; " + // Couleur de la bordure
+                    "-fx-border-width: 2px; " +
+                    "-fx-border-radius: 50px;" + // Bordure arrondie
+                    "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+            );
+
+            // Style pour le survol
+            ajouterColonne.setOnMouseEntered(e -> ajouterColonne.setStyle(
+                    "-fx-font-size: 10px; " +
+                    "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
+                    "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
+                    "-fx-border-color: #6a8759; " +
+                    "-fx-border-width: 2px; " +
+                    "-fx-border-radius: 50px;" + // Bordure arrondie
+                    "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;"
+            ));
+
+            // Style par défaut après le survol
+            ajouterColonne.setOnMouseExited(e -> ajouterColonne.setStyle(
+                    "-fx-font-size: 10px; " +
+                            "-fx-background-color: #aedc93; " + // Retour à la couleur de fond transparente
+                            "-fx-text-fill: #ffffff; " + // Retour à la couleur du texte blanche
+                            "-fx-border-color: #6a8759; " + // Retour à la couleur de bordure initiale
+                            "-fx-border-width: 2px; " +
+                            "-fx-border-radius: 50px;" + // Bordure arrondie
+                            "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+            ));
+
+            ajoutColonne.setAlignment(Pos.CENTER);
             ajoutColonne.getChildren().addAll(ajouterColonne);
             ajouterColonne.setOnAction(new ControleurColonne(tab,new Colonne(null)));
 
             this.getChildren().addAll(ajoutColonne);
             //============================
-//            addPlaceholders();
+            addPlaceholders(this, tab);
 
         }
 
@@ -237,11 +263,13 @@ public class VueBureau extends HBox implements Observateur {
         return taches;
         }
 
-    private VBox createPlaceholder() {
+    private VBox createPlaceholder(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(20);
         placeholder.setPrefWidth(100);
         placeholder.setStyle("-fx-background-color: black;");
+        placeholder.setId("placeholder");
+        placeholder.setVisible(false);
 
         placeholder.setOnDragOver(event -> {
             if (event.getGestureSource() != placeholder &&
@@ -252,42 +280,12 @@ public class VueBureau extends HBox implements Observateur {
             System.out.println(2222);
         });
 
-        placeholder.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            if (db.hasString()) {
-                String nodeId = db.getString();
-                VBox column = findColumnById(this, nodeId);
-                int placeholderIndex = this.getChildren().indexOf(placeholder);
-                if (placeholderIndex+1 != this.getChildren().indexOf(column) && placeholderIndex-1 != this.getChildren().indexOf(column)){
-//                    this.getChildren().remove(column);
-//                    this.getChildren().add(placeholderIndex, column);
-//                }
-                    if (placeholderIndex > this.getChildren().indexOf(column) ){
-                        this.getChildren().remove(column);
-                        this.getChildren().add(placeholderIndex, createPlaceholder());
-                        this.getChildren().add(placeholderIndex, column);
-                    }
-                }
-
-
-                event.setDropCompleted(true);
-            }
-            event.consume();
-        });
+        placeholder.setOnDragDropped(new ControleurPlaceholder_OnDragDropped(vb, placeholder, tab));
 
         return placeholder;
     }
 
-    private VBox findColumnById(HBox root, String id) {
-        for (Node node : root.getChildren()) {
-            System.out.println( "ID = "+ node.getId());
-            if (node.getId() != null &&  node.getId().equals(id)) {
-                System.out.println("FOUND!!!!!!");
-                return (VBox) node;
-            }
-        }
-        return null;
-    }
+
 
     private Node findNodeById(String id) {
         for (Node child : getChildren()) {
@@ -298,12 +296,12 @@ public class VueBureau extends HBox implements Observateur {
         return null;
     }
 
-    private void addPlaceholders() {
+    private void addPlaceholders(VueBureau vb, Tableau tab) {
 //        System.out.println("size = " + getChildren().size());
         int size = getChildren().size();
-        for (int i = 0; i <= size; i++) {
-            VBox placeholder = createPlaceholder();
-            placeholder.setId(i+"pl");
+        for (int i = 0; i < size; i++) {
+            VBox placeholder = createPlaceholder(tab, vb);
+//            placeholder.setId(i+"pl");
             getChildren().add(i*2, placeholder);
         }
 

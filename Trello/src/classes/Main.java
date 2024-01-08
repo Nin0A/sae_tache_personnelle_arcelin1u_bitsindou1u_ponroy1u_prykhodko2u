@@ -35,6 +35,26 @@ public class Main {
         Tache t1 = new TacheMere("Tache 1", 7, 1, 12, 2023);
         Tache t2 = new TacheMere("Tache 1", 8, 1, 12, 2023);
         System.out.println(t1.equals(t2));
+        Colonne col1 = new Colonne("Colonne t1");
+        Colonne col2 = new Colonne("Colonne t2");
+        Tableau tab1 = new Tableau("Tableau 1");
+        Tableau tab2 = new Tableau("Tableau 2");
+        tab1.ajouterColonne(col1);
+        tab2.ajouterColonne(col2);
+        col2.ajouterTache(new TacheMere("Tache 1", 7, 1, 12, 2023));
+        Systeme sys = new Systeme();
+        sys.ajouterTab(tab1);
+        sys.ajouterTab(tab2);
+        System.out.println(sys.getTableauCourant());
+        System.out.println(sys.getTableaux().size());
+        System.out.println(sys.getTableaux());
+        sys.changerTableauCourrant(tab2);
+        System.out.println(sys.getTableauCourant());
+        sys.changerTableauCourrant(null);
+        System.out.println(sys.getTableauCourant());
+        sys.changerTableauCourrant(new Tableau("Tableau 3"));
+        System.out.println(sys.getTableauCourant());
+
 
 
         /*VueListe vue = new VueListe();

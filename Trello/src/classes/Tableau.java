@@ -13,8 +13,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     private Colonne archive; //Colonne des archives
 
 
-    private String nom;
-
     //constructeur
     public Tableau(String n) {
         super(n);
@@ -68,7 +66,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public Colonne getColonneByName(String s){
         Colonne res =null;
         for(int i=0; i<this.liste.size();i++) {
-            System.out.println("lolulol");
             if (this.liste.get(i).getNom().equals(s))
                 res = this.liste.get(i);
         }
@@ -346,6 +343,11 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public ArrayList<Colonne> getColonnes() {
         return liste;
     }
+
+    public void setColonnes(ArrayList<Colonne> list){
+        liste = list;
+    }
+
 
     /**
      * Méthode getArchive qui permet de retourner la colonne des archives
