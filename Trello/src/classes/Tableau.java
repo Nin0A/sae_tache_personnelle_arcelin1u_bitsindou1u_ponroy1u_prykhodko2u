@@ -169,7 +169,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     private boolean verifTacheArchive(Tache t) {
         boolean res = false;
         for (Tache tache : archive.liste) {
-            if (tache.tacheExiste(t.getNom())) {
+            if (tache.tacheExiste(t.getId())) {
                 res = true;
             }
         }
@@ -263,12 +263,12 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
     }
 
-
+/*
     /**
      * Méthode verifierNom qui verifie que le nom d'une tache ou sous-tache soit unique dans tout le tableau
      * @param nom nom de la tache ou sous-tache
      * @return true si le nom est unique, false sinon
-     */
+     /
     public boolean verifierNom(String nom) {
         boolean res = true;
         for (Colonne colonne : liste) {
@@ -281,23 +281,32 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         }
         return res;
     }
-
+*/
+    /////////////////////////////////////////////////////////
     /**
      * Méthode chercherColonne qui permet de chercher la colonne d'une tache ou soustache
      * @param t tache dont on veut chercher la colonne
      * @return la colonne de la tache
      */
     public Colonne chercherColonne(Tache t){
+        Colonne colonne = null;
         for(Colonne coltmp : liste){
             for (Tache tachetmp : coltmp.getTaches()){
-                if(tachetmp.tacheExiste(t.getNom())){
-                    return coltmp;
+                if(tachetmp.tacheExiste(t.getId())){
+                    colonne = coltmp;
+                    break;
                 }
             }
         }
-        throw new IllegalArgumentException("La colonne de la tâche spécifiée n'a pas été trouvée.");
+        for (Tache tache : archive.getTaches()){
+            if(tache.tacheExiste(t.getId())){
+                colonne = archive;
+                break;
+            }
+        }
+        return colonne;
     }
-
+///////////////////////////////////////////////////////////////
     /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur
      * observé en paramètre à la liste d'observateurs

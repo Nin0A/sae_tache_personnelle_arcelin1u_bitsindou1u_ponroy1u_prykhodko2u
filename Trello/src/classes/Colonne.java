@@ -16,7 +16,7 @@ public class Colonne extends Composant<Tache> {
     /**
      * Méthode modifierDureeTache qui modifie la durée d'une tache
      * @param duree durée de la tache en jours
-     * @param nomTache nom de la tache à modifier
+     * @param nomTache nom de la tâche à modifier
      */
     public boolean modifierDureeTache(int duree, String nomTache){
         if (duree<0)
@@ -99,16 +99,16 @@ public class Colonne extends Composant<Tache> {
 
     /**
      * Méthode modifierNomDelaTache qui modifie le nom d'une tache
-     * @param nomTacheAvant nom de la tache à modifier
-     * @param nomTacheApres nouveau nom de la tache
+     * @param tache la tache à modifier
+     * @param nomTache nouveau nom de la tache
      */
-    public void modifierNomDelaTache(String nomTacheAvant, String nomTacheApres) {
+    public void modifierNomDelaTache(Tache tache, String nomTache) {
         boolean tacheTrouvee = false; // on initialise un indicateur à faux pour savoir si la tache est trouvée ou non
 
         // On parcourt la liste de tâches de la colonne
         for (Tache t : this.liste) {
-            if (t.getNom().equals(nomTacheAvant)) {
-                t.setNom(nomTacheApres);
+            if (t.equals(tache)) {
+                t.setNom(nomTache);
                 System.out.println("Le nom de la tâche a été modifié");
                 tacheTrouvee = true; // on met l'indicateur à vrai si la tache est trouvée
             }
