@@ -18,6 +18,8 @@ public abstract class Tache extends Composant<Tache> {
     private double duree; //durée de la tache en jours
     private LocalDate dateDebut; //date de début de la tache
 
+    private Colonne colonneOrigine; //colonne d'origine de la tache
+
    // private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
     //constructeur
@@ -88,8 +90,14 @@ public abstract class Tache extends Composant<Tache> {
         this.duree = duree;
     }
 
+
+    public void setColonneOrigine(Colonne colonneOrigine) {
+        this.colonneOrigine = colonneOrigine;
+    }
+
     public void setDate(LocalDate date){
         this.dateDebut=date;
+
     }
 
     public void ajoutSupprAntecedent(Tache t){
@@ -120,8 +128,14 @@ public abstract class Tache extends Composant<Tache> {
         return dateDebut;
     }
 
+
+    public Colonne getColonneOrigine() {
+        return colonneOrigine;
+    }
+
     public int getId() {
         return idTache;
+
     }
 
     public void reinitialiser(){}

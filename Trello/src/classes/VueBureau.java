@@ -1,5 +1,6 @@
 package classes;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,17 +8,18 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import test.DraggableColumn;
 
 import java.util.ArrayList;
 
 
 public class VueBureau extends HBox implements Observateur {
+
 
     //POUR L'ITERATION 2 /!\
 
@@ -27,15 +29,7 @@ public class VueBureau extends HBox implements Observateur {
         //===============================================
         private void setContr(VBox col){
 
-            col.setOnDragDetected(event -> {
-                Dragboard db = startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(col.getId());
-                db.setContent(content);
-                event.consume();
-                System.out.println(1111111);
-            });
-
+            col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
 
             col.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
@@ -53,6 +47,7 @@ public class VueBureau extends HBox implements Observateur {
 
         }
 
+
         /**
         * Méhtode actualiser qui permet d'actualiser le sujet colonnes par colonnes
         * @param sujet sujet à actualiser
@@ -63,23 +58,12 @@ public class VueBureau extends HBox implements Observateur {
             this.getChildren().clear();
             this.setSpacing(10);
 
-            //=================================
 
-
-
-            /*
-            System.out.println("VueBureau : " + tab.getNom());
-
-            ArrayList<Colonne> colonnes = tab.getColonnes();
-
-            //on parcourt chaque colonne
-            for (Colonne colonne : colonnes) {
-                System.out.println(colonne.getNom() + " :"+"\t"); //on met un tab entre chaque colonne
-            }
-            */
+            //Création de la vbox du tableau
 
             VBox colonnetmp;
 
+            //On créer le fond du tableau et on l'ajoute à la vue
             for(int i=0;i<tab.getColonnes().size();i++) {
                 colonnetmp = new VBox();
                 colonnetmp.setSpacing(10);
@@ -98,6 +82,7 @@ public class VueBureau extends HBox implements Observateur {
 
                 HBox zoneHauteColonne = new HBox();
 
+                //On créer les titres des colonnes et on les ajoute à la vue
                 Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
 
                 titreColonne.setStyle("-fx-font-family: 'Arial';" +
@@ -106,6 +91,7 @@ public class VueBureau extends HBox implements Observateur {
                         "-fx-text-fill: #b40047;" +
                         "-fx-font-family: Krungthep;");
 
+                //On créer les boutons de modification et de suppression des colonnes et on les ajoute à la vue
                 ControleurColonne cc = new ControleurColonne(tab, tab.getColonnes().get(i));
                 Button modif = new Button("Modifier");
                 modif.setOnAction(cc);
@@ -124,6 +110,8 @@ public class VueBureau extends HBox implements Observateur {
                 vbox.setAlignment(Pos.CENTER);
                 colonnetmp.getChildren().addAll(vbox);
                 ControleurTache ct = null;
+
+                //Pour chaque tache on crée une Hbox comportant le nom de la tache et on l'ajoute à la vue
                 for (Tache t : tab.getColonnes().get(i).getTaches()) {
                     VBox tachetmp = new VBox();
                     tachetmp.setAlignment(Pos.CENTER_LEFT);
@@ -134,6 +122,7 @@ public class VueBureau extends HBox implements Observateur {
                     ajouterBouton(boutonstachetmp, ct);
                     tachetmp.getChildren().addAll(new Label(t.getNom()),boutonstachetmp);
                     colonnetmp.getChildren().addAll(tachetmp);
+
                     //Sous taches
                     if (t instanceof TacheMere) {
                         ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
@@ -235,9 +224,18 @@ public class VueBureau extends HBox implements Observateur {
 
             this.getChildren().addAll(ajoutColonne);
             //============================
-//            addPlaceholders();
+            addPlaceholders(this, tab);
 
         }
+
+
+        /**
+         * Méthode ajoutersoustache qui permet d'ajouter les sous taches d'une tache mère
+         * @param t tache mère dont on veut ajouter les sous taches
+         * @param tab tableau où se trouve la tache mère
+         * @return liste des sous taches
+         */
+
     public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab,int padding) {
         ArrayList<HBox> taches = new ArrayList<>();
 
@@ -258,16 +256,20 @@ public class VueBureau extends HBox implements Observateur {
                 // Ajouter les sous-tâches récursivement à la liste actuelle
 
                 taches.addAll(ajoutersoustache((TacheMere) st, tab,padding+25));
+
             }
         }
+
         return taches;
         }
 
-    private VBox createPlaceholder() {
+    private VBox createPlaceholder(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(20);
         placeholder.setPrefWidth(100);
         placeholder.setStyle("-fx-background-color: black;");
+        placeholder.setId("placeholder");
+        placeholder.setVisible(false);
 
         placeholder.setOnDragOver(event -> {
             if (event.getGestureSource() != placeholder &&
@@ -278,42 +280,12 @@ public class VueBureau extends HBox implements Observateur {
             System.out.println(2222);
         });
 
-        placeholder.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            if (db.hasString()) {
-                String nodeId = db.getString();
-                VBox column = findColumnById(this, nodeId);
-                int placeholderIndex = this.getChildren().indexOf(placeholder);
-                if (placeholderIndex+1 != this.getChildren().indexOf(column) && placeholderIndex-1 != this.getChildren().indexOf(column)){
-//                    this.getChildren().remove(column);
-//                    this.getChildren().add(placeholderIndex, column);
-//                }
-                    if (placeholderIndex > this.getChildren().indexOf(column) ){
-                        this.getChildren().remove(column);
-                        this.getChildren().add(placeholderIndex, createPlaceholder());
-                        this.getChildren().add(placeholderIndex, column);
-                    }
-                }
-
-
-                event.setDropCompleted(true);
-            }
-            event.consume();
-        });
+        placeholder.setOnDragDropped(new ControleurPlaceholder_OnDragDropped(vb, placeholder, tab));
 
         return placeholder;
     }
 
-    private VBox findColumnById(HBox root, String id) {
-        for (Node node : root.getChildren()) {
-            System.out.println( "ID = "+ node.getId());
-            if (node.getId() != null &&  node.getId().equals(id)) {
-                System.out.println("FOUND!!!!!!");
-                return (VBox) node;
-            }
-        }
-        return null;
-    }
+
 
     private Node findNodeById(String id) {
         for (Node child : getChildren()) {
@@ -324,16 +296,17 @@ public class VueBureau extends HBox implements Observateur {
         return null;
     }
 
-    private void addPlaceholders() {
+    private void addPlaceholders(VueBureau vb, Tableau tab) {
 //        System.out.println("size = " + getChildren().size());
         int size = getChildren().size();
         for (int i = 0; i <= size; i++) {
-            VBox placeholder = createPlaceholder();
-            placeholder.setId(i+"pl");
+            VBox placeholder = createPlaceholder(tab, vb);
+//            placeholder.setId(i+"pl");
             getChildren().add(i*2, placeholder);
         }
 
     }
+
 
     public void ajouterBouton(HBox tache, Controleur c){
             String[] action= {"Modifier","Archiver","Supprimer"};
@@ -341,6 +314,8 @@ public class VueBureau extends HBox implements Observateur {
             for(int j = 0 ; j<3; j++ ){
                 buttons[j] = new Button(action[j]);
                 buttons[j].setOnAction(c);
+
+                // Style par défaut
                 buttons[j].setStyle(
                         "-fx-font-size: 10px; " +
                                 "-fx-padding: 5px; " +

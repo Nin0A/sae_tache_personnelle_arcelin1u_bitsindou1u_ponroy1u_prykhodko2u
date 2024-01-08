@@ -31,11 +31,6 @@ public class Principale extends Application {
                 s2.ajouterSousTache(s4);
                 s2.ajouterSousTache(s5);
 
-
-
-
-
-
         // Panel principal
         HBox pane = new HBox();
         pane.setPadding(new Insets(10));
@@ -56,7 +51,8 @@ public class Principale extends Application {
         main.setAlignment(Pos.TOP_RIGHT);
 
         ComboBox<String> choixDeVues = new ComboBox<>();
-        choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt");
+        choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt","Vue Archive");
+        // Valeur par défaut
         choixDeVues.setValue("Vue Bureau");
 
 
@@ -162,7 +158,7 @@ public class Principale extends Application {
         pane.setSpacing(5);
         Scene scene = new Scene(pane, 1300, 800);
         stage.setScene(scene);
-        stage.setTitle("Gestionnaire Tâche Personnelle");
+        stage.setTitle("Gestionnaire de tâches personnelles");
         stage.show();
     }
 }
