@@ -41,7 +41,7 @@ public class VueBureau extends HBox implements Observateur {
                 colonnetmp.setSpacing(10);
                 colonnetmp.setMinWidth(250);
                 colonnetmp.setStyle("-fx-border-color: purple; -fx-border-width: 5px;-fx-border-radius: 50px;-fx-background-color: rgb(255,255,255,0.5) ; -fx-background-radius:50px; ");
-                colonnetmp.setPadding(new Insets(20));
+
                 colonnetmp.setAlignment(Pos.TOP_CENTER);
                 HBox zoneHauteColonne = new HBox();
 
@@ -67,28 +67,30 @@ public class VueBureau extends HBox implements Observateur {
 
                 vbox.getChildren().addAll(titreColonne, zoneHauteColonne);
                 zoneHauteColonne.setAlignment(Pos.CENTER);
-                vbox.setPadding(new Insets(20));
+
                 vbox.setAlignment(Pos.CENTER);
                 colonnetmp.getChildren().addAll(vbox);
                 ControleurTache ct = null;
                 for (Tache t : tab.getColonnes().get(i).getTaches()) {
-                    HBox tachetmp = new HBox();
-                    tachetmp.getChildren().add(new Label(t.getNom()));
-
+                    VBox tachetmp = new VBox();
+                    tachetmp.setAlignment(Pos.CENTER_LEFT);
+                    HBox boutonstachetmp = new HBox();
+                    boutonstachetmp.setAlignment(Pos.CENTER_LEFT);
                     //Button et Controleur
                     ct = new ControleurTache(tab, t);
-                    ajouterBouton(tachetmp, ct);
+                    ajouterBouton(boutonstachetmp, ct);
+                    tachetmp.getChildren().addAll(new Label(t.getNom()),boutonstachetmp);
                     colonnetmp.getChildren().addAll(tachetmp);
                     //Sous taches
                     if (t instanceof TacheMere) {
-                        ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab);
+                        ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
                         for (HBox hbox : listeSoustache) {
                             colonnetmp.getChildren().addAll(hbox);
                         }
                     }
 
                 }
-
+                ct = new ControleurTache(tab, null);
                 Button ajouterTache = new Button("Ajouter une tâche");
                 ajouterTache.setOnAction(ct);
 
@@ -132,7 +134,8 @@ public class VueBureau extends HBox implements Observateur {
                 /////////////////////////////////
                 ajouterTache.setAlignment(Pos.CENTER);
                 colonnetmp.getChildren().addAll(ajouterTache);
-                colonnetmp.setMinHeight(710);
+                colonnetmp.setMinHeight(650);
+                colonnetmp.setPadding(new Insets(20));
                 this.getChildren().addAll(colonnetmp);
             }
 
@@ -144,21 +147,37 @@ public class VueBureau extends HBox implements Observateur {
             this.getChildren().addAll(ajoutColonne);
 
         }
-        public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab){
-            ArrayList<HBox> taches = new ArrayList<HBox>();
-            for(Tache st : t.getSousTaches()){
-                HBox soutache = new HBox();
-                ControleurTache ct = new ControleurTache(tab,st);
-                soutache.getChildren().add(new Label(st.getNom()));
-                ajouterBouton(soutache,ct);
-                taches.add(soutache);
-                if(st instanceof TacheMere){
-                    ajoutersoustache( (TacheMere) st, tab);
-                }
+    public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab,int padding) {
+        ArrayList<HBox> taches = new ArrayList<>();
+
+
+        for (Tache st : t.getSousTaches()) {
+
+
+            HBox soutache = new HBox();
+
+            ControleurTache ct = new ControleurTache(tab, st);
+            soutache.setPadding(new Insets(0,0,0,padding));
+            soutache.getChildren().add(new Label(st.getNom()));
+
+            ajouterBouton(soutache, ct);
+            taches.add(soutache);
+
+            if (st instanceof TacheMere) {
+                // Ajouter les sous-tâches récursivement à la liste actuelle
+
+                taches.addAll(ajoutersoustache((TacheMere) st, tab,padding+25));
             }
-            return taches;
+
+
+
+
+
         }
-        public void ajouterBouton(HBox tache, Controleur c){
+        return taches;
+    }
+
+    public void ajouterBouton(HBox tache, Controleur c){
             String[] action= {"Modifier","Archiver","Supprimer"};
             Button[] buttons = new Button[3];
             for(int j = 0 ; j<3; j++ ){

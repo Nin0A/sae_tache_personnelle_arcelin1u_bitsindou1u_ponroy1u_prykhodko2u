@@ -83,6 +83,10 @@ public abstract class Tache extends Composant<Tache> {
         this.duree = duree;
     }
 
+    public void setDate(LocalDate date){
+        this.dateDebut=date;
+    }
+
     public void ajoutSupprAntecedent(Tache t){
         if (etreAntecedent(t))
             liste.remove(t);

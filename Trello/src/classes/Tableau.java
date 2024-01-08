@@ -213,6 +213,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public void ajouterTache(Colonne colonne, Tache tache){
         if(chercherColonne(tache)==null) {
             colonne.ajouterTache(tache);
+            System.out.println("la date de la tache ajouter : "+tache.getDateDebut());
         }
         notifierObservateur();
     }
