@@ -11,7 +11,10 @@ import java.util.Objects;
 
 public abstract class Tache extends Composant<Tache> {
 
+
     //attributs
+    static int nbTaches = 0;
+    int idTache;
     private double duree; //durée de la tache en jours
     private LocalDate dateDebut; //date de début de la tache
 
@@ -22,6 +25,8 @@ public abstract class Tache extends Composant<Tache> {
         super(desc);
         this.duree = duree;
         this.dateDebut = LocalDate.of(anneeDebut, moisDebut, jourDebut);
+        nbTaches ++;
+        idTache = nbTaches;
     }
 
 
@@ -68,11 +73,11 @@ public abstract class Tache extends Composant<Tache> {
 
     /**
      * Méthode tacheExiste le nom est utilisée
-     * @param t nom recherché
+     * @param id id de la tache recherché
      * @return true si le nom est utilisé, false sinon
      */
-    public boolean tacheExiste(String t){
-        return this.nom.equals(t);
+    public boolean tacheExiste(int id){
+        return this.idTache == id;
     }
 
     public void afficher() {
@@ -81,6 +86,10 @@ public abstract class Tache extends Composant<Tache> {
 
     public void setDuree(double duree) {
         this.duree = duree;
+    }
+
+    public void setDate(LocalDate date){
+        this.dateDebut=date;
     }
 
     public void ajoutSupprAntecedent(Tache t){
@@ -110,6 +119,11 @@ public abstract class Tache extends Composant<Tache> {
     public LocalDate getDateDebut() {
         return dateDebut;
     }
+
+    public int getId() {
+        return idTache;
+    }
+
     public void reinitialiser(){}
 
 
@@ -118,7 +132,7 @@ public abstract class Tache extends Composant<Tache> {
         if (this == o) return true;
         if (!super.equals(o)) return false;
         Tache tache = (Tache) o;
-        return tache.nom.equals(this.nom);
+        return tache.idTache==this.idTache;
     }
 
 

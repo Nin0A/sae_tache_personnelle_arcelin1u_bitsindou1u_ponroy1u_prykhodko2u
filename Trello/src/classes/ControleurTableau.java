@@ -11,8 +11,10 @@ public class ControleurTableau implements Controleur<ActionEvent>{
         Button boutton = (Button) actionEvent.getSource();
         switch (boutton.getText()){
             case "Modifier":
+                //change le nom du tableau
                 break;
             case "Supprimer":
+                //avec système
                 break;
         }
     }

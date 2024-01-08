@@ -12,7 +12,7 @@ public class VueListe extends VBox implements Observateur {
 
     VueListe(){
         super();
-        this.setMinWidth(Integer.MAX_VALUE);
+        this.setMinWidth(930);
         this.setStyle("-fx-background-color: rgb(255,255,255,0.5)");
 
     }
@@ -23,10 +23,8 @@ public class VueListe extends VBox implements Observateur {
      */
     @Override
     public void actualiser(Sujet sujet) {
-        Tableau tab = (Tableau) sujet;
-        Label tableau = new Label(tab.getNom());
         this.getChildren().clear();
-        this.getChildren().add(tableau);
+        Tableau tab = (Tableau) sujet;
 
         for(Colonne c : tab.liste) {
             TreeItem<Composant> colonne = new TreeItem<>(c);
