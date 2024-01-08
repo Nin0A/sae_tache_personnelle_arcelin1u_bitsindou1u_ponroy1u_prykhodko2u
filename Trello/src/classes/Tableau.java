@@ -38,7 +38,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             this.liste.add(c);
             notifierObservateur();
         } else {
-            //Sinon on genere une exception
+            //Sinon, on génère une exception
             throw new IllegalArgumentException("La colonne existe déjà");
         }
 
