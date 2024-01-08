@@ -2,21 +2,18 @@ Bilan de l'itération n°4 :
 
 Lors de l'itération n°4, nous avons reussi à faire:
 
-    - L'améliration de l'interface de l'application --> Nino
+    - L'implémentation des controleurs pour la fonctionnalité Drag and Drop pour les colonnes --> Yehor
 
-    - Un constructeur par copie pour la fonction "Drag and Drop" --> Célie, Maëlle
+    - Implémentation des controleurs pour la fonctionnalité d'ajout et de modification de colonnes --> Nino
 
-    - L'implémentation de la Vue Archive --> Maëlle
+    - Implémentation des tests unitaires des méthodes d'archivage et désarchivage --> Maëlle
 
-    - Régler les problèmes d'unicité d'une tâche grâce à un ID--> Célie, Maëlle
+    - Implémentation de la Vue Système et de ses controleurs --> Célie
 
-    - L'implémentation des controleurs restants (modifier (tache et colonne, supprimer, archiver et désarchiver)  --> Célie, Nino et Maëlle
+    - Implémentation des controleurs de gestion de l'archivage des taches  --> Maëlle
 
-    - L'implémentation des contrôleurs de Drag and Drop --> Yehor
-
-Nous avons réussi à faire tout ce qui était prévu pour cette itération. La Vue Archive était prévu pour l'itération 4
-mais nous avons réussi à nous avancez dessus. Néanmoins, nous avons eu des difficultés avec l'implémentation des
-controleurs Drag and Drop que nous continuerons à travailler pour l'itération 4.
-Nous avons aussi rencontrés quelques difficulté avec l'unicité des taches mais nous avons réussi à les surmonter.
-Nous avons donc pu commencer l'itération n°4 presque comme nous le souhaitions, et démarrer la dernière Vue Système, la
-sauvegarde du tableau et les derniers controleurs.
+Nous avons presque réussi à faire tout ce qui était prévu pour cette itération. Les controleurs de la Vue Système et les méthodes
+d'archivage/désarchivage ont été plus longues à implémenter que prévu. Elles seront donc terminées lors de la 5 ème itération.
+Nous avons aussi eu quelques difficultés avec la fonctionnalité de Drag and Drop pour les tâches mais nous avons réussi
+à la mettre en place pour les colonnes. Le Drag and Drop des tâches sera également fait lors de l'itération 5.
+Nous avons donc pu commencer l'itération n°5 presque comme nous le souhaitions.

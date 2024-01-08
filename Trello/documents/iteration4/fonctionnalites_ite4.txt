@@ -1,6 +1,6 @@
 Fonctionnalités prévues lors de l'itération n°4 :
 
-    - Suite et fin de l'implémentation des controleurs pour la fonctionnalité Drag and Drop (colonnes et taches)
+    - Fin de l'implémentation des controleurs pour la fonctionnalité Drag and Drop pour les colonnes
     - Implémentation des controleurs pour la fonctionnalité d'ajout et de modification de colonnes
-    - Implémentation des controleurs de la Vue Système
-    - Implémentation des controleurs restants  à faire
+    - Implémentation de la Vue Système et de ses controleurs
+    - Implémentation des controleurs de gestion de l'archivage des taches

@@ -139,7 +139,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             sousTaches = ((TacheMere) t).getSousTaches();
         }*/
 
-
+        //si la tache est une tache mere et sous tache d'une autre tache mere, on en
 
         //on vérifie que la tache n'est pas deja archivée
         if (!verifTacheArchive(t)) {
@@ -157,6 +157,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
 
     }
+
+
 
     /**
      * Méthode verifTacheArchive qui verifie si la tache n'est pas deja archivée
