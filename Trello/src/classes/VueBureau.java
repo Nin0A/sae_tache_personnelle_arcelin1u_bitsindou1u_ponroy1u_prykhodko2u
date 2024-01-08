@@ -299,7 +299,7 @@ public class VueBureau extends HBox implements Observateur {
     private void addPlaceholders(VueBureau vb, Tableau tab) {
 //        System.out.println("size = " + getChildren().size());
         int size = getChildren().size();
-        for (int i = 0; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             VBox placeholder = createPlaceholder(tab, vb);
 //            placeholder.setId(i+"pl");
             getChildren().add(i*2, placeholder);
