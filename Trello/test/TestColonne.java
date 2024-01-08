@@ -143,7 +143,7 @@ public class TestColonne {
     public void test_modifierNomDelaTache_tache_mere() { //test 5
 
         //on modifie le nom de la tache 1
-        col.modifierNomDelaTache("Tache 1", "Tache 1 modifiée");
+        col.modifierNomDelaTache(t1, "Tache 1 modifiée");
 
         //on vérifie que le nom de la tache 1 a bien été modifié
         assertEquals("Tache 1 modifiée", t1.getNom());
@@ -154,7 +154,7 @@ public class TestColonne {
     public void test_modifierNomDelaTache_sous_tache() { //test 6
 
         //on modifie le nom de la sous tache 5
-        col.modifierNomDelaTache("Tache 5", "Tache 5 modifiée");
+        col.modifierNomDelaTache(t5, "Tache 5 modifiée");
 
         //on vérifie que le nom de la sous tache 5 a bien été modifié
         assertEquals("Tache 5 modifiée", t5.getNom());
@@ -166,7 +166,7 @@ public class TestColonne {
 
         //on vérifie que la tache 7 genere une exception et donc qu'elle ne peut pas être modifiée
         assertThrows(IllegalArgumentException.class, () -> {
-            col.modifierNomDelaTache("Tache 7", "Tache 7 modifiée");
+            col.modifierNomDelaTache(t7, "Tache 7 modifiée");
         });
     }
 

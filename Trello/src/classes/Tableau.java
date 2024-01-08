@@ -217,12 +217,12 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
     }
 
-
+/*
     /**
      * Méthode verifierNom qui verifie que le nom d'une tache ou sous-tache soit unique dans tout le tableau
      * @param nom nom de la tache ou sous-tache
      * @return true si le nom est unique, false sinon
-     */
+     /
     public boolean verifierNom(String nom) {
         boolean res = true;
         for (Colonne colonne : liste) {
@@ -235,7 +235,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         }
         return res;
     }
-
+*/
+    /////////////////////////////////////////////////////////
     /**
      * Méthode chercherColonne qui permet de chercher la colonne d'une tache ou soustache
      * @param t tache dont on veut chercher la colonne
@@ -245,15 +246,21 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         Colonne colonne = null;
         for(Colonne coltmp : liste){
             for (Tache tachetmp : coltmp.getTaches()){
-                if(tachetmp.tacheExiste(t.getNom())){
+                if(tachetmp.tacheExiste(t.getId())){
                     colonne = coltmp;
                     break;
                 }
             }
         }
+        for (Tache tache : archive.getTaches()){
+            if(tache.tacheExiste(t.getId())){
+                colonne = archive;
+                break;
+            }
+        }
         return colonne;
     }
-
+///////////////////////////////////////////////////////////////
     /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur
      * observé en paramètre à la liste d'observateurs
