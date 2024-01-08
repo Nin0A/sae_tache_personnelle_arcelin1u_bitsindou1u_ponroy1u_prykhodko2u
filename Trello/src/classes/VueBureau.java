@@ -186,6 +186,39 @@ public class VueBureau extends HBox implements Observateur {
             ajoutColonne.setStyle("-fx-border-color: green; -fx-border-width: 5px;-fx-border-radius: 50px");
             ajoutColonne.setPadding(new Insets(50));
             Button ajouterColonne = new Button("Ajouter Colonne");
+            ajouterColonne.setStyle(
+                    "-fx-font-size: 10px; " +
+                    "-fx-background-color: #aedc93; " + // Couleur de fond
+                    "-fx-text-fill: #ffffff; " + // Couleur du texte
+                    "-fx-border-color: #6a8759; " + // Couleur de la bordure
+                    "-fx-border-width: 2px; " +
+                    "-fx-border-radius: 50px;" + // Bordure arrondie
+                    "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+            );
+
+            // Style pour le survol
+            ajouterColonne.setOnMouseEntered(e -> ajouterColonne.setStyle(
+                    "-fx-font-size: 10px; " +
+                    "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
+                    "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
+                    "-fx-border-color: #6a8759; " +
+                    "-fx-border-width: 2px; " +
+                    "-fx-border-radius: 50px;" + // Bordure arrondie
+                    "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;"
+            ));
+
+            // Style par défaut après le survol
+            ajouterColonne.setOnMouseExited(e -> ajouterColonne.setStyle(
+                    "-fx-font-size: 10px; " +
+                            "-fx-background-color: #aedc93; " + // Retour à la couleur de fond transparente
+                            "-fx-text-fill: #ffffff; " + // Retour à la couleur du texte blanche
+                            "-fx-border-color: #6a8759; " + // Retour à la couleur de bordure initiale
+                            "-fx-border-width: 2px; " +
+                            "-fx-border-radius: 50px;" + // Bordure arrondie
+                            "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+            ));
+
+            ajoutColonne.setAlignment(Pos.CENTER);
             ajoutColonne.getChildren().addAll(ajouterColonne);
             ajouterColonne.setOnAction(new ControleurColonne(tab,new Colonne(null)));
 

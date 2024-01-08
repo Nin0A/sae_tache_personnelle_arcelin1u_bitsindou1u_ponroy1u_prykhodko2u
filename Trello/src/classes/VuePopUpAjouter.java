@@ -79,7 +79,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         });
 
         ajouterSousTache.setOnAction(event -> {
-            creerFormSousTache(vbox);
+            creerFormSousTache(vbox,1);
         });
 
         HBox buttonBox = new HBox(validerButton, annulerButton, ajouterSousTache);
@@ -104,7 +104,8 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         return hbox;
     }
 
-    public void creerFormSousTache(VBox vbox) {
+    public void creerFormSousTache(VBox vbox,int marge) {
+        VBox vBoxSousTache = new VBox();
         HBox hbox = new HBox();
         TextField nomTextField = new TextField();
         Label nomLabel = new Label("Nom :");
@@ -122,17 +123,20 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         hbox.getChildren().add(ajouterSousTacheButton);
 
         ajouterSousTacheButton.setOnAction(event -> {
-            Scene scene = this.getScene();
-            creerFormSousTache(vbox);  // Appel récursif pour créer des sous-tâches de la sous-tâche
+            VBox vboxtmp=(VBox)ajouterSousTacheButton.getParent().getParent();
+            vboxtmp.setSpacing(5);
+            creerFormSousTache(vboxtmp,marge+1);  // Appel récursif pour créer des sous-tâches de la sous-tâche
         });
 
 
         hbox.setId("#id"+this.rangTache);
         System.out.println(rangTache);
         this.rangTache++;
+        System.out.println("marge : " +marge);
+        hbox.setPadding(new Insets(0, 0, 0, marge*20));
+        vBoxSousTache.getChildren().add(hbox);
+        vbox.getChildren().add(vBoxSousTache);
 
-        hbox.setPadding(new Insets(0, 0, 0, 10));
-        vbox.getChildren().add(hbox);
 
 
         tacheMere.ajouterSousTache(new TacheMere("desc",1,1,1,1111));
