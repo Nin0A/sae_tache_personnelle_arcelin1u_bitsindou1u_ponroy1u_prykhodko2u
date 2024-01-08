@@ -4,5 +4,6 @@ Fonctionnalités prévues lors de l'itération n°3 :
     - Amélioration de l'interface graphique de l'application.
     - Implémentation d'un constructeur par copie pour la fonction Drag and Drop
     - Implémentation des controleurs ajouter, modifier, supprimer des tâches
-    - Implémentation des controleurs ajouter et supprimer des colonnes
+    - Implémentation des controleurs ajouter, modifier et supprimer des colonnes
     - Gestion de l'unicité des tâches
+    - Implémentation des vues pour les pop up

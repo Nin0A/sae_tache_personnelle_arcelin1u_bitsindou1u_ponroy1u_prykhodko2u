@@ -10,7 +10,7 @@ Lors de l'itération n°3, nous avons reussi à faire:
 
     - Régler les problèmes d'unicité d'une tâche grâce à un ID--> Célie, Maëlle
 
-    - L'implémentation des controleurs restants (modifier, supprimer, archiver et désarchiver)  --> Célie, Nino et Maëlle
+    - L'implémentation des controleurs restants (modifier (tache et colonne, supprimer, archiver et désarchiver)  --> Célie, Nino et Maëlle
 
     - L'implémentation des contrôleurs de Drag and Drop --> Yehor
 
