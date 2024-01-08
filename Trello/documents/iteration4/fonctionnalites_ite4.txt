@@ -1,6 +1,6 @@
 Fonctionnalités prévues lors de l'itération n°4 :
 
-    - Suite et fin de l'mplémentation des controleurs pour la fonctionnalité Drag and Drop
-    - Sauvegarde des données du tableau
+    - Suite et fin de l'implémentation des controleurs pour la fonctionnalité Drag and Drop (colonnes et taches)
     - Implémentation des controleurs pour la fonctionnalité d'ajout et de modification de colonnes
     - Implémentation des controleurs de la Vue Système
+    - Implémentation des controleurs restants  à faire

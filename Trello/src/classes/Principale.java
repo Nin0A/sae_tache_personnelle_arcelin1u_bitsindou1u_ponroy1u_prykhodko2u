@@ -30,6 +30,7 @@ public class Principale extends Application {
                 //test
 
 
+
                 Tableau tab = new Tableau("Tableau");
                 system.ajouterTab(tab);
                 Colonne col = new Colonne("Colonne");
@@ -127,8 +128,10 @@ public class Principale extends Application {
         ));
 
 
+
                 VueNomTableau nomTableauCourant = new VueNomTableau(system);
                 system.enregistrerObservateur(nomTableauCourant);
+
 
                 HBox containerTop = new HBox(nomTableauCourant,choixDeVues);
                 containerTop.setAlignment(Pos.CENTER_RIGHT);

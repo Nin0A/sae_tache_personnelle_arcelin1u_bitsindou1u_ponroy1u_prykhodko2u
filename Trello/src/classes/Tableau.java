@@ -132,7 +132,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         t.setColonneOrigine(depart);
 
         //Liste des sous taches de la tache
-        ArrayList<Tache> sousTaches = new ArrayList<>();
+        //ArrayList<Tache> sousTaches = new ArrayList<>();
 
         //on recupere la liste des sous taches de la tache si elle est une tache mere
         /*if (t instanceof TacheMere) {
