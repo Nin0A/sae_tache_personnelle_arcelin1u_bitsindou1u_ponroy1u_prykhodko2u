@@ -1,18 +1,22 @@
-Bilan de l'itération n°2 :
+Bilan de l'itération n°3 :
 
-Lors de l'itération n°2, nous avons reussi à faire:
+Lors de l'itération n°3, nous avons reussi à faire:
 
-    - L'implémentation de Vue Bureau --> Nino
+    - L'améliration de l'interface de l'application --> Nino
 
-    - L'implémentation de Vue Liste --> Célie
+    - Un constructeur par copie pour la fonction "Drag and Drop" --> Célie, Maëlle
 
-    - L'implémentation de Vue Gantt et l'affichage des dépendance --> Yehor
+    - L'implémentation de la Vue Archive --> Maëlle
 
-    - Début de l'implémentation de la classe Principale (pour le JavaFx)--> Nino
+    - Régler les problèmes d'unicité d'une tâche grâce à un ID--> Célie, Maëlle
 
-    - Test et optimisation des classes crées  --> Maëlle
+    - L'implémentation des controleurs restants (modifier, supprimer, archiver et désarchiver)  --> Célie, Nino et Maëlle
 
-Nous avons réussi à faire tout ce qui était prévu pour cette itération. La Vue Gantt nous aprosé quelques difficultés
-mais nous avons réussi à les surmonter. Nous avons aussi eu quelques difficultésmais nous avons réussi à les surmonter.
-Nous avons donc pu commencer l'itération n°3 comme nous le souhaitions, et démarrer les controller et la gestion du "drag
-and drop ".
+    - L'implémentation des contrôleurs de Drag and Drop --> Yehor
+
+Nous avons réussi à faire tout ce qui était prévu pour cette itération. La Vue Archive était prévu pour l'itération 4
+mais nous avons réussi à nous avancez dessus. Néanmoins, nous avons eu des difficultés avec l'implémentation des
+controleurs Drag and Drop que nous continuerons à travailler pour l'itération 4.
+Nous avons aussi rencontrés quelques difficulté avec l'unicité des taches mais nous avons réussi à les surmonter.
+Nous avons donc pu commencer l'itération n°4 presque comme nous le souhaitions, et démarrer la dernière Vue Système, la
+sauvegarde du tableau et les derniers controleurs.
