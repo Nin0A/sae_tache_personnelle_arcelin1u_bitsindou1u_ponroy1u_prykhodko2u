@@ -143,7 +143,10 @@ public class VueBureau extends HBox implements Observateur {
             VBox ajoutColonne= new VBox();
             ajoutColonne.setStyle("-fx-border-color: green; -fx-border-width: 5px;-fx-border-radius: 50px");
             ajoutColonne.setPadding(new Insets(50));
-            ajoutColonne.getChildren().addAll(new Button("Ajouter Colonne"));
+            Button ajouterColonne = new Button("Ajouter Colonne");
+            ajoutColonne.getChildren().addAll(ajouterColonne);
+            ajouterColonne.setOnAction(new ControleurColonne(tab,new Colonne(null)));
+
             this.getChildren().addAll(ajoutColonne);
 
         }
