@@ -301,6 +301,11 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         return liste;
     }
 
+    public void setColonnes(ArrayList<Colonne> list){
+        liste = list;
+    }
+
+
     /**
      * Méthode getArchive qui permet de retourner la colonne des archives
      * @return la colonne des archives

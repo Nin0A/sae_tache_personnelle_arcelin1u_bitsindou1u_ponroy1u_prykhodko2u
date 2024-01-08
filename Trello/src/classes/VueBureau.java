@@ -7,12 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import test.DraggableColumn;
 
 import java.util.ArrayList;
 
@@ -199,7 +199,7 @@ public class VueBureau extends HBox implements Observateur {
             ajoutColonne.getChildren().addAll(new Button("Ajouter Colonne"));
             this.getChildren().addAll(ajoutColonne);
             //============================
-//            addPlaceholders();
+//            addPlaceholders(this, tab);
 
         }
     public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab,int padding) {
@@ -227,7 +227,7 @@ public class VueBureau extends HBox implements Observateur {
         return taches;
         }
 
-    private VBox createPlaceholder() {
+    private VBox createPlaceholder(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(20);
         placeholder.setPrefWidth(100);
@@ -242,42 +242,12 @@ public class VueBureau extends HBox implements Observateur {
             System.out.println(2222);
         });
 
-        placeholder.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            if (db.hasString()) {
-                String nodeId = db.getString();
-                VBox column = findColumnById(this, nodeId);
-                int placeholderIndex = this.getChildren().indexOf(placeholder);
-                if (placeholderIndex+1 != this.getChildren().indexOf(column) && placeholderIndex-1 != this.getChildren().indexOf(column)){
-//                    this.getChildren().remove(column);
-//                    this.getChildren().add(placeholderIndex, column);
-//                }
-                    if (placeholderIndex > this.getChildren().indexOf(column) ){
-                        this.getChildren().remove(column);
-                        this.getChildren().add(placeholderIndex, createPlaceholder());
-                        this.getChildren().add(placeholderIndex, column);
-                    }
-                }
-
-
-                event.setDropCompleted(true);
-            }
-            event.consume();
-        });
+        placeholder.setOnDragDropped(new ControleurPlaceholder_OnDragDropped(vb, placeholder, tab));
 
         return placeholder;
     }
 
-    private VBox findColumnById(HBox root, String id) {
-        for (Node node : root.getChildren()) {
-            System.out.println( "ID = "+ node.getId());
-            if (node.getId() != null &&  node.getId().equals(id)) {
-                System.out.println("FOUND!!!!!!");
-                return (VBox) node;
-            }
-        }
-        return null;
-    }
+
 
     private Node findNodeById(String id) {
         for (Node child : getChildren()) {
@@ -288,12 +258,12 @@ public class VueBureau extends HBox implements Observateur {
         return null;
     }
 
-    private void addPlaceholders() {
+    private void addPlaceholders(VueBureau vb, Tableau tab) {
 //        System.out.println("size = " + getChildren().size());
         int size = getChildren().size();
         for (int i = 0; i <= size; i++) {
-            VBox placeholder = createPlaceholder();
-            placeholder.setId(i+"pl");
+            VBox placeholder = createPlaceholder(tab, vb);
+//            placeholder.setId(i+"pl");
             getChildren().add(i*2, placeholder);
         }
 
