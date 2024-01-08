@@ -13,8 +13,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     private Colonne archive; //Colonne des archives
 
 
-    private String nom;
-
     //constructeur
     public Tableau(String n) {
         super(n);

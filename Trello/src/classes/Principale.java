@@ -15,8 +15,26 @@ public class Principale extends Application {
         }
 
         public void start(Stage stage) {
+                //initialisation
+                Systeme system = new Systeme();
+                VueSysteme vueSysteme = new VueSysteme();
+                system.enregistrerObservateur(vueSysteme);
+                Tableau tab2 = new Tableau("Tableau qui est tout beau");
+                Colonne  col42 = new Colonne("Colonne");
+                tab2.ajouterColonne(col42);
+                col42.ajouterTache(new TacheMere("Tache", 10, 1, 1, 2023));
+                col42.ajouterTache(new TacheMere("Tache", 10, 1, 1, 2023));
+                system.ajouterTab(tab2);
 
                 //test
+                Tableau tab = new Tableau("Tableau");
+                system.ajouterTab(tab);
+                Colonne col = new Colonne("Colonne");
+                Colonne col2 = new Colonne("Colonne2");
+                Colonne col3 = new Colonne("Colonne3");
+                Colonne col4 = new Colonne("Colonne4");
+                Colonne col5 = new Colonne("Colonne5");
+
                 TacheMere t = new TacheMere("Tache blablablablblablblab", 15, 1 , 1 , 2023);
                 TacheMere s = new TacheMere("Tache s", 5, 10, 1 ,2023);
                 TacheMere s2 = new TacheMere("Tache s2", 3, 5, 1, 2023);
@@ -31,6 +49,18 @@ public class Principale extends Application {
                 s4.ajouterAntecedent(s3);
                 s4.ajouterAntecedent(t);
                 t2.ajouterAntecedent(t);
+                tab.ajouterColonne(col);
+                tab.ajouterColonne(col2);
+                tab.ajouterColonne(col3);
+                tab.ajouterColonne(col4);
+                tab.ajouterColonne(col5);
+                col.ajouterTache(t);
+                col.ajouterTache(t2);
+                col.ajouterTache(s3);
+                col2.ajouterTache(s4);
+
+
+
 
 
         // Panel principal
@@ -39,10 +69,10 @@ public class Principale extends Application {
         pane.setStyle("-fx-background-color: #f0f0f0;"); // Set background color
 
         // Zone de gauche (Tableau)
-        VBox listeTableau = new VBox();
-        listeTableau.setMinHeight(100);
-        listeTableau.setMinWidth(250);
-        listeTableau.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
+
+        vueSysteme.setMinHeight(100);
+        vueSysteme.setMinWidth(250);
+        vueSysteme.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
 
         // Zone de droite
         VBox main = new VBox();
@@ -94,25 +124,11 @@ public class Principale extends Application {
         main.getChildren().addAll(choixDeVues);
         main.setPadding(new Insets(20));
 ////
-                Tableau tab = new Tableau("Tableau");
-                Colonne col = new Colonne("Colonne");
-                Colonne col2 = new Colonne("Colonne2");
-                Colonne col3 = new Colonne("Colonne3");
-                Colonne col4 = new Colonne("Colonne4");
-                Colonne col5 = new Colonne("Colonne5");
-                tab.ajouterColonne(col);
-                tab.ajouterColonne(col2);
-                tab.ajouterColonne(col3);
-                tab.ajouterColonne(col4);
-                tab.ajouterColonne(col5);
-                col.ajouterTache(t);
-                col.ajouterTache(t2);
-                col.ajouterTache(s3);
-                col2.ajouterTache(s4);
+
 
                 //zone vue !!! à modifier selon la vue !!!
-
-                Vue vue = new Vue(tab);
+                System.out.println("courranttttttttttttttt "+system.getTableauCourant());
+                Vue vue = new Vue(system.getTableauCourant());
 
                 choixDeVues.setOnAction(e -> {
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
@@ -138,7 +154,7 @@ public class Principale extends Application {
                 pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
 
 
-        pane.getChildren().addAll(listeTableau,main);
+        pane.getChildren().addAll(vueSysteme,main);
         pane.setSpacing(5);
         Scene scene = new Scene(pane, 1300, 800);
         stage.setScene(scene);
