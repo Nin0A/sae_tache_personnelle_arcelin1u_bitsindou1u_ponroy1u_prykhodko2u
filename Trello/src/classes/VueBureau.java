@@ -1,5 +1,6 @@
 package classes;
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,15 +29,7 @@ public class VueBureau extends HBox implements Observateur {
         //===============================================
         private void setContr(VBox col){
 
-            col.setOnDragDetected(event -> {
-                Dragboard db = startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(col.getId());
-                db.setContent(content);
-                event.consume();
-                System.out.println(1111111);
-            });
-
+            col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
 
             col.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
@@ -198,7 +191,7 @@ public class VueBureau extends HBox implements Observateur {
 
             this.getChildren().addAll(ajoutColonne);
             //============================
-//            addPlaceholders(this, tab);
+            addPlaceholders(this, tab);
 
         }
 
@@ -242,6 +235,8 @@ public class VueBureau extends HBox implements Observateur {
         placeholder.setPrefWidth(20);
         placeholder.setPrefWidth(100);
         placeholder.setStyle("-fx-background-color: black;");
+        placeholder.setId("placeholder");
+        placeholder.setVisible(false);
 
         placeholder.setOnDragOver(event -> {
             if (event.getGestureSource() != placeholder &&

@@ -31,11 +31,6 @@ public class Principale extends Application {
                 s2.ajouterSousTache(s4);
                 s2.ajouterSousTache(s5);
 
-
-
-
-
-
         // Panel principal
         HBox pane = new HBox();
         pane.setPadding(new Insets(10));
