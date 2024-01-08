@@ -65,34 +65,35 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
     }
 
+    public Colonne getColonneByName(String s){
+        Colonne res =null;
+        for(int i=0; i<this.liste.size();i++) {
+            System.out.println("lolulol");
+            if (this.liste.get(i).getNom().equals(s))
+                res = this.liste.get(i);
+        }
+
+        return res;
+    }
+
     /**
      * Méthode deplacerTache qui deplace une tache d'une colonne à une autre
      * @param t tache à déplacer
-     * @param depart colonne courante de la tache
      * @param arrivee colonne où on veut déplacer la tache
      */
-    public void deplacerTache(Tache t, Colonne depart, Colonne arrivee) {
+    public void deplacerTache(Tache t, Colonne arrivee) {
 
-        //on vérifie que la tache à déplacer n'est pas null
-        if (t == null) {
-            throw new IllegalArgumentException("La tache à déplacer est null");
-        }
-        //on vérifie que la colonne de départ n'est pas null
-        if (depart == null) {
-            throw new IllegalArgumentException("La colonne de départ est null");
-        }
-        //on vérifie que la colonne d'arrivée n'est pas null
-        if (arrivee == null) {
-            throw new IllegalArgumentException("La colonne d'arrivée est null");
-        }
-        //on vérifie que la colonne de départ est dans la liste des colonnes du tableau
-        if (!this.liste.contains(depart)) {
-            throw new IllegalArgumentException("La colonne de départ n'existe pas");
-        }
-        //on vérifie que la colonne d'arrivée est dans la liste des colonnes du tableau
-        if (!this.liste.contains(arrivee)) {
-            throw new IllegalArgumentException("La colonne d'arrivée n'existe pas");
-        }
+        Colonne depart = chercherColonne(t);
+
+        //on vérifie que la colonne de départ est utilisable
+        verifierColonne(depart);
+
+        //on verifie que la colonne d'arrivée est utilisable
+        verifierColonne(arrivee);
+
+        //on vérifie que la tache est utilisable
+        verifierTache(t);
+
         //on vérifie que la tache est dans la liste des taches de la colonne de départ
         if (!depart.liste.contains(t)) {
             throw new IllegalArgumentException("La tache n'existe pas dans la colonne de départ");
@@ -100,10 +101,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         //on vérifie que la tache n'est pas dans la liste des taches de la colonne d'arrivée
         if (arrivee.liste.contains(t)) {
             throw new IllegalArgumentException("La tache existe déjà dans la colonne d'arrivée");
-        }
-        //si la tache est une sous tache
-        if (t instanceof SousTache) {
-            throw new IllegalArgumentException("La tache est une sous tache");
         }
 
         ArrayList<Tache> sousTaches = new ArrayList<>();
@@ -135,19 +132,12 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     public void archiverTache(Tache t) {
         Colonne depart = chercherColonne(t);
-        //on vérifie que la tache à archiver n'est pas null
-        if (t == null) {
-            throw new IllegalArgumentException("La tache à archiver est null");
-        }
-        //on vérifie que la colonne de départ n'est pas null
-        if (depart == null) {
-            throw new IllegalArgumentException("La colonne de départ est null");
-        }
 
-        //on vérifie que la tache ne soit pas une sous tache
-        if (t instanceof SousTache) {
-            throw new IllegalArgumentException("La tache est une sous tache");
-        }
+        //on vérifie que la colonne de départ est utilisable
+        verifierColonne(depart);
+
+        //on vérifie la tache est utilisable
+        verifierTache(t);
 
         //Liste des sous taches de la tache
         ArrayList<Tache> sousTaches = new ArrayList<>();
@@ -174,31 +164,95 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
 
     }
+
+    /**
+     * Méthode verifierTache qui permet de vérifier si une tache est utilisable
+     * @param t tache à vérifier
+     */
+    public void verifierTache (Tache t){
+        //on vérifie que la tache n'est pas null
+        if (t == null) {
+            throw new IllegalArgumentException("La tache est null");
+        }
+
+    }
+
+    /**
+     * Méthode verifierColonne qui permet de vérifier si une colonne est utilisable
+     * @param c colonne à vérifier
+     */
+    public void verifierColonne (Colonne c) {
+        //on vérifie que la colonne n'est pas null
+        if (c == null) {
+            throw new IllegalArgumentException("La colonne  est null");
+        }
+
+        //on vérifie que la colonne n'est pas dans la liste des colonnes du tableau
+        if (!this.liste.contains(c)) {
+            throw new IllegalArgumentException("La colonne n'existe pas");
+        }
+
+    }
+
+    /**
+     * Méthode supprierTache qui permet de supprimer une tache
+     * @param tache tache à supprimer
+     */
     public void supprimerTache(Tache tache){
        Colonne colonne = chercherColonne(tache);
        colonne.supprimerTache(tache);
        notifierObservateur();
     }
-    public void creerTache(Colonne colonne, Tache tache){
+
+
+    /**
+     * Méthode ajouterTache qui permet de créer une tache
+     * @param colonne colonne où l'on veut créer la tache
+     * @param tache tache à créer
+     */
+    public void ajouterTache(Colonne colonne, Tache tache){
         if(chercherColonne(tache)==null) {
-            colonne.ajouterTache(tache);}
+            colonne.ajouterTache(tache);
+        }
+        notifierObservateur();
     }
-    public Colonne chercherColonne(Tache t){
-        Colonne colonne = null;
-        for(Colonne coltmp : liste){
-            System.out.println("boucle");
-            System.out.println(coltmp.getTaches().contains(t));
-            if (coltmp.getTaches().contains(t)) {
-                colonne = coltmp;
-                System.out.println("trouvé");
+
+
+    /**
+     * Méthode verifierNom qui verifie que le nom d'une tache ou sous-tache soit unique dans tout le tableau
+     * @param nom nom de la tache ou sous-tache
+     * @return true si le nom est unique, false sinon
+     */
+    public boolean verifierNom(String nom) {
+        boolean res = true;
+        for (Colonne colonne : liste) {
+            for (Tache tache : colonne.getTaches()) {
+                if (tache.tacheExiste(nom)) {
+                    res = false;
+                    break;
+                }
             }
         }
-       return colonne;
+        return res;
     }
 
     /**
-     * Méthode verifier qui permet de v
+     * Méthode chercherColonne qui permet de chercher la colonne d'une tache ou soustache
+     * @param t tache dont on veut chercher la colonne
+     * @return la colonne de la tache
      */
+    public Colonne chercherColonne(Tache t){
+        Colonne colonne = null;
+        for(Colonne coltmp : liste){
+            for (Tache tachetmp : coltmp.getTaches()){
+                if(tachetmp.tacheExiste(t.getNom())){
+                    colonne = coltmp;
+                    break;
+                }
+            }
+        }
+        return colonne;
+    }
 
     /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur
@@ -247,12 +301,21 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         return archive;
     }
 
+    /**
+     * Méthode getNom qui permet de retourner le nom du tableau et ses colonnes
+     * @return le nom du tableau et ses colonnes
+     */
     public void  afficher() {
         System.out.println(this.getNom()+" :");
         for (Colonne c : this.getColonnes()) {
             c.afficher();
         }
     }
+
+    /**
+     * Méhtode toString qui permet de retourner le nom du tableau
+     * @return le nom du tableau
+     */
     @Override
     public String toString() {
         return this.nom;

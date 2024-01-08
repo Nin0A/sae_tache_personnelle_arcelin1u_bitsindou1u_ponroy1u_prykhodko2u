@@ -52,7 +52,7 @@ public class Colonne extends Composant<Tache> {
             SousTache sT = (SousTache) t;
 
             // On supprime la tache de la liste de sous-taches de la tache mere
-            sT.getTacheMere().supprimerSousTache(sT);
+            getTacheMere(sT).supprimerSousTache(sT);
         }
 
         // On supprime la tache de la liste de taches de la colonne
@@ -64,6 +64,22 @@ public class Colonne extends Composant<Tache> {
                 tache.supprimerAntecedent(t);
             }
         }
+    }
+
+    /**
+     * Méthode getTacheMere qui retourne la tache mere d'une sous tache
+     * @param t sous tache dont on veut la tache mere
+     * @return la tache mere de la sous tache
+     */
+    public TacheMere getTacheMere(SousTache t) {
+        TacheMere tM = null;
+        for (Tache tache : this.liste) {
+            if (tache instanceof TacheMere && (tM.getSousTaches().contains(t))) {
+                tM = (TacheMere) tache;
+
+            }
+        }
+        return tM;
     }
 
     /**

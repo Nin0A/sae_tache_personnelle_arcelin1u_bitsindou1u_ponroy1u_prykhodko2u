@@ -24,14 +24,14 @@ public class TestTableau {
 
 
         //créer 4 taches mères
-        t1 = new TacheMere("Tache 1", 7);
-        t2 = new TacheMere("Tache 2", 10);
-        t3 = new TacheMere("Tache 3", 5);
-        t4 = new TacheMere("Tache 4", 5);
+        t1 = new TacheMere("Tache 1", 7, 1 , 1, 1);
+        t2 = new TacheMere("Tache 2", 10, 1 , 1, 1);
+        t3 = new TacheMere("Tache 3", 5, 1 , 1, 1);
+        t4 = new TacheMere("Tache 4", 5, 1 , 1, 1);
 
         //creer 2 sous taches
-        t5 = new SousTache("Tache 5", 5, t1);
-        t6 = new SousTache("Tache 6", 5, t1);
+        t5 = new SousTache("Tache 5", 5,  1, 1, 1);
+        t6 = new SousTache("Tache 6", 5,  1, 1, 1);
 
         //on ajoute les colonnes à la liste de colonnes du tableau
         tab.ajouterColonne(col);
@@ -131,7 +131,7 @@ public class TestTableau {
     public void testDeplacerTache_existante(){ //test 8
 
         //on déplace la tache 1 de la colonne A à la colonne B
-        tab.deplacerTache(t1, col, col2);
+        tab.deplacerTache(t1,col2);
 
         //on vérifie que la tache a bien été déplacée dans la colonne B
         assertTrue(col2.getTaches().contains(t1));
@@ -145,10 +145,10 @@ public class TestTableau {
     public void testDeplacerTache_tache_inexistante(){ //test 9
 
         //on crée une nouvelle tache
-        Tache t7 = new TacheMere("Tache 7", 5);
+        Tache t7 = new TacheMere("Tache 7", 5, 1, 1, 2023);
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t7, col, col2));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t7, col2));
     }
 
     //teste la methode deplacerTache quand la colonne de départ n'existe pas
@@ -159,7 +159,7 @@ public class TestTableau {
         Colonne col3 = new Colonne("Colonne C");
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, col3, col2));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, col2));
     }
 
     //teste la methode deplacerTache quand la colonne d'arrivée n'existe pas
@@ -170,7 +170,7 @@ public class TestTableau {
         Colonne col3 = new Colonne("Colonne C");
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, col, col3));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1,col3));
     }
 
     //teste la methode deplacerTache quand la tache existe dans la colonne d'arrivée
@@ -178,7 +178,7 @@ public class TestTableau {
     public void testDeplacerTache_tache_existe_colonne_arrivee(){ //test 12
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, col, col));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1,col));
     }
 
     //teste la methode deplacerTache quand la tache est null
@@ -186,7 +186,7 @@ public class TestTableau {
     public void testDeplacerTache_tache_null(){ //test 13
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(null, col, col2));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(null,col2));
     }
 
     //teste la methode deplacerTache quand la colonne de départ est null
@@ -194,7 +194,7 @@ public class TestTableau {
     public void testDeplacerTache_colonne_depart_null(){ //test 14
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, null, col2));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, null));
     }
 
     //teste la methode deplacerTache quand la colonne d'arrivée est null
@@ -202,7 +202,7 @@ public class TestTableau {
     public void testDeplacerTache_colonne_arrivee_null(){ //test 15
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, col, null));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t1, null));
     }
 
     //teste la methode deplacerTache quand on deplace une sous tache
@@ -210,7 +210,7 @@ public class TestTableau {
     public void testDeplacerTache_sous_tache(){ //test 16
 
         //on verifie que l'excpetion a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t5, col, col2));
+        assertThrows(IllegalArgumentException.class, () -> tab.deplacerTache(t5, col2));
     }
 
     //teste la methode deplacerTache quand on deplace la tache mere avec ses sous taches
@@ -218,7 +218,7 @@ public class TestTableau {
     public void testDeplacerTache_tache_mere_avec_sous_taches(){ //test 16
 
         //on déplace la tache 1 de la colonne A à la colonne B
-        tab.deplacerTache(t1, col, col2);
+        tab.deplacerTache(t1, col2);
 
         //on vérifie que la tache 1 a bien été déplacée dans la colonne B
         assertTrue(col2.getTaches().contains(t1));
@@ -276,7 +276,7 @@ public class TestTableau {
     public void testArchiverTache_existante(){ //test 17
 
         //on archive la tache 1
-        tab.archiverTache(t1, col);
+        tab.archiverTache(t1);
 
         //on vérifie que la tache a bien été archivée
         assertTrue(tab.getArchive().getTaches().contains(t1));
@@ -290,10 +290,10 @@ public class TestTableau {
     public void testArchiverTache_inexistante(){ //test 18
 
         //on crée une nouvelle tache
-        Tache t7 = new TacheMere("Tache 7", 5);
+        Tache t7 = new TacheMere("Tache 7", 5, 1, 1, 2023);
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t7, col));
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t7));
     }
 
     //teste la methode archiverTache quand la colonne est null
@@ -301,7 +301,7 @@ public class TestTableau {
     public void testArchiverTache_colonne_null(){ //test 19
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t1, null));
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t1));
     }
 
     //teste la methode archiverTache quand la tache est null
@@ -309,7 +309,7 @@ public class TestTableau {
     public void testArchiverTache_tache_null(){ //test 20
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(null, col));
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(null));
     }
 
     //teste la methode archiverTache quand la tache est une sous tache
@@ -317,7 +317,7 @@ public class TestTableau {
     public void testArchiverTache_sous_tache(){ //test 21
 
         //on vérifie que l'exception a bien été levée
-        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t5, col));
+        assertThrows(IllegalArgumentException.class, () -> tab.archiverTache(t5));
     }
 
     //teste la methode archiverTache quand on veut archiver une tache mere avec des sous taches
@@ -325,7 +325,7 @@ public class TestTableau {
     public void testArchiverTache_tache_mere_avec_sous_taches(){ //test 22
 
         //on archive la tache 1
-        tab.archiverTache(t1, col);
+        tab.archiverTache(t1);
 
         //on vérifie que la tache a bien été archivée
         assertTrue(tab.getArchive().getTaches().contains(t1));

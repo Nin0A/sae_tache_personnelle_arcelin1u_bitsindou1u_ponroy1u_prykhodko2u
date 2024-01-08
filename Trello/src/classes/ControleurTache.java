@@ -4,6 +4,8 @@ import classes.Tableau;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class ControleurTache implements Controleur<ActionEvent>{
 
@@ -36,8 +38,14 @@ public class ControleurTache implements Controleur<ActionEvent>{
             case "Archiver":
                 modele.archiverTache(tache);
                 break;
-            case "Ajouter une tache":
-                //savoir la colonne ?
+            case "Ajouter une tâche":
+                VBox vboxtmp1 = (VBox)boutton.getParent();
+                VBox vboxtmp2 = (VBox) vboxtmp1.getChildren().get(0);
+                Label labeltmp = (Label) vboxtmp2.getChildren().get(0);
+                System.out.println("LA COLONNE : "+modele.getColonneByName(labeltmp.getText()));
+                VuePopUp vpu = new VuePopUp(modele, modele.getColonneByName(labeltmp.getText()));
+                vpu.actualiser(modele);
+
                 break;
         }
     }

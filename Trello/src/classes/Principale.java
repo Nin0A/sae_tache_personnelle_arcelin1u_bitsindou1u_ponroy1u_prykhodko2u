@@ -23,7 +23,7 @@ public class Principale extends Application {
                 TacheMere s3 = new TacheMere("Tache s3", 10, 4, 2, 2023);
                 TacheMere s4 = new TacheMere("Tache s4", 10, 10, 3, 2023);
                 TacheMere t2 = new TacheMere("Tache t2", 10, 2, 1, 2023);
-                SousTache st = new SousTache("Soustache st", 10, t, 1 , 1, 2023);
+                SousTache st = new SousTache("Soustache st", 10, 1 , 1, 2023);
                 t.ajouterSousTache(st);
                 t.ajouterSousTache(s);
                 s.ajouterSousTache(s2);
