@@ -39,6 +39,9 @@ public class ControleurTache implements Controleur<ActionEvent>{
             case "Archiver":
                 modele.archiverTache(tache);
                 break;
+            case "Désarchiver":
+                modele.desarchiverTache(tache);
+                break;
             case "Ajouter une tâche":
                 VBox vboxtmp1 = (VBox)boutton.getParent();
                 VBox vboxtmp2 = (VBox) vboxtmp1.getChildren().get(0);
