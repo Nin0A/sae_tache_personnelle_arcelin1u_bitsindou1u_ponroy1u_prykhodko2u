@@ -1,9 +1,10 @@
 package classes;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.control.Button;
 
-public class ControleurSysteme implements Controleur{
+public class ControleurSysteme implements Controleur<ActionEvent>{
     private Systeme modele;
     private Tableau tableau;
     ControleurSysteme(Systeme modele, Tableau tableau){
@@ -33,4 +34,6 @@ public class ControleurSysteme implements Controleur{
 
         }
     }
+
+
 }

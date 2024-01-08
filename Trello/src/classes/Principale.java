@@ -1,6 +1,7 @@
 package classes;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,6 +28,7 @@ public class Principale extends Application {
                 system.ajouterTab(tab2);
 
                 //test
+
                 Tableau tab = new Tableau("Tableau");
                 system.ajouterTab(tab);
                 Colonne col = new Colonne("Colonne");
@@ -61,8 +63,6 @@ public class Principale extends Application {
 
 
 
-
-
         // Panel principal
         HBox pane = new HBox();
         pane.setPadding(new Insets(10));
@@ -77,12 +77,17 @@ public class Principale extends Application {
         // Zone de droite
         VBox main = new VBox();
         main.setMinHeight(100);
-        main.setMinWidth(1000);
+        main.setMinWidth(1030);
         main.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
+        main.setSpacing(20);
+        main.setAlignment(Pos.TOP_RIGHT);
 
         ComboBox<String> choixDeVues = new ComboBox<>();
-        choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt");
+        choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt","Vue Archive");
+        // Valeur par défaut
         choixDeVues.setValue("Vue Bureau");
+
+
         // Style avancé avec CSS
         choixDeVues.setStyle(
                 "-fx-font-size: 14px; " +
@@ -121,28 +126,37 @@ public class Principale extends Application {
         ));
 
 
-        main.getChildren().addAll(choixDeVues);
-        main.setPadding(new Insets(20));
-////
+                VueNomTableau nomTableauCourant = new VueNomTableau(system);
+                system.enregistrerObservateur(nomTableauCourant);
 
-
+                HBox containerTop = new HBox(nomTableauCourant,choixDeVues);
+                containerTop.setAlignment(Pos.CENTER_RIGHT);
+                containerTop.setSpacing(40);
+                main.getChildren().addAll(containerTop);
+                main.setPadding(new Insets(20));
                 //zone vue !!! à modifier selon la vue !!!
+
                 System.out.println("courranttttttttttttttt "+system.getTableauCourant());
-                Vue vue = new Vue(system.getTableauCourant());
+
+
 
                 choixDeVues.setOnAction(e -> {
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
+                        Vue vue = new Vue(system.getTableauCourant());
 
                         // Supprimez l'ancien contenu
                         main.getChildren().removeIf(node -> node instanceof ScrollPane);
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
-                        tab.notifierObservateur();
+                        system.getTableauCourant().notifierObservateur();
+
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
                         ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                        scrollPane.setPrefHeight(760);
+                        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
 
                         // Ajoutez le nouveau contenu à main
                         //main.getChildren().add((Node) vue.getCourant());
@@ -158,7 +172,7 @@ public class Principale extends Application {
         pane.setSpacing(5);
         Scene scene = new Scene(pane, 1300, 800);
         stage.setScene(scene);
-        stage.setTitle("Gestionnaire Tâche Personnelle");
+        stage.setTitle("Gestionnaire de tâches personnelles");
         stage.show();
     }
 }
