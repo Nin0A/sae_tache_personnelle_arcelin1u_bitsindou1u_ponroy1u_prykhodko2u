@@ -29,6 +29,7 @@ public class Principale extends Application {
 
                 //test
 
+
                 Tableau tab = new Tableau("Tableau");
                 system.ajouterTab(tab);
                 Colonne col = new Colonne("Colonne");
