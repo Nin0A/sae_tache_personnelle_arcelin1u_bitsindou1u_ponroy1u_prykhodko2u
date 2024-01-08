@@ -1,6 +1,6 @@
-Bilan de l'itération n°3 :
+Bilan de l'itération n°4 :
 
-Lors de l'itération n°3, nous avons reussi à faire:
+Lors de l'itération n°4, nous avons reussi à faire:
 
     - L'améliration de l'interface de l'application --> Nino
 

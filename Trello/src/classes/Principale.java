@@ -24,6 +24,7 @@ public class Principale extends Application {
                 TacheMere s3 = new TacheMere("Tache s3", 3, 5, 1, 2023);
                 TacheMere s4 = new TacheMere("Tache s4", 3, 5, 1, 2023);
                 TacheMere s5 = new TacheMere("Tache s5", 3, 5, 1, 2023);
+                TacheMere s6 = new TacheMere("Tache s6", 5, 5, 1, 2023);
 
                 t.ajouterSousTache(s1);
                 s1.ajouterSousTache(s2);
@@ -109,6 +110,7 @@ public class Principale extends Application {
                 tab.ajouterColonne(col2);
                 tab.ajouterColonne(col3);
                 col.ajouterTache(t);
+                col.ajouterTache(s6);
 
 
                 Label nomTableauCourant = new Label(tab.getNom());
