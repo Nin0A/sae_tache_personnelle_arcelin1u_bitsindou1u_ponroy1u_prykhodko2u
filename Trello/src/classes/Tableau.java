@@ -306,6 +306,14 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         }
         return colonne;
     }
+    public void supprimerOcurance(Tache tache){
+        for (Colonne colonne : liste){
+            for(Tache tachetmp : colonne.getTaches()){
+                tachetmp.supprimerAntecedent(tache);
+
+            }
+        }
+    }
 ///////////////////////////////////////////////////////////////
     /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur
