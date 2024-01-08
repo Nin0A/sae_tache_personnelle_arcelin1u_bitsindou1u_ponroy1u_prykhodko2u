@@ -16,16 +16,15 @@ public class ControleurSysteme implements Controleur<ActionEvent>{
         Button boutton = (Button) actionEvent.getSource();
         switch (boutton.getText()){
             case "Modifier":
-                this.tableau.setNom("Nouveau nom");//a modifier
-                this.modele.notifierObservateur();
-                //modifier le nom
+               VuePopUpModifierTableau vuePopUpModifierTableau = new VuePopUpModifierTableau(modele, tableau);
+               vuePopUpModifierTableau.actualiser(modele);
                 break;
             case "Supprimer":
                 modele.supprimerTab(tableau);
                 break;
             case "Ajouter Tableau":
-                this.tableau= new Tableau("Nouveau tableau");//a modifier
-                modele.ajouterTab(this.tableau);
+                VuePopUpAjouterTableau vuePopUpAjouterTableau = new VuePopUpAjouterTableau(modele);
+                vuePopUpAjouterTableau.actualiser(modele);
                 //fenetre pop up
                 break;
                 default:
