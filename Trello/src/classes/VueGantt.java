@@ -38,7 +38,8 @@ public class VueGantt extends Pane implements Observateur {
 
         LocalDate baseDate = determinerBaseDate(tableau).get(0);
         LocalDate endDate = determinerBaseDate(tableau).get(1);
-        int totalDays = (int) ChronoUnit.DAYS.between(baseDate, endDate) + 1;
+        long totalDaysLong = ChronoUnit.DAYS.between(baseDate, endDate) + 1;
+        int totalDays = Math.toIntExact(totalDaysLong);
 
         VBox timeLine = createTimeLine(baseDate, totalDays);
         this.getChildren().add(timeLine);
@@ -50,11 +51,6 @@ public class VueGantt extends Pane implements Observateur {
             }
         }
 
-        for (Tache t: taskPositions.keySet()){
-            System.out.println(t.toString());
-            System.out.println(taskPositions.get(t)[0] + "------" + taskPositions.get(t)[1] );
-//            drawArrowLine(0,120,1020,220,this);
-        }
         drawDependencies();
 
         yPos = 100;
@@ -82,9 +78,7 @@ public class VueGantt extends Pane implements Observateur {
                 }
             }
         }
-
         maxDate = maxDate.withDayOfMonth(maxDate.getMonth().length(maxDate.isLeapYear()));
-
         ArrayList<LocalDate> res = new ArrayList<>();
         res.add(minDate);
         res.add(maxDate);
@@ -94,10 +88,8 @@ public class VueGantt extends Pane implements Observateur {
     private VBox createTimeLine(LocalDate baseDate, int days) {
         HBox daysLine = new HBox();
         HBox monthsLine = new HBox();
-
         LocalDate currentDate = baseDate;
         for (int day = 0, huita123 = 0; day < days; day++, huita123++) {
-
             String dayText = String.format("%02d", currentDate.getDayOfMonth());
             Label dayLabel = new Label(dayText);
             dayLabel.setStyle("-fx-padding: 2; -fx-alignment: center;");
@@ -107,7 +99,6 @@ public class VueGantt extends Pane implements Observateur {
             dayContainer.setPrefSize(DAY_SIZE, 20);
 
             VBox dayBox = new VBox(dayContainer);
-
             daysLine.getChildren().add(dayBox);
 
             if (currentDate.getDayOfMonth() == 1) {//replace by method
@@ -189,8 +180,7 @@ public class VueGantt extends Pane implements Observateur {
 
 
     private void drawArrowLine(double startX, double startY, double endX, double endY, Pane pane) {
-        double controlOffsetX = (endX - startX) * 0.5; // Контрольная точка на полпути по X
-        double controlOffsetY = 60; // Смещение контрольной точки вниз на 20 пикселей
+        double controlOffsetY = 60;
 
         double controlX = startX;
         double controlY = startY + controlOffsetY;
@@ -233,10 +223,10 @@ public class VueGantt extends Pane implements Observateur {
 
 
     private void drawDependencies(){
-        for (Tache t : taskPositions.keySet()){
-            for (Tache t2 : taskPositions.keySet()){
-                if (t.etreAntecedent(t2)){
-                    drawArrowLine(taskPositions.get(t2)[0], taskPositions.get(t2)[1],taskPositions.get(t)[0], taskPositions.get(t)[1],this);
+        for (Tache to : taskPositions.keySet()){
+            for (Tache from : taskPositions.keySet()){
+                if (to.etreAntecedent(from)){
+                    drawArrowLine(taskPositions.get(from)[0], taskPositions.get(from)[1],taskPositions.get(to)[0], taskPositions.get(to)[1],this);
                 }
             }
         }

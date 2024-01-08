@@ -3,7 +3,7 @@ package classes;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
-public class ControleurColonne implements Controleur {
+public class ControleurColonne implements Controleur<ActionEvent> {
     private Tableau modele;
     private Colonne colonne;
     ControleurColonne(Tableau modele, Colonne colonne){

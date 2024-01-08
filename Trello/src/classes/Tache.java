@@ -90,8 +90,14 @@ public abstract class Tache extends Composant<Tache> {
         this.duree = duree;
     }
 
+
     public void setColonneOrigine(Colonne colonneOrigine) {
         this.colonneOrigine = colonneOrigine;
+    }
+
+    public void setDate(LocalDate date){
+        this.dateDebut=date;
+
     }
 
     public void ajoutSupprAntecedent(Tache t){

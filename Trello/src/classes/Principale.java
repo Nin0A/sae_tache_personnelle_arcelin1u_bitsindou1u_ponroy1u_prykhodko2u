@@ -1,6 +1,7 @@
 package classes;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,20 +18,22 @@ public class Principale extends Application {
         public void start(Stage stage) {
 
                 //test
-                TacheMere t = new TacheMere("Tache blablablablblablblab", 15, 1 , 1 , 2023);
-                TacheMere s = new TacheMere("Tache s", 5, 10, 1 ,2023);
-                TacheMere s2 = new TacheMere("Tache s2", 3, 5, 1, 2023);
-                TacheMere s3 = new TacheMere("Tache s3", 10, 4, 2, 2023);
-                TacheMere s4 = new TacheMere("Tache s4", 10, 10, 3, 2023);
-                TacheMere t2 = new TacheMere("Tache t2", 10, 2, 1, 2023);
-                SousTache st = new SousTache("Soustache st", 10, 1 , 1, 2023);
-                t.ajouterSousTache(st);
-                t.ajouterSousTache(s);
-                s.ajouterSousTache(s2);
+                TacheMere t = new TacheMere("Tache t", 15, 1 , 1 , 2023);
+                TacheMere s1 = new TacheMere("Tache s1", 5, 10, 1 ,2023);
+                TacheMere s2 = new TacheMere("Tache s2", 1, 1, 1, 2023);
+                TacheMere s3 = new TacheMere("Tache s3", 3, 5, 1, 2023);
+                TacheMere s4 = new TacheMere("Tache s4", 3, 5, 1, 2023);
+                TacheMere s5 = new TacheMere("Tache s5", 3, 5, 1, 2023);
 
-                s4.ajouterAntecedent(s3);
-                s4.ajouterAntecedent(t);
-                t2.ajouterAntecedent(t);
+                t.ajouterSousTache(s1);
+                s1.ajouterSousTache(s2);
+                s1.ajouterSousTache(s3);
+                s2.ajouterSousTache(s4);
+                s2.ajouterSousTache(s5);
+
+
+
+
 
 
         // Panel principal
@@ -47,13 +50,16 @@ public class Principale extends Application {
         // Zone de droite
         VBox main = new VBox();
         main.setMinHeight(100);
-        main.setMinWidth(1000);
+        main.setMinWidth(1030);
         main.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
+        main.setSpacing(20);
+        main.setAlignment(Pos.TOP_RIGHT);
 
         ComboBox<String> choixDeVues = new ComboBox<>();
         choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt","Vue Archive");
         // Valeur par défaut
         choixDeVues.setValue("Vue Bureau");
+
 
         // Style avancé avec CSS
         choixDeVues.setStyle(
@@ -93,28 +99,38 @@ public class Principale extends Application {
         ));
 
 
-        main.getChildren().addAll(choixDeVues);
-        main.setPadding(new Insets(20));
+
 ////
                 Tableau tab = new Tableau("Tableau");
                 Colonne col = new Colonne("Colonne");
                 Colonne col2 = new Colonne("Colonne2");
                 Colonne col3 = new Colonne("Colonne3");
-                Colonne col4 = new Colonne("Colonne4");
-                Colonne col5 = new Colonne("Colonne5");
                 tab.ajouterColonne(col);
                 tab.ajouterColonne(col2);
                 tab.ajouterColonne(col3);
-                tab.ajouterColonne(col4);
-                tab.ajouterColonne(col5);
                 col.ajouterTache(t);
-                col.ajouterTache(t2);
-                col.ajouterTache(s3);
-                col2.ajouterTache(s4);
 
+
+                Label nomTableauCourant = new Label(tab.getNom());
+                nomTableauCourant.setStyle("-fx-font-family: Krungthep;-fx-font-size: 20;");
+
+                HBox containerTop = new HBox(nomTableauCourant,choixDeVues);
+                containerTop.setAlignment(Pos.CENTER_RIGHT);
+                containerTop.setSpacing(40);
+                main.getChildren().addAll(containerTop);
+                main.setPadding(new Insets(20));
                 //zone vue !!! à modifier selon la vue !!!
 
                 Vue vue = new Vue(tab);
+                vue.changerVue(choixDeVues.getValue());
+                tab.notifierObservateur();
+                ScrollPane scrollPanetmp = new ScrollPane((Node) vue.getCourant());
+                scrollPanetmp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                scrollPanetmp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                scrollPanetmp.setPrefHeight(760);
+                scrollPanetmp.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+                main.getChildren().add(scrollPanetmp);
+
 
                 choixDeVues.setOnAction(e -> {
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
@@ -125,10 +141,13 @@ public class Principale extends Application {
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
                         tab.notifierObservateur();
+
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
                         ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                        scrollPane.setPrefHeight(760);
+                        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
 
                         // Ajoutez le nouveau contenu à main
                         //main.getChildren().add((Node) vue.getCourant());

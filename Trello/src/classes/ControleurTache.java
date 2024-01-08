@@ -1,13 +1,12 @@
 package classes;
 
-import classes.Tableau;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ControleurTache implements Controleur{
+public class ControleurTache implements Controleur<ActionEvent>{
 
     //attributs
     private Tableau modele;
@@ -30,7 +29,9 @@ public class ControleurTache implements Controleur{
         Button boutton = (Button) actionEvent.getSource();
         switch (boutton.getText()){
             case "Modifier":
-                //pop la fenetre de modification
+
+                VuePopUpModifier vpm= new VuePopUpModifier(modele,tache);
+                vpm.actualiser(modele);
                 break;
             case "Supprimer":
                 modele.supprimerTache(tache);
@@ -45,11 +46,9 @@ public class ControleurTache implements Controleur{
                 VBox vboxtmp1 = (VBox)boutton.getParent();
                 VBox vboxtmp2 = (VBox) vboxtmp1.getChildren().get(0);
                 Label labeltmp = (Label) vboxtmp2.getChildren().get(0);
-                System.out.println("LA COLONNE : "+modele.getColonneByName(labeltmp.getText()));
-                VuePopUp vpu = new VuePopUp(modele, modele.getColonneByName(labeltmp.getText()));
+                VuePopUpAjouter vpu = new VuePopUpAjouter(modele, modele.getColonneByName(labeltmp.getText()));
                 vpu.actualiser(modele);
-
-                break;
+            break;
         }
     }
 

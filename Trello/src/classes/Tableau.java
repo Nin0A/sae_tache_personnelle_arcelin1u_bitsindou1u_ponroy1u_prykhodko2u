@@ -38,7 +38,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             this.liste.add(c);
             notifierObservateur();
         } else {
-            //Sinon on genere une exception
+            //Sinon, on génère une exception
             throw new IllegalArgumentException("La colonne existe déjà");
         }
 
@@ -259,6 +259,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public void ajouterTache(Colonne colonne, Tache tache){
         if(chercherColonne(tache)==null) {
             colonne.ajouterTache(tache);
+            System.out.println("la date de la tache ajouter : "+tache.getDateDebut());
         }
         notifierObservateur();
     }

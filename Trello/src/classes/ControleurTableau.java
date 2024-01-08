@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
-public class ControleurTableau implements EventHandler<ActionEvent>, Controleur{
+public class ControleurTableau implements Controleur<ActionEvent>{
 
     @Override
     public void handle(ActionEvent actionEvent) {
