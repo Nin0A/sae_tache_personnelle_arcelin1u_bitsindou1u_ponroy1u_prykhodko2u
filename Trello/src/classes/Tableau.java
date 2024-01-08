@@ -68,7 +68,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public Colonne getColonneByName(String s){
         Colonne res =null;
         for(int i=0; i<this.liste.size();i++) {
-            System.out.println("lolulol");
             if (this.liste.get(i).getNom().equals(s))
                 res = this.liste.get(i);
         }
