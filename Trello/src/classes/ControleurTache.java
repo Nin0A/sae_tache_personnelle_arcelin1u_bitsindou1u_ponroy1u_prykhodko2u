@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ControleurTache implements Controleur{
+public class ControleurTache implements Controleur<ActionEvent>{
 
     //attributs
     private Tableau modele;

@@ -1,17 +1,57 @@
 package classes;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import test.DraggableColumn;
 
 import java.util.ArrayList;
 
 
 public class VueBureau extends HBox implements Observateur {
 
+    //POUR L'ITERATION 2 /!\
+
+
+
+
+        //===============================================
+        private void setContr(VBox col){
+
+            col.setOnDragDetected(event -> {
+                Dragboard db = startDragAndDrop(TransferMode.MOVE);
+                ClipboardContent content = new ClipboardContent();
+                content.putString(col.getId());
+                db.setContent(content);
+                event.consume();
+                System.out.println(1111111);
+            });
+
+
+            col.setOnDragDropped(event -> {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+
+                    success = true;
+                }
+                event.setDropCompleted(success);
+                event.consume();
+                System.out.println(3333);
+            });
+
+
+
+        }
 
         /**
         * Méhtode actualiser qui permet d'actualiser le sujet colonnes par colonnes
@@ -22,6 +62,10 @@ public class VueBureau extends HBox implements Observateur {
             Tableau tab = (Tableau) sujet;
             this.getChildren().clear();
             this.setSpacing(10);
+
+            //=================================
+
+
 
             /*
             System.out.println("VueBureau : " + tab.getNom());
@@ -43,6 +87,15 @@ public class VueBureau extends HBox implements Observateur {
                 colonnetmp.setStyle("-fx-border-color: purple; -fx-border-width: 5px;-fx-border-radius: 50px;-fx-background-color: rgb(255,255,255,0.5) ; -fx-background-radius:50px; ");
 
                 colonnetmp.setAlignment(Pos.TOP_CENTER);
+                colonnetmp.setId(i + "");
+
+                //----------------------------------
+                setContr(colonnetmp);
+//                setTabContr(colonnetmp);
+
+
+
+
                 HBox zoneHauteColonne = new HBox();
 
                 Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
@@ -148,6 +201,8 @@ public class VueBureau extends HBox implements Observateur {
             ajouterColonne.setOnAction(new ControleurColonne(tab,new Colonne(null)));
 
             this.getChildren().addAll(ajoutColonne);
+            //============================
+//            addPlaceholders();
 
         }
     public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab,int padding) {
@@ -171,13 +226,80 @@ public class VueBureau extends HBox implements Observateur {
 
                 taches.addAll(ajoutersoustache((TacheMere) st, tab,padding+25));
             }
-
-
-
-
-
         }
         return taches;
+        }
+
+    private VBox createPlaceholder() {
+        VBox placeholder = new VBox();
+        placeholder.setPrefWidth(20);
+        placeholder.setPrefWidth(100);
+        placeholder.setStyle("-fx-background-color: black;");
+
+        placeholder.setOnDragOver(event -> {
+            if (event.getGestureSource() != placeholder &&
+                    event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+            System.out.println(2222);
+        });
+
+        placeholder.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                String nodeId = db.getString();
+                VBox column = findColumnById(this, nodeId);
+                int placeholderIndex = this.getChildren().indexOf(placeholder);
+                if (placeholderIndex+1 != this.getChildren().indexOf(column) && placeholderIndex-1 != this.getChildren().indexOf(column)){
+//                    this.getChildren().remove(column);
+//                    this.getChildren().add(placeholderIndex, column);
+//                }
+                    if (placeholderIndex > this.getChildren().indexOf(column) ){
+                        this.getChildren().remove(column);
+                        this.getChildren().add(placeholderIndex, createPlaceholder());
+                        this.getChildren().add(placeholderIndex, column);
+                    }
+                }
+
+
+                event.setDropCompleted(true);
+            }
+            event.consume();
+        });
+
+        return placeholder;
+    }
+
+    private VBox findColumnById(HBox root, String id) {
+        for (Node node : root.getChildren()) {
+            System.out.println( "ID = "+ node.getId());
+            if (node.getId() != null &&  node.getId().equals(id)) {
+                System.out.println("FOUND!!!!!!");
+                return (VBox) node;
+            }
+        }
+        return null;
+    }
+
+    private Node findNodeById(String id) {
+        for (Node child : getChildren()) {
+            if (id.equals(child.getId())) {
+                return child;
+            }
+        }
+        return null;
+    }
+
+    private void addPlaceholders() {
+//        System.out.println("size = " + getChildren().size());
+        int size = getChildren().size();
+        for (int i = 0; i <= size; i++) {
+            VBox placeholder = createPlaceholder();
+            placeholder.setId(i+"pl");
+            getChildren().add(i*2, placeholder);
+        }
+
     }
 
     public void ajouterBouton(HBox tache, Controleur c){
