@@ -132,38 +132,84 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     public void archiverTache(Tache t) {
         Colonne depart = chercherColonne(t);
-
-        //on vérifie que la colonne de départ est utilisable
-        verifierColonne(depart);
-
-        //on vérifie la tache est utilisable
-        verifierTache(t);
+        t.setColonneOrigine(depart);
 
         //Liste des sous taches de la tache
         ArrayList<Tache> sousTaches = new ArrayList<>();
 
-        //on recupere la liste des sous tasches de la tache si elle est une tache mere
+        //on recupere la liste des sous taches de la tache si elle est une tache mere
+        /*if (t instanceof TacheMere) {
+            sousTaches = ((TacheMere) t).getSousTaches();
+        }*/
+
+
+
+        //on vérifie que la tache n'est pas deja archivée
+        if (!verifTacheArchive(t)) {
+            archive.liste.add(t);
+            //on retire la tache de la colonne de depart
+            depart.liste.remove(t);
+
+            /*for (Tache sousTache : sousTaches) {
+                archiverTache(sousTache);
+                //on retire aussi ses sous taches de la colonne de depart
+                depart.liste.remove(sousTache);
+            }*/
+        }
+
+        notifierObservateur();
+
+    }
+
+    /**
+     * Méthode verifTacheArchive qui verifie si la tache n'est pas deja archivée
+     * @param t tache à vérifier
+     * @return true si la tache est deja archivée, false sinon
+     */
+    private boolean verifTacheArchive(Tache t) {
+        boolean res = false;
+        for (Tache tache : archive.liste) {
+            if (tache.tacheExiste(t.getNom())) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+
+    /**
+     * Méthode desarchiverTache qui permet de désarchiver la tache en parametre et la remettre dans la colonne de départ
+     * @param t tache que l'on veut désarchiver
+     */
+    public void desarchiverTache(Tache t) {
+        Colonne depart = t.getColonneOrigine();
+        t.setColonneOrigine(depart);
+
+        //Liste des sous taches de la tache
+        ArrayList<Tache> sousTaches = new ArrayList<>();
+
+        //on recupere la liste des sous taches de la tache si elle est une tache mere
         if (t instanceof TacheMere) {
             sousTaches = ((TacheMere) t).getSousTaches();
         }
 
         //on retire la tache de la colonne de depart
-        depart.liste.remove(t);
+        archive.liste.remove(t);
 
         //on retire aussi ses sous taches de la colonne de depart
         for (Tache sousTache : sousTaches) {
-            depart.liste.remove(sousTache);
+            archive.liste.remove(sousTache);
         }
 
         //on ajoute la tache à la colonne des archives
-        archive.liste.add(t);
+        depart.liste.add(t);
 
-        //on ajoute aussi ses sous taches à la colonne des archives
-        archive.liste.addAll(sousTaches);
+        //on ajoute aussi ses sous taches à la colonne des archives si il y en a
+        depart.liste.addAll(sousTaches);
 
         notifierObservateur();
-
     }
+
 
     /**
      * Méthode verifierTache qui permet de vérifier si une tache est utilisable
@@ -242,16 +288,14 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @return la colonne de la tache
      */
     public Colonne chercherColonne(Tache t){
-        Colonne colonne = null;
         for(Colonne coltmp : liste){
             for (Tache tachetmp : coltmp.getTaches()){
                 if(tachetmp.tacheExiste(t.getNom())){
-                    colonne = coltmp;
-                    break;
+                    return coltmp;
                 }
             }
         }
-        return colonne;
+        throw new IllegalArgumentException("La colonne de la tâche spécifiée n'a pas été trouvée.");
     }
 
     /**
@@ -310,6 +354,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         for (Colonne c : this.getColonnes()) {
             c.afficher();
         }
+        System.out.println("Archive :");
+        this.getArchive().afficher();
     }
 
     /**

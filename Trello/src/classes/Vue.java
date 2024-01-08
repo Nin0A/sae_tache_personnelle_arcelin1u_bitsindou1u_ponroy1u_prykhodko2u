@@ -8,7 +8,7 @@ public class Vue {
     private VueArchive vueArchive;
     private Observateur courant;
 
-    Vue(Tableau tableau ){
+    public Vue(Tableau tableau ){
         this.vueBureau = new VueBureau();
         tableau.enregistrerObservateur(vueBureau);
         this.vueListe = new VueListe();
@@ -20,7 +20,7 @@ public class Vue {
         courant=vueBureau;
     }
 
-    void changerVue(String s){
+    public void changerVue(String s){
 
         switch (s){
             case "Vue Liste":
@@ -34,9 +34,7 @@ public class Vue {
                 break;
             default:
                 courant=vueBureau;
-            break;
-
-
+                break;
         }
 
         System.out.println(courant);

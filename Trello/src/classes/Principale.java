@@ -52,7 +52,9 @@ public class Principale extends Application {
 
         ComboBox<String> choixDeVues = new ComboBox<>();
         choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt","Vue Archive");
+        // Valeur par défaut
         choixDeVues.setValue("Vue Bureau");
+
         // Style avancé avec CSS
         choixDeVues.setStyle(
                 "-fx-font-size: 14px; " +

@@ -23,7 +23,7 @@ public class VueArchive extends HBox implements Observateur{
         this.getChildren().clear();
         this.setSpacing(10);
 
-        //On créer la colonne d'archive et on l'ajoute à la vue
+        //On créer la colonne du tableau et on l'ajoute à la vue
         VBox colonnetmp = new VBox();
         colonnetmp.setSpacing(10);
         colonnetmp.setMinWidth(250);
@@ -40,9 +40,7 @@ public class VueArchive extends HBox implements Observateur{
                 "-fx-text-fill: #b40047;" +
                 "-fx-font-family: Krungthep;");
 
-        //on ajoute le titre de la colonne à la vue
         zoneHauteColonne.getChildren().addAll(titreColonne);
-
 
         //On ajoute la colonne à la vue
         VBox vbox = new VBox();
@@ -53,7 +51,8 @@ public class VueArchive extends HBox implements Observateur{
         vbox.setAlignment(Pos.CENTER);
         colonnetmp.getChildren().addAll(vbox);
         ControleurTache ct = null;
-        //On ajoute les taches de la colonne archives à la vue (si il y en a)
+
+        //Pour chaque tache on crée une Hbox comportant le nom de la tache et on l'ajoute à la vue
         for (Tache t : tab.getArchive().getTaches()) {
             HBox tachetmp = new HBox();
             tachetmp.getChildren().add(new Label(t.getNom()));
@@ -62,6 +61,7 @@ public class VueArchive extends HBox implements Observateur{
             ct = new ControleurTache(tab, t);
             ajouterBouton(tachetmp, ct);
             colonnetmp.getChildren().addAll(tachetmp);
+
             //si il y a des taches meres, on archive aussi les sous taches
             if (t instanceof TacheMere) {
                 ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab);
@@ -72,6 +72,8 @@ public class VueArchive extends HBox implements Observateur{
 
 
         }
+        colonnetmp.setMinHeight(710);
+        this.getChildren().addAll(colonnetmp);
     }
 
     /**
@@ -80,13 +82,11 @@ public class VueArchive extends HBox implements Observateur{
      * @param c controleur du bouton
      */
     public void ajouterBouton(HBox tache, Controleur c){
-        String[] action= {"Désarchiver"};
-        Button[] buttons = new Button[1];
-        for(int j = 0 ; j<1; j++ ){
-            buttons[j] = new Button(action[j]);
-            buttons[j].setOnAction(c);
-            buttons[j].setStyle(
-                    "-fx-font-size: 10px; " +
+        String action= "Désarchiver";
+        Button buttons = new Button(action);
+        buttons.setOnAction(c);
+        buttons.setStyle(
+                "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
                             "-fx-background-color: #ffe1fd; " + // Couleur de fond
                             "-fx-text-fill: #000000; " + // Couleur du texte
@@ -94,11 +94,10 @@ public class VueArchive extends HBox implements Observateur{
                             "-fx-border-width: 2px; "+
                             "-fx-border-radius: 50px;" + // Bordure arrondie
                             "-fx-background-radius: 50px;" // Coin arrondi pour le fond
-            );
+        );
 
             // Style pour le survol
-            int finalJ = j;
-            buttons[j].setOnMouseEntered(e ->  buttons[finalJ].setStyle(
+            buttons.setOnMouseEntered(e ->  buttons.setStyle(
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
                             "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
@@ -110,8 +109,7 @@ public class VueArchive extends HBox implements Observateur{
             ));
 
             // Style par défaut après le survol
-            int finalJ1 = j;
-            buttons[j].setOnMouseExited(e ->  buttons[finalJ1].setStyle(
+            buttons.setOnMouseExited(e ->  buttons.setStyle(
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
                             "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
@@ -121,11 +119,10 @@ public class VueArchive extends HBox implements Observateur{
                             "-fx-border-radius: 50px;" + // Bordure arrondie
                             "-fx-background-radius: 50px;" // Coin arrondi pour le fond
             ));
-        }
-        tache.getChildren().addAll(buttons[0],buttons[1],buttons[2]);
+        tache.getChildren().addAll(buttons);
     }
 
-    /**
+    /*
      * Méthode ajoutersoustache qui permet d'ajouter les sous taches d'une tache mère
      * @param t tache mère dont on veut ajouter les sous taches
      * @param tab tableau dans lequel se trouve la tache mère

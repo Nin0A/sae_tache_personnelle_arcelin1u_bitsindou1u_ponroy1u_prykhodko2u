@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class VueBureau extends HBox implements Observateur {
 
-
         /**
         * Méhtode actualiser qui permet d'actualiser le sujet colonnes par colonnes
         * @param sujet sujet à actualiser
@@ -23,20 +22,10 @@ public class VueBureau extends HBox implements Observateur {
             this.getChildren().clear();
             this.setSpacing(10);
 
-            /*
-            System.out.println("VueBureau : " + tab.getNom());
-
-            ArrayList<Colonne> colonnes = tab.getColonnes();
-
-            //on parcourt chaque colonne
-            for (Colonne colonne : colonnes) {
-                System.out.println(colonne.getNom() + " :"+"\t"); //on met un tab entre chaque colonne
-            }
-            */
-
+            //Création de la vbox du tableau
             VBox colonnetmp;
 
-            //On créer les colonnes et on les ajoute à la vue
+            //On créer le fond du tableau et on l'ajoute à la vue
             for(int i=0;i<tab.getColonnes().size();i++) {
                 colonnetmp = new VBox();
                 colonnetmp.setSpacing(10);
@@ -74,6 +63,8 @@ public class VueBureau extends HBox implements Observateur {
                 vbox.setAlignment(Pos.CENTER);
                 colonnetmp.getChildren().addAll(vbox);
                 ControleurTache ct = null;
+
+                //Pour chaque tache on crée une Hbox comportant le nom de la tache et on l'ajoute à la vue
                 for (Tache t : tab.getColonnes().get(i).getTaches()) {
                     HBox tachetmp = new HBox();
                     tachetmp.getChildren().add(new Label(t.getNom()));
@@ -82,6 +73,7 @@ public class VueBureau extends HBox implements Observateur {
                     ct = new ControleurTache(tab, t);
                     ajouterBouton(tachetmp, ct);
                     colonnetmp.getChildren().addAll(tachetmp);
+
                     //Sous taches
                     if (t instanceof TacheMere) {
                         ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab);
@@ -147,6 +139,13 @@ public class VueBureau extends HBox implements Observateur {
             this.getChildren().addAll(ajoutColonne);
 
         }
+
+        /**
+         * Méthode ajoutersoustache qui permet d'ajouter les sous taches d'une tache mère
+         * @param t tache mère dont on veut ajouter les sous taches
+         * @param tab tableau où se trouve la tache mère
+         * @return liste des sous taches
+         */
         public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab){
             ArrayList<HBox> taches = new ArrayList<HBox>();
             for(Tache st : t.getSousTaches()){
@@ -173,6 +172,8 @@ public class VueBureau extends HBox implements Observateur {
             for(int j = 0 ; j<3; j++ ){
                 buttons[j] = new Button(action[j]);
                 buttons[j].setOnAction(c);
+
+                // Style par défaut
                 buttons[j].setStyle(
                         "-fx-font-size: 10px; " +
                                 "-fx-padding: 5px; " +

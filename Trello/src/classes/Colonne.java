@@ -52,7 +52,7 @@ public class Colonne extends Composant<Tache> {
             SousTache sT = (SousTache) t;
 
             // On supprime la tache de la liste de sous-taches de la tache mere
-            getTacheMere(sT,null, this.liste).supprimerSousTache(sT);
+            getTacheMere(sT, liste).supprimerSousTache(sT);
         }
 
         // On supprime la tache de la liste de taches de la colonne
@@ -69,31 +69,32 @@ public class Colonne extends Composant<Tache> {
     /**
      * Méthode getTacheMere qui retourne la tache mère d'une sous-tache
      * @param tCherchee sous-tache dont on veut la tache mère
-     * @param tM   tache mère de la sous-tache
      * @param list liste de taches
      * @return la tache mère de la sous-tache
      */
-    public TacheMere getTacheMere(Tache tCherchee, TacheMere tM, ArrayList<Tache> list) {
-        TacheMere tacheMere = null;
-        System.out.println("début");
-        boolean trouve = false;
-        int i = 0;
-        while (!trouve && i<list.size()){
-                Tache tache = list.get(i);
-            if (tache == tCherchee) {
-                System.out.println("tache trouvée : " + tache+"tache mère : "+tM);
-                tacheMere = tM;
-                trouve=true;
-            }else {
-                if (tache instanceof TacheMere){
-                    System.out.println("tache mere : " + tache);
-                    TacheMere tachetmp = (TacheMere) tache;
-                    tacheMere = getTacheMere(tCherchee,tachetmp,tachetmp.getSousTaches());
+    public TacheMere getTacheMere(Tache tCherchee, ArrayList<Tache> list) {
+        TacheMere tMere = null;
+
+        // On parcourt la liste de taches
+        for (Tache t : list) {
+
+            // Si la tache est une tache mère
+            if (t instanceof TacheMere) {
+                TacheMere tM = (TacheMere) t;
+
+                // Si la tache mère contient la sous-tache cherchée
+                if (tM.getSousTaches().contains(tCherchee)) {
+                    tMere = tM;
+                } else {
+                    // Si la tache mère contient des sous-taches
+                    if (tM.getSousTaches().size() > 0) {
+                        tMere = getTacheMere(tCherchee, tM.getSousTaches());
+                    }
                 }
             }
-            i++;
         }
-        return tacheMere;
+
+        return tMere;
     }
 
     /**
@@ -118,6 +119,7 @@ public class Colonne extends Composant<Tache> {
             throw new IllegalArgumentException("Le nom de la tâche n'est pas dans la liste");
         }
     }
+
 
     /**
      * Méthode toString qui affiche le nom de la colonne
