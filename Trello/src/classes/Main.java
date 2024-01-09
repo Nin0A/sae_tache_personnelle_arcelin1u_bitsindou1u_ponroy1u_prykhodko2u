@@ -33,33 +33,32 @@ public class Main {
         col.ajouterTache(s3);
         col2.ajouterTache(s4);*/
         Tache t1 = new TacheMere("Tache 1", 7, 1, 12, 2023);
-        Tache t2 = new TacheMere("Tache 1", 8, 1, 12, 2023);
-        System.out.println(t1.equals(t2));
-        Colonne col1 = new Colonne("Colonne t1");
-        Colonne col2 = new Colonne("Colonne t2");
+        TacheMere t2 = new TacheMere("Tache 2", 8, 1, 12, 2023);
+        TacheMere t3 = new TacheMere("Tache 3", 9, 1, 12, 2023);
+        TacheMere t4 = new TacheMere("Tache 4", 10, 1, 12, 2023);
+        TacheMere t5 = new TacheMere("Tache 5", 11, 1, 12, 2023);
+        TacheMere t6 = new TacheMere("Tache 6", 11, 1, 12, 2023);
+
+        t1.ajouterAntecedent(t2);
+        t5.ajouterSousTache(t4);
+        t4.ajouterSousTache(t3);
+        t3.ajouterSousTache(t2);
+        t2.ajouterSousTache(t6);
+
+        Colonne col1 = new Colonne("Colonne 1");
+        Colonne col2 = new Colonne("Colonne 2");
+        col1.ajouterTache(t1);
+        col1.ajouterTache(t5);
         Tableau tab1 = new Tableau("Tableau 1");
-        Tableau tab2 = new Tableau("Tableau 2");
         tab1.ajouterColonne(col1);
-        tab2.ajouterColonne(col2);
-        col2.ajouterTache(new TacheMere("Tache 1", 7, 1, 12, 2023));
-        Systeme sys = new Systeme();
-        sys.ajouterTab(tab1);
-        sys.ajouterTab(tab2);
-        System.out.println(sys.getTableauCourant());
-        System.out.println(sys.getTableaux().size());
-        System.out.println(sys.getTableaux());
-        sys.changerTableauCourrant(tab2);
-        System.out.println(sys.getTableauCourant());
-        sys.changerTableauCourrant(null);
-        System.out.println(sys.getTableauCourant());
-        sys.changerTableauCourrant(new Tableau("Tableau 3"));
-        System.out.println(sys.getTableauCourant());
+        tab1.ajouterColonne(col2);
 
-
-
-        /*VueListe vue = new VueListe();
-        tab.enregistrerObservateur(vue);
-        tab.notifierObservateur(vue);
-        System.out.println(s.getAntecedent());*/
+        System.out.println(t1.liste);
+        t5.afficher();
+        tab1.archiverTache(t2);
+        System.out.println(t1.liste);
+        t5.afficher();
+        System.out.println(t2.liste);
+        tab1.getArchive().afficher();
     }
 }

@@ -52,6 +52,12 @@ public abstract class Tache extends Composant<Tache> {
     public void supprimerAntecedent(Tache t){
         this.liste.remove(t);
     }
+    /**
+     * Méthode supprimerAntecedents qui supprime toutes les taches de la liste des antécedents
+     */
+    public void supprimerAntecedents(){
+        this.liste.clear();
+    }
 
     /**
      * Méthode getAntecedents qui retourne la liste des antécedents d'une tache
