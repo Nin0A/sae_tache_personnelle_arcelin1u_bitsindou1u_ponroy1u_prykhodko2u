@@ -105,7 +105,7 @@ public class VueBureau extends HBox implements Observateur {
                     Label ll = new Label(t.getNom());
                     ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
                     tachetmp.getChildren().addAll(ll,boutonstachetmp);
-                    colonnetmp.getChildren().addAll(pl, tachetmp);
+
 
                     int sousTacheId = 0;
                     //Sous taches
@@ -115,10 +115,11 @@ public class VueBureau extends HBox implements Observateur {
                             VBox p = createPlaceholderTache(tab,this);
                             p.setId("sousTache"+sousTacheId);
                             sousTacheId++;
-                            
-                            colonnetmp.getChildren().addAll(p ,hbox);
+
+                            tachetmp.getChildren().addAll(p ,hbox);
                         }
                     }
+                    colonnetmp.getChildren().addAll(pl, tachetmp);
 
                 }
                 VBox pl = createPlaceholderTache(tab, this);

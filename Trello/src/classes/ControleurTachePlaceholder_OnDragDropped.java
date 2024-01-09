@@ -28,12 +28,22 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
             tab.supprimerTache(source);
 //            System.out.println("OK");
             //////////////////////////////////FIX
-            System.out.println((((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)));
-            if (((VBox)((VBox)event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)-1 > col.liste.size() || col.liste.size()==0){
+            int indexOfPlaceholder = ((((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)));
+            int indexOfTache = ((((VBox) ((VBox) event.getGestureSource()).getParent()).getChildren().indexOf( (VBox) event.getGestureSource() )));
+
+
+
+
+            int index =  (indexOfTache < indexOfPlaceholder) && (source.getColonneOrigine() != col)  ? (indexOfPlaceholder)/2 : (indexOfPlaceholder-2)/2 ;
+            System.out.println("indexOfTache = " + indexOfTache + " indexOfPlaceholder = " +  indexOfPlaceholder + " Index = " + index );
+            if (index > col.liste.size() || col.liste.size()==0){
+                System.out.println("case1");
+
                 col.liste.add(source);
             }
             else {
-                col.liste.add(((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder) , source);
+                System.out.println("case2");
+                col.liste.add(index , source);
             }
             root.actualiser(tab);
             success = true;
