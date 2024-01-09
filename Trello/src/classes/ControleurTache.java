@@ -45,6 +45,7 @@ public class ControleurTache implements Controleur<ActionEvent>{
             case "Ajouter une tâche":
                 VBox vboxtmp1 = (VBox)boutton.getParent();
                 VBox vboxtmp2 = (VBox) vboxtmp1.getChildren().get(0);
+
                 Label labeltmp = (Label) vboxtmp2.getChildren().get(0);
                 VuePopUpAjouter vpu = new VuePopUpAjouter(modele, modele.getColonneByName(labeltmp.getText()));
                 vpu.actualiser(modele);

@@ -45,7 +45,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         vbox.getChildren().addAll(createHBox(dateLabel, datePicker));
 
 
-        this.tacheMere = new TacheMere("desc",1,1,1,1111);
+        this.tacheMere = new TacheMere("desc",colonneCourante,1,1,1,1111);
 
 
 
@@ -85,7 +85,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
 
             Tableau t = (Tableau) sujet;
             LocalDate selectedDate = datePicker.getValue();
-            TacheMere tacheMere = new TacheMere(nom, Double.parseDouble(duree), selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear());
+            TacheMere tacheMere = new TacheMere(nom, colonneCourante,Double.parseDouble(duree), selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear());
             t.ajouterTache(colonneCourante, tacheMere);
 
             // Créer une nouvelle tâche mère pour chaque appel récursif
@@ -149,13 +149,30 @@ public class VuePopUpAjouter extends Stage implements Observateur {
             creerFormSousTache(vboxtmp,rangTache+1,marge+1);  // Appel récursif pour créer des sous-tâches de la sous-tâche
         });
 
+        Button supprimer = new Button("Supprimer");
+        hbox.getChildren().add(supprimer);
+
+        supprimer.setOnAction(event -> {
+
+
+            // Obtenez le parent du bouton (HBox)
+            HBox parentHBox = (HBox) supprimer.getParent();
+
+            // Obtenez le parent du HBox (VBox)
+            VBox parentVBox = (VBox) parentHBox.getParent();
+
+            // Supprimez le VBox du parent du VBox
+            ((VBox) parentVBox.getParent()).getChildren().remove(parentVBox);
+
+        });
+
 
         System.out.println(rangTache);
         hbox.setId("#id"+rangTache);
 
 
 
-        hbox.setPadding(new Insets(0, 0, 0, marge*20));
+        hbox.setPadding(new Insets(0, 0, 0, marge*30));
         vBoxSousTache.getChildren().add(hbox);
         vbox.getChildren().add(vBoxSousTache);
 
@@ -185,9 +202,10 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                     int jour = selectedDate.getDayOfMonth();
                     int mois = selectedDate.getMonthValue();
                     int annee = selectedDate.getYear();
+                    Colonne colonne = tacheMere.getColonneOrigine();
 
                     // Créer une nouvelle sous-tâche pour chaque appel récursif
-                    TacheMere sousTache = new TacheMere(nom, duree, jour, mois, annee);
+                    TacheMere sousTache = new TacheMere(nom, colonne,duree, jour, mois, annee);
 
                     // Ajouter la sous-tâche à la tâche mère
                     tacheMere.ajouterSousTache(sousTache);

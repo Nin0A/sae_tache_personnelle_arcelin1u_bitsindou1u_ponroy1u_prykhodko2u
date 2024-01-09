@@ -23,8 +23,8 @@ public class Principale extends Application {
                 Tableau tab2 = new Tableau("Tableau qui est tout beau");
                 Colonne  col42 = new Colonne("Colonne");
                 tab2.ajouterColonne(col42);
-                col42.ajouterTache(new TacheMere("Tache", 10, 1, 1, 2023));
-                col42.ajouterTache(new TacheMere("Tache", 10, 1, 1, 2023));
+                col42.ajouterTache(new TacheMere("Tache",col42, 10, 1, 1, 2023));
+                col42.ajouterTache(new TacheMere("Tache",col42, 10, 1, 1, 2023));
                 system.ajouterTab(tab2);
 
                 //test
@@ -39,13 +39,13 @@ public class Principale extends Application {
                 Colonne col4 = new Colonne("Colonne4");
                 Colonne col5 = new Colonne("Colonne5");
 
-                TacheMere t = new TacheMere("Tache blabla", 15, 1 , 1 , 2023);
-                TacheMere s = new TacheMere("Tache s", 5, 10, 1 ,2023);
-                TacheMere s2 = new TacheMere("Tache s2", 3, 5, 1, 2023);
-                TacheMere s3 = new TacheMere("Tache s3", 10, 4, 2, 2023);
-                TacheMere s4 = new TacheMere("Tache s4", 10, 10, 3, 2023);
-                TacheMere t2 = new TacheMere("Tache t2", 10, 2, 1, 2023);
-                SousTache st = new SousTache("Soustache st", 10, 1 , 1, 2023);
+                TacheMere t = new TacheMere("Tache blabla",col, 15, 1 , 1 , 2023);
+                TacheMere s = new TacheMere("Tache s",col, 5, 10, 1 ,2023);
+                TacheMere s2 = new TacheMere("Tache s2",col, 3, 5, 1, 2023);
+                TacheMere s3 = new TacheMere("Tache s3",col, 10, 4, 2, 2023);
+                TacheMere s4 = new TacheMere("Tache s4",col2, 10, 10, 3, 2023);
+                TacheMere t2 = new TacheMere("Tache t2",col, 10, 2, 1, 2023);
+                SousTache st = new SousTache("Soustache st",col, 10, 1 , 1, 2023);
                 t.ajouterSousTache(st);
                 t.ajouterSousTache(s);
                 s.ajouterSousTache(s2);
