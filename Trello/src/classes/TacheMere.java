@@ -12,6 +12,10 @@ public class TacheMere extends Tache {
     //attributs
     private ArrayList<Tache> sousTaches; //liste de sous-taches
 
+    public TacheMere(Tache t){
+        super(t.nom,t.getDuree(), t.getDateDebut().getDayOfMonth() ,t.getDateDebut().getMonthValue(), t.getDateDebut().getYear());
+    }
+
     //constructeur
     public TacheMere(String desc, double duree, int jour, int mois, int annee) {
         super(desc,duree, jour, mois, annee);
@@ -211,6 +215,20 @@ public class TacheMere extends Tache {
             }
         }
         return res;
+    }
+
+    /**
+     * Méthode verifSousTaches qui vérifie que les sous taches soient correctes
+     * @return true si les sous taches sont correctes, false sinon
+     */
+    public boolean verifSousTaches() {
+        return verifDureeSousTaches() && verifDateDebutSousTaches() && verifDateFinSousTaches() && verifChevauche();
+    }
+
+    public boolean verifAjout(Tache t){
+        TacheMere tmp = new TacheMere(this);
+        tmp.ajouterSousTache(t);
+        return tmp.verifSousTaches();
     }
 
 }

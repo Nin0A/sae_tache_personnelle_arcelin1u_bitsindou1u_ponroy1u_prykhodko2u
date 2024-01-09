@@ -31,7 +31,7 @@ public class TestTacheMere {
 
         //creer 2 sous taches
         t5 = new SousTache("Tache 5", 3,  1, 1, 2023);
-        t6 = new SousTache("Tache 6", 3, 4, 1, 2023);
+        t6 = new SousTache("Tache 6", 2,2, 1, 2023);
 
         //on ajoute la colonne à la liste de colonnes du tableau
         tab.ajouterColonne(col);
@@ -123,5 +123,23 @@ public class TestTacheMere {
         System.out.println(t1.getDateFin());
         System.out.println(t6.getDateFin());
         assertFalse(t1.verifDateFinSousTaches());
+    }
+
+    //test de la méthode verifChevauche quand les sous taches ne se chevauchent pas entre elles
+    @Test
+    public void testVerifChevauche_OK(){
+        assertTrue(t1.verifChevauche());
+    }
+
+    //test de la méthode verifChevauche quand les sous taches se chevauchent entre elles et sont espacées
+    @Test
+    public void testVerifChevauche_KO(){
+        assertTrue(t1.verifChevauche());
+    }
+
+    //test de la methode verifChevauche quand les sous taches se chevauchent entre elles et ne sont donc pas espacées
+    @Test
+    public void testVerifChevauche_KO2(){
+        assertFalse(t1.verifChevauche());
     }
 }

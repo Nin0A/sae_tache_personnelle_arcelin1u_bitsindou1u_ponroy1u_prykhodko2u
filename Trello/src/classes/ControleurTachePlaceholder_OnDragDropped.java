@@ -28,11 +28,12 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
             tab.supprimerTache(source);
 //            System.out.println("OK");
             //////////////////////////////////FIX
+            System.out.println((((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)));
             if (((VBox)((VBox)event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)-1 > col.liste.size() || col.liste.size()==0){
                 col.liste.add(source);
             }
             else {
-                col.liste.add(((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)/2 , source);
+                col.liste.add(((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder) , source);
             }
             root.actualiser(tab);
             success = true;
