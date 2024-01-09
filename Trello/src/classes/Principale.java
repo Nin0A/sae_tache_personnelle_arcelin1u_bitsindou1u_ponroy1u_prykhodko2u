@@ -30,6 +30,7 @@ public class Principale extends Application {
                 //test
 
 
+
                 Tableau tab = new Tableau("Tableau");
                 system.ajouterTab(tab);
                 Colonne col = new Colonne("Colonne");
@@ -127,8 +128,10 @@ public class Principale extends Application {
         ));
 
 
+
                 VueNomTableau nomTableauCourant = new VueNomTableau(system);
                 system.enregistrerObservateur(nomTableauCourant);
+
 
                 HBox containerTop = new HBox(nomTableauCourant,choixDeVues);
                 containerTop.setAlignment(Pos.CENTER_RIGHT);
@@ -136,8 +139,6 @@ public class Principale extends Application {
                 main.getChildren().addAll(containerTop);
                 main.setPadding(new Insets(20));
                 //zone vue !!! à modifier selon la vue !!!
-
-                System.out.println("courranttttttttttttttt "+system.getTableauCourant());
 
                 choixDeVues.setOnAction(e -> {
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
@@ -148,7 +149,7 @@ public class Principale extends Application {
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
-                        system.getTableauCourant().notifierObservateur();
+
 
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
                         ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
@@ -156,7 +157,7 @@ public class Principale extends Application {
                         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setPrefHeight(760);
                         scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
-
+                        system.getTableauCourant().notifierObservateur();
                         // Ajoutez le nouveau contenu à main
                         //main.getChildren().add((Node) vue.getCourant());
                         // Ajoutez le ScrollPane à main

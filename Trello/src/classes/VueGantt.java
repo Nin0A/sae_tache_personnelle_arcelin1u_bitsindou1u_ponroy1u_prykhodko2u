@@ -20,7 +20,7 @@ public class VueGantt extends Pane implements Observateur {
 
     private static final int WIDTH = 20;
     private static final int HEIGHT = 30;
-    private static final int SUBTASK_PADDING = 20;
+    private static final int SUBTASK_PADDING = 10;
     private static final int DAY_SIZE = 30;
     private static final int MONTH_SIZE = 100;
 
@@ -85,6 +85,12 @@ public class VueGantt extends Pane implements Observateur {
         return res;
     }
 
+    /**
+     * Méthode createTimeLine qui crée la ligne de temps
+     * @param baseDate date de début du projet
+     * @param days  nombre de jours du projet
+     * @return la ligne de temps dans un VBox
+     */
     private VBox createTimeLine(LocalDate baseDate, int days) {
         HBox daysLine = new HBox();
         HBox monthsLine = new HBox();

@@ -1,5 +1,6 @@
 package classes;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -51,6 +52,12 @@ public abstract class Tache extends Composant<Tache> {
      */
     public void supprimerAntecedent(Tache t){
         this.liste.remove(t);
+    }
+    /**
+     * Méthode supprimerAntecedents qui supprime toutes les taches de la liste des antécedents
+     */
+    public void supprimerAntecedents(){
+        this.liste.clear();
     }
 
     /**
@@ -124,8 +131,21 @@ public abstract class Tache extends Composant<Tache> {
         return duree;
     }
 
+    /**
+     * Méthode getDateDebut qui retourne la date de début de la tache
+     * @return la date de début de la tache
+     */
     public LocalDate getDateDebut() {
         return dateDebut;
+    }
+
+    /**
+     * Méthode getDateFin qui retourne la date de fin de la tache
+     * @return la date de fin de la tache
+     */
+    public  LocalDate getDateFin() {
+        //on additionne la durée de la tache à la date de début, puis on soustrait 1 jour pour avoir la date de fin
+        return dateDebut.plusDays((long) duree-1);
     }
 
 
@@ -148,6 +168,7 @@ public abstract class Tache extends Composant<Tache> {
         Tache tache = (Tache) o;
         return tache.idTache==this.idTache;
     }
+
 
 
 }
