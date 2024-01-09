@@ -139,8 +139,6 @@ public class Principale extends Application {
 
                 System.out.println("courranttttttttttttttt "+system.getTableauCourant());
 
-
-
                 choixDeVues.setOnAction(e -> {
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
                         Vue vue = new Vue(system.getTableauCourant());
@@ -163,7 +161,6 @@ public class Principale extends Application {
                         //main.getChildren().add((Node) vue.getCourant());
                         // Ajoutez le ScrollPane à main
                         main.getChildren().add(scrollPane);
-
                 });
 
                 pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
