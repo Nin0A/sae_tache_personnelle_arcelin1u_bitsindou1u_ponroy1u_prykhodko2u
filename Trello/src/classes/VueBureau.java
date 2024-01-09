@@ -120,7 +120,10 @@ public class VueBureau extends HBox implements Observateur {
                     //Button et Controleur
                     ct = new ControleurTache(tab, t);
                     ajouterBouton(boutonstachetmp, ct);
-                    tachetmp.getChildren().addAll(new Label(t.getNom()),boutonstachetmp);
+
+                    Label ll = new Label(t.getNom());
+                    ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
+                    tachetmp.getChildren().addAll(ll,boutonstachetmp);
                     colonnetmp.getChildren().addAll(tachetmp);
 
                     //Sous taches
@@ -247,7 +250,9 @@ public class VueBureau extends HBox implements Observateur {
 
             ControleurTache ct = new ControleurTache(tab, st);
             soutache.setPadding(new Insets(0,0,0,padding));
-            soutache.getChildren().add(new Label(st.getNom()));
+            Label l = new Label(st.getNom());
+            l.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
+            soutache.getChildren().add(l);
 
             ajouterBouton(soutache, ct);
             taches.add(soutache);

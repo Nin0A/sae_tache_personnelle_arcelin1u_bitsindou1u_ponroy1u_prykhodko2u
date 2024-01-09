@@ -139,6 +139,7 @@ public class Principale extends Application {
                 main.getChildren().addAll(containerTop);
                 main.setPadding(new Insets(20));
 
+
                 //Vue
                 Vue vue = new Vue(system);
                 system.enregistrerObservateur(vue);
@@ -151,6 +152,7 @@ public class Principale extends Application {
                 scrollPaneIni.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
                 system.notifierObservateur();
                 main.getChildren().add(scrollPaneIni);
+
 
                 choixDeVues.setOnAction(e -> {
                         system.notifierObservateur();
@@ -168,7 +170,6 @@ public class Principale extends Application {
                         scrollPane.setPrefHeight(760);
                         scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
                         main.getChildren().add(scrollPane);
-
                 });
 
                 pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");

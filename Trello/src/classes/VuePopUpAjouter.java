@@ -1,11 +1,10 @@
 package classes;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,12 +17,12 @@ public class VuePopUpAjouter extends Stage implements Observateur {
 
     private TacheMere tacheMere;
 
-    private int rangTache;
-
+    private Sujet sujet;
 
     VuePopUpAjouter(Sujet sujet, Colonne colonne) {
         this.colonneCourante = colonne;
         this.tacheMere=null;
+        this.sujet=sujet;
     }
 
     @Override
@@ -55,37 +54,52 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         Button ajouterSousTache = new Button("Ajouter une sous nouvelle sous tâche");
 
 
-        validerButton.setOnAction(event -> {
 
-                String nom = nomTextField.getText();
-                String duree = dureeTextField.getText();
 
-                Tableau t = (Tableau) sujet;
-                LocalDate selectedDate = datePicker.getValue();
-                TacheMere tacheMere = new TacheMere(nom, Double.parseDouble(duree), selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear());
-                t.ajouterTache(colonneCourante, tacheMere);
 
-                // Ajouter les sous-tâches récursivement
-                ajouterSousTachesRecursive(tacheMere,1);
-
-                // Fermer la fenêtre pop-up après validation
-                this.close();
-                t.notifierObservateur();
-
-        });
 
         annulerButton.setOnAction(event -> {
             this.close();
         });
 
-        ajouterSousTache.setOnAction(event -> {
-            creerFormSousTache(vbox,1);
-        });
+
 
         HBox buttonBox = new HBox(validerButton, annulerButton, ajouterSousTache);
-        vbox.getChildren().add(buttonBox);
+        VBox vboxcontainer = new VBox();
+        /*
+        ScrollPane sp = new ScrollPane(vboxcontainer);
+        sp.setMaxHeight(400);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        */
 
-        Scene scene = new Scene(vbox, 700, 350);
+        vbox.getChildren().addAll(buttonBox,vboxcontainer);
+
+
+        ajouterSousTache.setOnAction(event -> {
+            creerFormSousTache(vboxcontainer,1,1);
+        });
+
+        validerButton.setOnAction(event -> {
+            String nom = nomTextField.getText();
+            String duree = dureeTextField.getText();
+
+            Tableau t = (Tableau) sujet;
+            LocalDate selectedDate = datePicker.getValue();
+            TacheMere tacheMere = new TacheMere(nom, Double.parseDouble(duree), selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear());
+            t.ajouterTache(colonneCourante, tacheMere);
+
+            // Créer une nouvelle tâche mère pour chaque appel récursif
+            if(vbox.getChildren().get(vbox.getChildren().size()-1)instanceof VBox) {
+
+                ajouterSousTachesRecursive(tacheMere, vboxcontainer);
+            }
+            System.out.println("coolmavie");
+            // Fermer la fenêtre pop-up après validation
+            this.close();
+            t.notifierObservateur();
+        });
+
+        Scene scene = new Scene(vbox, 800, 550);
         this.setScene(scene);
         this.show();
     }
@@ -104,75 +118,100 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         return hbox;
     }
 
-    public void creerFormSousTache(VBox vbox,int marge) {
+    public void creerFormSousTache(VBox vbox,int rangTache,int marge) {
+        //création
         VBox vBoxSousTache = new VBox();
+        //vBoxSousTache.setStyle("-fx-border-color: black ");
         HBox hbox = new HBox();
+
+        //champ nom
         TextField nomTextField = new TextField();
         Label nomLabel = new Label("Nom :");
         hbox.getChildren().addAll(nomLabel, nomTextField);
 
+        //champ durée
         TextField dureeTextField = new TextField();
         Label dureeLabel = new Label("Durée :");
         hbox.getChildren().addAll(dureeLabel, dureeTextField);
 
+        //champ dateDébut
         DatePicker datePicker = new DatePicker();
         Label dateLabel = new Label("Date :");
         hbox.getChildren().addAll(dateLabel, datePicker);
 
+        //button ajouter sous tache
         Button ajouterSousTacheButton = new Button("Ajouter Sous-Tâche");
         hbox.getChildren().add(ajouterSousTacheButton);
 
         ajouterSousTacheButton.setOnAction(event -> {
             VBox vboxtmp=(VBox)ajouterSousTacheButton.getParent().getParent();
             vboxtmp.setSpacing(5);
-            creerFormSousTache(vboxtmp,marge+1);  // Appel récursif pour créer des sous-tâches de la sous-tâche
+            creerFormSousTache(vboxtmp,rangTache+1,marge+1);  // Appel récursif pour créer des sous-tâches de la sous-tâche
         });
 
 
-        hbox.setId("#id"+this.rangTache);
         System.out.println(rangTache);
-        this.rangTache++;
-        System.out.println("marge : " +marge);
+        hbox.setId("#id"+rangTache);
+
+
+
         hbox.setPadding(new Insets(0, 0, 0, marge*20));
         vBoxSousTache.getChildren().add(hbox);
         vbox.getChildren().add(vBoxSousTache);
 
-
-
-        tacheMere.ajouterSousTache(new TacheMere("desc",1,1,1,1111));
     }
 
-    private void ajouterSousTachesRecursive(TacheMere parent,int indice) {
-        int indiceNom = indice * 2;
-        int indiceDuree = indiceNom + 1;
+    private void ajouterSousTachesRecursive(TacheMere tacheMere, VBox vbox) {
 
-        /*
-            LocalDate selectDate = listeDeDate.get(indice).getValue();
+        //for each
+        if(vbox!=null) {
 
-            System.out.println("Parent : " + parent.getNom() + "\n"
-                    + "  --> Soustache --->>>>>>   " + listeDeTextField.get(indiceNom).getText() + " "
-                    + Double.parseDouble(listeDeTextField.get(indiceDuree).getText()) + " "
-                    + selectDate.getDayOfMonth() + " "
-                    + selectDate.getMonthValue() + " "
-                    + selectDate.getYear());
+            System.out.println("print vbox getChildren : "+vbox.getChildren());
+            for (Node vboxtmp : vbox.getChildren()) {
 
-            TacheMere sousTache = new TacheMere(
-                    listeDeTextField.get(indiceNom).getText(),
-                    Double.parseDouble(listeDeTextField.get(indiceDuree).getText()),
-                    selectDate.getDayOfMonth(),
-                    selectDate.getMonthValue(),
-                    selectDate.getYear()
-            );
+                if(vboxtmp instanceof VBox) {
+                    VBox vboxcast = (VBox) vboxtmp;
+
+                    HBox hbox = (HBox) vboxcast.getChildren().get(0);
+                    System.out.println(hbox.getChildren());
+                    // Récupérer les champs du formulaire depuis lastHBox
+                    TextField nomTextField = (TextField) hbox.getChildren().get(1);
+                    TextField dureeTextField = (TextField) hbox.getChildren().get(3);
+                    DatePicker datePicker = (DatePicker) hbox.getChildren().get(5);
+
+                    String nom = nomTextField.getText();
+                    double duree = Double.parseDouble(dureeTextField.getText());
+                    LocalDate selectedDate = datePicker.getValue();
+                    int jour = selectedDate.getDayOfMonth();
+                    int mois = selectedDate.getMonthValue();
+                    int annee = selectedDate.getYear();
+
+                    // Créer une nouvelle sous-tâche pour chaque appel récursif
+                    TacheMere sousTache = new TacheMere(nom, duree, jour, mois, annee);
+
+                    // Ajouter la sous-tâche à la tâche mère
+                    tacheMere.ajouterSousTache(sousTache);
+
+                    // Appel récursif pour ajouter des sous-tâches à la sous-tâche actuelle
+                    System.out.println(vbox);
+                        ajouterSousTachesRecursive(sousTache, vboxcast);
 
 
 
-            // Ajouter la sous-tâche au parent
-            parent.ajouterSousTache(sousTache);
+                    Tableau t = (Tableau) sujet;
+                    t.notifierObservateur();
+                }
+            }
+        }
 
-            // Appel récursif pour la sous-tâche suivante
-            ajouterSousTachesRecursive(sousTache, listeDeTextField, listeDeDate, indice + 1, rangTacheMere);
-        */
+
+
+
+
+
     }
+
+
 
     /*
     public boolean verifierChampsRemplis() {
