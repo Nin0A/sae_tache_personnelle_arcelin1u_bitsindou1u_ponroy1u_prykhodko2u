@@ -41,8 +41,8 @@ public class Systeme implements Sujet {
        if(t!=null && listTab.contains(t)){
         tableauCourant = t;
        }
-        System.out.println("nouveau tab courant : "+tableauCourant.getNom());
-        notifierObservateur();
+       System.out.println("nouveau tab courant : "+tableauCourant.getNom());
+       notifierObservateur();
     }
     /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur

@@ -39,7 +39,7 @@ public class Principale extends Application {
                 Colonne col4 = new Colonne("Colonne4");
                 Colonne col5 = new Colonne("Colonne5");
 
-                TacheMere t = new TacheMere("Tache blablablablblablblab", 15, 1 , 1 , 2023);
+                TacheMere t = new TacheMere("Tache blabla", 15, 1 , 1 , 2023);
                 TacheMere s = new TacheMere("Tache s", 5, 10, 1 ,2023);
                 TacheMere s2 = new TacheMere("Tache s2", 3, 5, 1, 2023);
                 TacheMere s3 = new TacheMere("Tache s3", 10, 4, 2, 2023);
@@ -138,18 +138,30 @@ public class Principale extends Application {
                 containerTop.setSpacing(40);
                 main.getChildren().addAll(containerTop);
                 main.setPadding(new Insets(20));
-                //zone vue !!! à modifier selon la vue !!!
+
+
+                //Vue
+                Vue vue = new Vue(system);
+                system.enregistrerObservateur(vue);
+
+                //initialistation de la vue:
+                ScrollPane scrollPaneIni = new ScrollPane((Node) vue.getCourant());
+                scrollPaneIni.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                scrollPaneIni.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                scrollPaneIni.setPrefHeight(760);
+                scrollPaneIni.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+                system.notifierObservateur();
+                main.getChildren().add(scrollPaneIni);
+
 
                 choixDeVues.setOnAction(e -> {
+                        system.notifierObservateur();
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
-                        Vue vue = new Vue(system.getTableauCourant());
-
                         // Supprimez l'ancien contenu
                         main.getChildren().removeIf(node -> node instanceof ScrollPane);
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
-
 
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
                         ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
@@ -157,10 +169,6 @@ public class Principale extends Application {
                         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setPrefHeight(760);
                         scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
-                        system.getTableauCourant().notifierObservateur();
-                        // Ajoutez le nouveau contenu à main
-                        //main.getChildren().add((Node) vue.getCourant());
-                        // Ajoutez le ScrollPane à main
                         main.getChildren().add(scrollPane);
                 });
 

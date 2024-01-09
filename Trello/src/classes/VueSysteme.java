@@ -29,7 +29,6 @@ public class VueSysteme extends VBox implements Observateur{
 
             titre.setOnAction(e -> {
                 sys.changerTableauCourrant(t);
-                sys.notifierObservateur();
             });
             this.getChildren().add(titre);
 
