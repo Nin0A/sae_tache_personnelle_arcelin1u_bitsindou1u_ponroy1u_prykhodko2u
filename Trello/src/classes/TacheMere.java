@@ -35,7 +35,6 @@ public class TacheMere extends Tache {
 
         if (!this.verifSousTaches()) {
             this.sousTaches.remove(t);
-            System.out.println("CEST NOOOOOOOOOOOOOOOON");
         }
     }
 

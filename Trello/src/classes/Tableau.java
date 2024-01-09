@@ -303,6 +303,23 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             colonne.supprimerOcurance(tache);
         }
     }
+    /**
+     * Méthode getTachebyId qui permet de retourner la tache dont l'id est passé en paramètre
+     * @param id id de la tache
+     * @return la tache dont l'id est passé en paramètre
+     */
+    public Tache getTachebyId(int id){
+        Tache res = null;
+        for (Colonne colonne : liste){
+            for (Tache tache : colonne.getTaches()){
+                if(tache.tacheExiste(id)){
+                    res = tache;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
 ///////////////////////////////////////////////////////////////
     /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur
