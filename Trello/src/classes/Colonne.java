@@ -42,6 +42,24 @@ public class Colonne extends Composant<Tache> {
      * @param t tache à ajouter à la liste
      */
     public void supprimerTache(Tache t){
+        //on supprime la tache de la liste
+        //on cherche la tache
+        for (Tache tache : this.liste){
+            if (tache instanceof TacheMere){
+                ((TacheMere) tache).supprimerSousTache(t);
+            }
+            if (tache.equals(t)){
+                this.liste.remove(tache);
+                break;
+            }
+
+        }
+
+        //on supprime tout les liens avec la tache à supprimer
+        supprimerOcurance(t);
+
+
+        /*
 
         // On vérifie si la tache est une TacheMere pour supprimer ses sous-taches si il n'y en a
         if (t instanceof TacheMere){
@@ -57,11 +75,20 @@ public class Colonne extends Composant<Tache> {
 
         // On supprime la tache de la liste de taches de la colonne
         this.liste.remove(t);
+        //non
 
-        //supprimer les dépendances de la tache supprimée
+        //supprimer les dépendances de la tache supprimée//supprimer antecedents des autres tahches??
         for (Tache tache : this.liste){
             if (tache.avoirAntecedent(t)){
                 tache.supprimerAntecedent(t);
+            }
+        }*/
+    }
+    public void supprimerOcurance(Tache tache){
+        for(Tache tachetmp : liste){
+            tachetmp.supprimerAntecedent(tache);
+            if(tachetmp instanceof TacheMere){
+                ((TacheMere) tachetmp).supprimerSousTache(tache);
             }
         }
     }

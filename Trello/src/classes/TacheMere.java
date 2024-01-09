@@ -41,6 +41,19 @@ public class TacheMere extends Tache {
      */
     public void supprimerSousTache(Tache t){
         this.sousTaches.remove(t);
+        for(Tache tache : sousTaches){
+            if (tache instanceof TacheMere){
+                ((TacheMere) tache).supprimerSousTache(t);
+            }
+        }
+    }
+
+    @Override
+    public void supprimerAntecedent(Tache t) {
+        super.supprimerAntecedent(t);
+        for(Tache tache : sousTaches){
+            tache.supprimerAntecedent(t);
+        }
     }
 
     /**
