@@ -191,7 +191,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
                         majSousTachesRecursive(sousTache, vboxcast);
                     } else {
                         // La sous-tâche n'existe pas ou n'a pas d'ID, créez une nouvelle sous-tâche
-                        TacheMere nouvelleSousTache = new TacheMere(nomTextField.getText(),Double.parseDouble(dureeTextField.getText()),datePicker.getValue().getDayOfMonth(),datePicker.getValue().getMonthValue(),datePicker.getValue().getYear()); // Assurez-vous d'ajuster la création en fonction de votre modèle
+                        TacheMere nouvelleSousTache = new TacheMere(nomTextField.getText(), tacheMere.getColonneOrigine(), Double.parseDouble(dureeTextField.getText()),datePicker.getValue().getDayOfMonth(),datePicker.getValue().getMonthValue(),datePicker.getValue().getYear() ); // Assurez-vous d'ajuster la création en fonction de votre modèle
                         nouvelleSousTache.setNom(nomTextField.getText());
                         nouvelleSousTache.setDuree(Double.parseDouble(dureeTextField.getText()));
                         nouvelleSousTache.setDate(datePicker.getValue());
