@@ -111,11 +111,16 @@ public class VueBureau extends HBox implements Observateur {
                     pl.setUserData(tab.getColonnes().get(i));
                     colonnetmp.getChildren().addAll(pl, tachetmp);
 
+                    int sousTacheId = 0;
                     //Sous taches
                     if (t instanceof TacheMere) {
                         ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
                         for (HBox hbox : listeSoustache) {
-                            colonnetmp.getChildren().addAll(hbox);
+                            VBox p = createPlaceholderTache(tab,this);
+                            p.setId("sousTache"+sousTacheId);
+                            sousTacheId++;
+                            
+                            colonnetmp.getChildren().addAll(p ,hbox);
                         }
                     }
 
