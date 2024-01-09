@@ -149,13 +149,30 @@ public class VuePopUpAjouter extends Stage implements Observateur {
             creerFormSousTache(vboxtmp,rangTache+1,marge+1);  // Appel récursif pour créer des sous-tâches de la sous-tâche
         });
 
+        Button supprimer = new Button("Supprimer");
+        hbox.getChildren().add(supprimer);
+
+        supprimer.setOnAction(event -> {
+
+
+            // Obtenez le parent du bouton (HBox)
+            HBox parentHBox = (HBox) supprimer.getParent();
+
+            // Obtenez le parent du HBox (VBox)
+            VBox parentVBox = (VBox) parentHBox.getParent();
+
+            // Supprimez le VBox du parent du VBox
+            ((VBox) parentVBox.getParent()).getChildren().remove(parentVBox);
+
+        });
+
 
         System.out.println(rangTache);
         hbox.setId("#id"+rangTache);
 
 
 
-        hbox.setPadding(new Insets(0, 0, 0, marge*20));
+        hbox.setPadding(new Insets(0, 0, 0, marge*30));
         vBoxSousTache.getChildren().add(hbox);
         vbox.getChildren().add(vBoxSousTache);
 
