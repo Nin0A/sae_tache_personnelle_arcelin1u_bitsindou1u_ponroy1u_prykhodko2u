@@ -4,5 +4,4 @@ module classes {
     requires javafx . base ;
 // ouvre le package courant a l’exterieur
     exports classes ;
-    exports test ;
 }

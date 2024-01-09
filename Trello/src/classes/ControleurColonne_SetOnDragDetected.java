@@ -24,10 +24,9 @@ public class ControleurColonne_SetOnDragDetected implements Controleur<MouseEven
         db.setContent(content);
         event.consume();
 
-        System.out.println(1111111);
 
         for (Node node : root.getChildren()) {
-            if (node instanceof VBox && "placeholder".equals(node.getId())) {
+            if (node instanceof VBox && "placeholderColonne".equals(node.getId())) {
                node.setVisible(true);
             }
         }

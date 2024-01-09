@@ -33,15 +33,26 @@ public class Systeme implements Sujet {
        }
        notifierObservateur();
     }
+
+    /**
+     * Méthode supprimerTab qui supprime un tableau de la liste de tableaux
+     * @param t tableau à supprimer de la liste
+     */
     public void supprimerTab(Tableau t){
         listTab.remove(t);
+        if(tableauCourant == t){
+            tableauCourant = this.listTab.get(0);
+        }
         notifierObservateur();
     }
+    /**
+     * Méthode changerTableauCourrant qui change le tableau courant
+     * @param t tableau à mettre en courant
+     */
     public void changerTableauCourrant(Tableau t){
        if(t!=null && listTab.contains(t)){
         tableauCourant = t;
        }
-       System.out.println("nouveau tab courant : "+tableauCourant.getNom());
        notifierObservateur();
     }
     /**
@@ -85,6 +96,10 @@ public class Systeme implements Sujet {
         return listTab;
     }
 
+    /**
+     * Méthode getTab qui retourne l'attribut le tableau
+     * @return le tableau en question
+     */
     public Tableau getTableauCourant() {
         return tableauCourant;
     }

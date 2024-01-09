@@ -63,6 +63,11 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         notifierObservateur();
     }
 
+    /**
+     * Méthode getColonneByName qui retourne la colonne dont le nom est passé en paramètre
+     * @param s nom de la colonne
+     * @return la colonne dont le nom est passé en paramètre
+     */
     public Colonne getColonneByName(String s){
         Colonne res =null;
         for(int i=0; i<this.liste.size();i++) {
@@ -249,6 +254,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     }
 
 /*
+*méthode devenue inutile avec les id
+ */
     /**
      * Méthode verifierNom qui verifie que le nom d'une tache ou sous-tache soit unique dans tout le tableau
      * @param nom nom de la tache ou sous-tache
@@ -295,6 +302,23 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         for (Colonne colonne : liste){
             colonne.supprimerOcurance(tache);
         }
+    }
+    /**
+     * Méthode getTachebyId qui permet de retourner la tache dont l'id est passé en paramètre
+     * @param id id de la tache
+     * @return la tache dont l'id est passé en paramètre
+     */
+    public Tache getTachebyId(int id){
+        Tache res = null;
+        for (Colonne colonne : liste){
+            for (Tache tache : colonne.getTaches()){
+                if(tache.tacheExiste(id)){
+                    res = tache;
+                    break;
+                }
+            }
+        }
+        return res;
     }
 ///////////////////////////////////////////////////////////////
     /**
