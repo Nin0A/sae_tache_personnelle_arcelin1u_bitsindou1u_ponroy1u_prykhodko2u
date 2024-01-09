@@ -66,11 +66,13 @@ public class VuePopUpAjouter extends Stage implements Observateur {
 
         HBox buttonBox = new HBox(validerButton, annulerButton, ajouterSousTache);
         VBox vboxcontainer = new VBox();
-
+        /*
         ScrollPane sp = new ScrollPane(vboxcontainer);
         sp.setMaxHeight(400);
         sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        vbox.getChildren().addAll(buttonBox,sp);
+        */
+
+        vbox.getChildren().addAll(buttonBox,vboxcontainer);
 
 
         ajouterSousTache.setOnAction(event -> {
@@ -88,6 +90,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
 
             // Créer une nouvelle tâche mère pour chaque appel récursif
             if(vbox.getChildren().get(vbox.getChildren().size()-1)instanceof VBox) {
+
                 ajouterSousTachesRecursive(tacheMere, vboxcontainer);
             }
             System.out.println("coolmavie");
@@ -96,7 +99,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
             t.notifierObservateur();
         });
 
-        Scene scene = new Scene(vbox, 700, 550);
+        Scene scene = new Scene(vbox, 800, 550);
         this.setScene(scene);
         this.show();
     }
@@ -118,7 +121,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
     public void creerFormSousTache(VBox vbox,int rangTache,int marge) {
         //création
         VBox vBoxSousTache = new VBox();
-        vBoxSousTache.setStyle("-fx-border-color: black ");
+        //vBoxSousTache.setStyle("-fx-border-color: black ");
         HBox hbox = new HBox();
 
         //champ nom
