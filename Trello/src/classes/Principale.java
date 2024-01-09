@@ -140,7 +140,6 @@ public class Principale extends Application {
                 main.setPadding(new Insets(20));
                 //zone vue !!! à modifier selon la vue !!!
 
-
                 choixDeVues.setOnAction(e -> {
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
                         Vue vue = new Vue(system.getTableauCourant());
@@ -163,7 +162,6 @@ public class Principale extends Application {
                         //main.getChildren().add((Node) vue.getCourant());
                         // Ajoutez le ScrollPane à main
                         main.getChildren().add(scrollPane);
-
                 });
 
                 pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
