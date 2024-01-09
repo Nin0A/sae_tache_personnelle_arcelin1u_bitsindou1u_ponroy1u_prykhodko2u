@@ -4,10 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -69,7 +66,12 @@ public class VuePopUpAjouter extends Stage implements Observateur {
 
         HBox buttonBox = new HBox(validerButton, annulerButton, ajouterSousTache);
         VBox vboxcontainer = new VBox();
-        vbox.getChildren().addAll(buttonBox,vboxcontainer);
+
+        ScrollPane sp = new ScrollPane(vboxcontainer);
+        sp.setMaxHeight(400);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        vbox.getChildren().addAll(buttonBox,sp);
+
 
         ajouterSousTache.setOnAction(event -> {
             creerFormSousTache(vboxcontainer,1,1);
@@ -94,7 +96,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
             t.notifierObservateur();
         });
 
-        Scene scene = new Scene(vbox, 700, 350);
+        Scene scene = new Scene(vbox, 700, 550);
         this.setScene(scene);
         this.show();
     }
