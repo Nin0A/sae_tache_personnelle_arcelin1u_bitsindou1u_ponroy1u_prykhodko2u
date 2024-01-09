@@ -24,12 +24,13 @@ public abstract class Tache extends Composant<Tache> {
    // private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
     //constructeur
-    public Tache(String desc, double duree, int jourDebut, int moisDebut ,int anneeDebut) {
+    public Tache(String desc,Colonne colCourante, double duree, int jourDebut, int moisDebut ,int anneeDebut) {
         super(desc);
         this.duree = duree;
         this.dateDebut = LocalDate.of(anneeDebut, moisDebut, jourDebut);
         nbTaches ++;
         idTache = nbTaches;
+        this.colonneOrigine = colCourante;
     }
 
 

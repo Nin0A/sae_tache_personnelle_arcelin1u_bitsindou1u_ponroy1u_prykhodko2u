@@ -1,14 +1,12 @@
 package classes;
 
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
 
 
@@ -58,7 +56,7 @@ public class VueBureau extends HBox implements Observateur {
                 Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
 
                 titreColonne.setStyle("-fx-font-family: 'Arial';" +
-                        "-fx-font-size: 20;" +
+                        "-fx-font-size: 30px;" +
                         "-fx-font-weight: bold;" +
                         "-fx-text-fill: #b40047;" +
                         "-fx-font-family: Krungthep;");
@@ -87,6 +85,7 @@ public class VueBureau extends HBox implements Observateur {
                 for (Tache t : tab.getColonnes().get(i).getTaches()) {
 
                     VBox tachetmp = new VBox();
+
                     tachetmp.setAlignment(Pos.CENTER_LEFT);
                     HBox boutonstachetmp = new HBox();
                     boutonstachetmp.setAlignment(Pos.CENTER_LEFT);
@@ -140,7 +139,8 @@ public class VueBureau extends HBox implements Observateur {
                                 "-fx-border-color: #cea1c9; " + // Couleur de la bordure
                                 "-fx-border-width: 2px; " +
                                 "-fx-border-radius: 50px;" + // Bordure arrondie
-                                "-fx-background-radius: 50px;" // Coin arrondi pour le fond
+                                "-fx-background-radius: 50px;" + // Coin arrondi pour le fond
+                                "-fx-font-size:  15px;"
                 );
 
                 // Style pour le survol
@@ -152,7 +152,8 @@ public class VueBureau extends HBox implements Observateur {
                                 "-fx-border-color: #ffc3f8; " +
                                 "-fx-border-width: 2px; " +
                                 "-fx-border-radius: 50px;" + // Bordure arrondie
-                                "-fx-background-radius: 50px;"
+                                "-fx-background-radius: 50px;"+
+                                "-fx-font-size:  15px;"
                 ));
 
                 // Style par défaut après le survol
@@ -164,11 +165,14 @@ public class VueBureau extends HBox implements Observateur {
                                 "-fx-border-color: #cea1c9; " + // Retour à la couleur de bordure initiale
                                 "-fx-border-width: 2px; " +
                                 "-fx-border-radius: 50px;" + // Bordure arrondie
-                                "-fx-background-radius: 50px;" // Coin arrondi pour le fond
+                                "-fx-background-radius: 50px;" +
+                                "-fx-font-size:  15px;" // Coin arrondi pour le fond
                 ));
 
                 /////////////////////////////////
                 ajouterTache.setAlignment(Pos.CENTER);
+                
+                ajouterTache.setPadding(new Insets(20,0,0,0));
                 colonnetmp.getChildren().addAll(ajouterTache);
                 colonnetmp.setMinHeight(650);
                 colonnetmp.setPadding(new Insets(20));
@@ -242,7 +246,7 @@ public class VueBureau extends HBox implements Observateur {
             ControleurTache ct = new ControleurTache(tab, st);
             soutache.setPadding(new Insets(0,0,0,padding));
             Label l = new Label(st.getNom());
-            l.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
+            l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats'");
             soutache.getChildren().add(l);
 
             ajouterBouton(soutache, ct);

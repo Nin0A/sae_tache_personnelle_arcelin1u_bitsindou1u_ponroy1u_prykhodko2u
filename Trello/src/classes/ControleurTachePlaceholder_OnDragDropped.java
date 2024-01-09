@@ -26,16 +26,11 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
             Colonne col = ((Colonne) ((VBox)(event.getGestureTarget())).getUserData());
 
             tab.supprimerTache(source);
-//            System.out.println("OK");
-            //////////////////////////////////FIX
+
             int indexOfPlaceholder = ((((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)));
             int indexOfTache = ((((VBox) ((VBox) event.getGestureSource()).getParent()).getChildren().indexOf( (VBox) event.getGestureSource() )));
+            int index =  (indexOfTache > indexOfPlaceholder) || (source.getColonneOrigine() != col)  ? (indexOfPlaceholder)/2 : (indexOfPlaceholder-2)/2 ;
 
-
-
-
-            int index =  (indexOfTache < indexOfPlaceholder) && (source.getColonneOrigine() != col)  ? (indexOfPlaceholder)/2 : (indexOfPlaceholder-2)/2 ;
-            System.out.println("indexOfTache = " + indexOfTache + " indexOfPlaceholder = " +  indexOfPlaceholder + " Index = " + index );
             if (index > col.liste.size() || col.liste.size()==0){
                 System.out.println("case1");
 

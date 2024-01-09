@@ -18,7 +18,6 @@ public class ControleurTachePlaceholder_SetOnDragOver implements Controleur<Drag
         if (event.getGestureSource() != event.getTarget() &&
                 event.getDragboard().hasString()) {
             event.acceptTransferModes(TransferMode.MOVE);
-//            placeholder.setStyle("-fx-border-color: rgba(0,0,0,0.12); -fx-border-width: 2px;");
         }
         event.consume();
     }

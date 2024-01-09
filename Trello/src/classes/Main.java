@@ -32,7 +32,7 @@ public class Main {
         col.ajouterTache(t);
         col.ajouterTache(s3);
         col2.ajouterTache(s4);*/
-        Tache t1 = new TacheMere("Tache 1", 7, 1, 12, 2023);
+        /*Tache t1 = new TacheMere("Tache 1", 7, 1, 12, 2023);
         TacheMere t2 = new TacheMere("Tache 2", 8, 1, 12, 2023);
         TacheMere t3 = new TacheMere("Tache 3", 9, 1, 12, 2023);
         TacheMere t4 = new TacheMere("Tache 4", 10, 1, 12, 2023);
@@ -59,6 +59,6 @@ public class Main {
         System.out.println(t1.liste);
         t5.afficher();
         System.out.println(t2.liste);
-        tab1.getArchive().afficher();
+        tab1.getArchive().afficher();*/
     }
 }
