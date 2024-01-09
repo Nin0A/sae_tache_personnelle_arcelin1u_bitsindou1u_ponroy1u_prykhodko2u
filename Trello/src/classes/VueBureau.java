@@ -1,18 +1,12 @@
 package classes;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -30,20 +24,6 @@ public class VueBureau extends HBox implements Observateur {
         private void setContr(VBox col){
 
             col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
-
-            col.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasString()) {
-
-                    success = true;
-                }
-                event.setDropCompleted(success);
-                event.consume();
-                System.out.println(3333);
-            });
-
-
 
         }
 
@@ -110,9 +90,10 @@ public class VueBureau extends HBox implements Observateur {
                 vbox.setAlignment(Pos.CENTER);
                 colonnetmp.getChildren().addAll(vbox);
                 ControleurTache ct = null;
-
+                int tacheId = 0;
                 //Pour chaque tache on crée une Hbox comportant le nom de la tache et on l'ajoute à la vue
                 for (Tache t : tab.getColonnes().get(i).getTaches()) {
+
                     VBox tachetmp = new VBox();
                     tachetmp.setAlignment(Pos.CENTER_LEFT);
                     HBox boutonstachetmp = new HBox();
@@ -121,7 +102,14 @@ public class VueBureau extends HBox implements Observateur {
                     ct = new ControleurTache(tab, t);
                     ajouterBouton(boutonstachetmp, ct);
                     tachetmp.getChildren().addAll(new Label(t.getNom()),boutonstachetmp);
-                    colonnetmp.getChildren().addAll(tachetmp);
+                    //placeholder pour taches
+                    tachetmp.setId("tache"+ tacheId);
+                    tacheId++;
+                    tachetmp.setOnDragDetected(new ControleurTache_SetOnDragDetected(tachetmp, this));
+                    tachetmp.setUserData(t);
+                    VBox pl = createPlaceholderTache(tab, this);
+                    pl.setUserData(tab.getColonnes().get(i));
+                    colonnetmp.getChildren().addAll(pl, tachetmp);
 
                     //Sous taches
                     if (t instanceof TacheMere) {
@@ -132,6 +120,10 @@ public class VueBureau extends HBox implements Observateur {
                     }
 
                 }
+                VBox pl = createPlaceholderTache(tab, this);
+                pl.setUserData(tab.getColonnes().get(i));
+                colonnetmp.getChildren().addAll(pl);
+
                 ct = new ControleurTache(tab, null);
                 Button ajouterTache = new Button("Ajouter une tâche");
                 ajouterTache.setOnAction(ct);
@@ -224,7 +216,7 @@ public class VueBureau extends HBox implements Observateur {
 
             this.getChildren().addAll(ajoutColonne);
             //============================
-            addPlaceholders(this, tab);
+            addPlaceholdersColonnes(this, tab);
 
         }
 
@@ -263,45 +255,38 @@ public class VueBureau extends HBox implements Observateur {
         return taches;
         }
 
-    private VBox createPlaceholder(Tableau tab, VueBureau vb) {
+    private VBox createPlaceholderColonne(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
-        placeholder.setPrefWidth(20);
         placeholder.setPrefWidth(100);
         placeholder.setStyle("-fx-background-color: black;");
-        placeholder.setId("placeholder");
+        placeholder.setId("placeholderColonne");
         placeholder.setVisible(false);
 
-        placeholder.setOnDragOver(event -> {
-            if (event.getGestureSource() != placeholder &&
-                    event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.MOVE);
-            }
-            event.consume();
-            System.out.println(2222);
-        });
+        placeholder.setOnDragOver(new ControleurPlaceholder_OnDragOver(placeholder));
 
         placeholder.setOnDragDropped(new ControleurPlaceholder_OnDragDropped(vb, placeholder, tab));
 
         return placeholder;
     }
 
+    private VBox createPlaceholderTache(Tableau tab, VueBureau vb) {
+        VBox placeholder = new VBox();
+        placeholder.setPrefWidth(100);
+        placeholder.setPrefHeight(20);
+        placeholder.setStyle("-fx-background-color: black;");
+        placeholder.setId("placeholderTache");
+        placeholder.setVisible(false);
 
+        placeholder.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver(placeholder));
+        placeholder.setOnDragDropped(new ControleurTachePlaceholder_OnDragDropped(vb, placeholder, tab));
 
-    private Node findNodeById(String id) {
-        for (Node child : getChildren()) {
-            if (id.equals(child.getId())) {
-                return child;
-            }
-        }
-        return null;
+        return placeholder;
     }
 
-    private void addPlaceholders(VueBureau vb, Tableau tab) {
-//        System.out.println("size = " + getChildren().size());
+    private void addPlaceholdersColonnes(VueBureau vb, Tableau tab) {
         int size = getChildren().size();
         for (int i = 0; i < size; i++) {
-            VBox placeholder = createPlaceholder(tab, vb);
-//            placeholder.setId(i+"pl");
+            VBox placeholder = createPlaceholderColonne(tab, vb);
             getChildren().add(i*2, placeholder);
         }
 

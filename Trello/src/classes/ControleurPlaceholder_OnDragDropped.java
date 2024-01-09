@@ -36,7 +36,6 @@ public class ControleurPlaceholder_OnDragDropped implements Controleur<DragEvent
                 int toIndex = (root.getChildren().indexOf((VBox)event.getGestureTarget())) <= fromIndex
                         ? (root.getChildren().indexOf((VBox)event.getGestureTarget())) / 2
                         : (root.getChildren().indexOf((VBox)event.getGestureTarget()) - 2) / 2;
-                System.out.println("Index =  "+toIndex + " /////from = " + fromIndex + " ////TO = "  + root.getChildren().indexOf((VBox)event.getGestureTarget()));
                 if (fromIndex < liste.size() && toIndex < liste.size()) {
 
                     Colonne elementToMove = liste.remove(fromIndex);
@@ -53,9 +52,7 @@ public class ControleurPlaceholder_OnDragDropped implements Controleur<DragEvent
 
     private VBox findColumnById(HBox root, String id) {
         for (Node node : root.getChildren()) {
-            System.out.println( "ID = "+ node.getId());
             if (node.getId() != null &&  node.getId().equals(id)) {
-                System.out.println("FOUND!!!!!!");
                 return (VBox) node;
             }
         }
