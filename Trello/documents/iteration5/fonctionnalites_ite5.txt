@@ -1,0 +1,6 @@
+Fonctionnalités prévues lors de l'itération n°5 :
+
+    - L'implémentation des méthodes de vérifications des dates et durées pour le diagramme de Gantt
+    - Ajouter le choix des antécédents quand on ajoute une tâche
+    - Implémenter la sauvegarde du Trello
+    - Finaliser l'interface graphique
