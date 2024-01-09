@@ -213,4 +213,12 @@ public class TacheMere extends Tache {
         return res;
     }
 
+    /**
+     * Méthode verifSousTaches qui vérifie que les sous taches soient correctes
+     * @return true si les sous taches sont correctes, false sinon
+     */
+    public boolean verifSousTaches() {
+        return verifDureeSousTaches() && verifDateDebutSousTaches() && verifDateFinSousTaches() && verifChevauche();
+    }
+
 }
