@@ -14,6 +14,7 @@ public class TacheMere extends Tache {
 
     public TacheMere(Tache t){
         super(t.nom,t.getColonneOrigine() ,t.getDuree(), t.getDateDebut().getDayOfMonth() ,t.getDateDebut().getMonthValue(), t.getDateDebut().getYear());
+        sousTaches = new ArrayList<>();
     }
 
     //constructeur

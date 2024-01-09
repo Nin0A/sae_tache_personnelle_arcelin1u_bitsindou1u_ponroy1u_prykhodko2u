@@ -105,15 +105,12 @@ public class VueBureau extends HBox implements Observateur {
                     ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
                     tachetmp.getChildren().addAll(ll,boutonstachetmp);
 
-
-                    int sousTacheId = 0;
                     //Sous taches
                     if (t instanceof TacheMere) {
                         ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
                         for (HBox hbox : listeSoustache) {
                             VBox p = createPlaceholderTache(tab,this);
-                            p.setId("sousTache"+sousTacheId);
-                            sousTacheId++;
+                            p.setId("soustachePlaceholder");
 
                             tachetmp.getChildren().addAll(p ,hbox);
                         }
@@ -237,7 +234,7 @@ public class VueBureau extends HBox implements Observateur {
     public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab,int padding) {
         ArrayList<HBox> taches = new ArrayList<>();
 
-
+        int sousTacheId = 0;
         for (Tache st : t.getSousTaches()) {
 
 
@@ -248,6 +245,10 @@ public class VueBureau extends HBox implements Observateur {
             Label l = new Label(st.getNom());
             l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats'");
             soutache.getChildren().add(l);
+            soutache.setId("soustache"+sousTacheId);
+            sousTacheId++;
+            soutache.setUserData(st);
+            soutache.setOnDragDetected(new ControleurTache_SetOnDragDetected(soutache, this));
 
             ajouterBouton(soutache, ct);
             taches.add(soutache);
