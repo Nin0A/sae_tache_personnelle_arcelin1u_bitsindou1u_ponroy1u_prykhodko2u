@@ -1,5 +1,8 @@
 package classes;
 
+import javafx.scene.input.DataFormat;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 //Classe TacheMere
@@ -61,6 +64,9 @@ public class TacheMere extends Tache {
         return sousTaches;
     }
 
+    /**
+     * Méthode afficher qui affiche la tache et toutes ses sous-taches
+     */
     @Override
     public void afficher() {
         super.afficher();
@@ -92,15 +98,83 @@ public class TacheMere extends Tache {
     }
 
     /**
-     * Méthode verifSousTaches qui vérifie que chaque sous tache ait une date de debut et une durée differente
-     * @return true si les sous taches sont correctes, false sinon
+     * Méthode verifDureeSousTaches qui vérifie que la somme des durées des sous taches soit inférieure ou égale à la
+     * durée de la tache mère
+     * @return true si la durée des sous taches est corrcte, false sinon
      */
-    public boolean verifSousTaches() {
+    public boolean verifDureeSousTaches() {
+        //on verifie que chaque sous tache n'ait pas la meme date de debut et que la somme des durées soient
+        // inférieurs ou égales à la durée de la tache mère
         boolean res = true;
+        double duree = 0;
         for (Tache t : sousTaches) {
-            if (t.getDateDebut().equals(this.getDateDebut()) ) {
-                res = false;
+            //on additionne les durées des sous taches
+            duree += t.getDuree();
+        }
+        if (duree > this.getDuree()) {
+            res = false;
+        }
+        return res;
+    }
+
+    /**
+     * Méthode verifDateDebutSousTaches qui vérifie que la plus petite date de début des sous taches soit égale ou
+     * supérieure à la date de début de la tache mère
+     * @return true si les dates des sous taches sont correctes, false sinon
+     */
+    public boolean verifDateDebutSousTaches() {
+        //on cherche la sous tache de la liste avec la date de debut la plus petite
+
+        //on trie d'abord la liste de sous taches par date de debut
+        boolean res = true;
+        ArrayList<Tache> listeTrie = new ArrayList<Tache>();
+        //on ajoute la premiere sous tache de la liste
+        listeTrie.add(sousTaches.get(0));
+        for (int i = 1; i < sousTaches.size(); i++) {
+            Tache tacheCourante = sousTaches.get(i);
+            int j = 0;
+            //on cherche la position de la sous tache dans la liste triée
+            while (j < listeTrie.size() && tacheCourante.getDateDebut().isAfter(listeTrie.get(j).getDateDebut())) {
+                j++;
             }
+            listeTrie.add(j, tacheCourante);
+        }
+
+        //on verifie que la date de la première sous tache soit égale ou supérieure à la date de debut de la tache mère
+        if (listeTrie.get(0).getDateDebut().isBefore(this.getDateDebut())) {
+            res = false;
+        }
+        return res;
+
+    }
+
+    /**
+     * Méthode verifDateFinSousTaches qui vérifie que la plus grande date de fin des sous taches soit égale ou
+     * inférieure à la date de fin de la tache mère
+     * @return true si les dates des sous taches sont correctes, false sinon
+     */
+    public boolean verifDateFinSousTaches() {
+        //on cherche la sous tache de la liste avec la date de fin la plus grande
+
+        //on trie d'abord la liste de sous taches par date de fin
+        boolean res = true;
+        //on trie d'abord la liste de sous taches par date de fin
+        ArrayList<Tache> listeTrie = new ArrayList<Tache>();
+        //on ajoute la premiere sous tache de la liste
+        listeTrie.add(sousTaches.get(0));
+        for (int i = 1; i < sousTaches.size(); i++) {
+            Tache tacheCourante = sousTaches.get(i);
+            int j = 0;
+            //on cherche la position de la sous tache dans la liste triée
+            while (j < listeTrie.size() && tacheCourante.getDateFin().isBefore(listeTrie.get(j).getDateFin())) {
+                j++;
+            }
+            listeTrie.add(j, tacheCourante);
+        }
+
+        //on verifie que la date de la dernière sous tache soit égale ou inférieure à la date de fin de la tache mère
+        if (listeTrie.get(listeTrie.size()-1).getDateFin().isAfter(this.getDateFin())) {
+            res = false;
         }
         return res;
     }
@@ -109,20 +183,35 @@ public class TacheMere extends Tache {
      * Méthode verifChevauche qui verifie que la durée d'une sous tache ne chevauche pas sur celle d'une autre
      * @return true si les sous taches ne se chevauchent pas, false sinon
      */
-    public boolean verifChevauche() { //A FINIR
+
+    public boolean verifChevauche() {
         boolean res = true;
-        Tache tacheCourante;
+        //Pour chaque sous tache on cherche sa date de fin et de début
         for (Tache t : sousTaches) {
-            tacheCourante = t;
-            //on verifie que la somme de la durée et de la date de debut d'une sous tache ne chevauche pas sur la date de debut d'une autre sous tache
-            for (Tache t2 : sousTaches) {
-                if (tacheCourante != t2) {
-                    if (tacheCourante.getDateDebut().plusDays((long) tacheCourante.getDuree()).isAfter(t2.getDateDebut()) && tacheCourante.getDateDebut().isBefore(t2.getDateDebut())) {
-                        res = false;
-                    }
+
+            //on cherche la date de fin de la sous tache
+            LocalDate dateFin = t.getDateFin();
+
+            //on cherche la date de début de la sous tache
+            LocalDate dateDebut = t.getDateDebut();
+
+            //on cherche la sous tache suivante dans la liste
+            int index = sousTaches.indexOf(t);
+            if (index < sousTaches.size() - 1) {
+                Tache tacheSuivante = sousTaches.get(index + 1);
+
+                //on cherche la date de début de la sous tache suivante
+                LocalDate dateDebutSuivante = tacheSuivante.getDateDebut();
+                //on cherche la date de fin de la sous tache suivante
+                LocalDate dateFinSuivante = tacheSuivante.getDateDebut().plusDays((long) tacheSuivante.getDuree());
+                //on verifie que la date de début de la sous tache suivante soit supérieure à la date de fin de la sous tache
+                //courante
+                if (dateDebutSuivante.isBefore(dateFin)) {
+                    res = false;
                 }
             }
         }
         return res;
     }
+
 }

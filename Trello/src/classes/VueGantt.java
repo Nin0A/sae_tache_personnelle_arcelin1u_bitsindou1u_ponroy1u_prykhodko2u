@@ -85,6 +85,12 @@ public class VueGantt extends Pane implements Observateur {
         return res;
     }
 
+    /**
+     * Méthode createTimeLine qui crée la ligne de temps
+     * @param baseDate date de début du projet
+     * @param days  nombre de jours du projet
+     * @return la ligne de temps dans un VBox
+     */
     private VBox createTimeLine(LocalDate baseDate, int days) {
         HBox daysLine = new HBox();
         HBox monthsLine = new HBox();
