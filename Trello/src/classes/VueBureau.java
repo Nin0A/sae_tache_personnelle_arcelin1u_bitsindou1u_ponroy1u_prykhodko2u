@@ -179,7 +179,7 @@ public class VueBureau extends HBox implements Observateur {
 
                 /////////////////////////////////
                 ajouterTache.setAlignment(Pos.CENTER);
-                
+
                 ajouterTache.setPadding(new Insets(20,0,0,0));
                 colonnetmp.getChildren().addAll(ajouterTache);
                 colonnetmp.setMinHeight(650);
