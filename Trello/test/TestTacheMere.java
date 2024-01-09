@@ -31,7 +31,7 @@ public class TestTacheMere {
 
         //creer 2 sous taches
         t5 = new SousTache("Tache 5", 3,  1, 1, 2023);
-        t6 = new SousTache("Tache 6", 10, 4, 1, 2023);
+        t6 = new SousTache("Tache 6", 3, 4, 1, 2023);
 
         //on ajoute la colonne à la liste de colonnes du tableau
         tab.ajouterColonne(col);
@@ -118,8 +118,10 @@ public class TestTacheMere {
 
     //test de la méthode verifDateFinSousTaches quand la date de fin de la plus grande sous tache est supérieure à
     // la date de fin de la tache mère
-    /*@Test
+    @Test
     public void testVerifDateFinSousTaches_KO(){
+        System.out.println(t1.getDateFin());
+        System.out.println(t6.getDateFin());
         assertFalse(t1.verifDateFinSousTaches());
-    }*/
+    }
 }

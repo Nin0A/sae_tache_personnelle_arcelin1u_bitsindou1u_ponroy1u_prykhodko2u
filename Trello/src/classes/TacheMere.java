@@ -166,12 +166,11 @@ public class TacheMere extends Tache {
             Tache tacheCourante = sousTaches.get(i);
             int j = 0;
             //on cherche la position de la sous tache dans la liste triée
-            while (j < listeTrie.size() && tacheCourante.getDateFin().isBefore(listeTrie.get(j).getDateFin())) {
+            while (j < listeTrie.size() && tacheCourante.getDateFin().isAfter(listeTrie.get(j).getDateFin())) {
                 j++;
             }
             listeTrie.add(j, tacheCourante);
         }
-
         //on verifie que la date de la dernière sous tache soit égale ou inférieure à la date de fin de la tache mère
         if (listeTrie.get(listeTrie.size()-1).getDateFin().isAfter(this.getDateFin())) {
             res = false;
