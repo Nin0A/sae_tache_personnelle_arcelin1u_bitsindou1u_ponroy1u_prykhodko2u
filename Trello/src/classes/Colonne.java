@@ -1,15 +1,19 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 //Classe Colonne
 public class Colonne extends Composant<Tache> {
 
-
+    private static int nbColonnes = 0;
+    private int idColonne;
 
     //constructeur
     public Colonne(String n) {
         super(n);
+        nbColonnes++;
+        idColonne = nbColonnes;
     }
 
 
@@ -111,7 +115,6 @@ public class Colonne extends Composant<Tache> {
         for (Tache t : this.liste) {
             if (t.equals(tache)) {
                 t.setNom(nomTache);
-                System.out.println("Le nom de la tâche a été modifié");
                 tacheTrouvee = true; // on met l'indicateur à vrai si la tache est trouvée
             }
         }
@@ -139,7 +142,35 @@ public class Colonne extends Composant<Tache> {
     public ArrayList<Tache> getTaches() {
         return liste;
     }
+    /**
+     * Méthode getIdColonne qui retourne l'id de la colonne
+     * @return l'id de la colonne
+     */
+    public int getIdColonne() {
+        return idColonne;
+    }
 
+    /**
+     * Méthode equals
+     * @param o objet avec lequel on compare
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Colonne colonne = (Colonne) o;
+        return idColonne == colonne.getIdColonne();
+    }
+    /**
+     * Méthode hashCode
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdColonne());
+    }
 
     /**
      * Méthode afficher qui affiche toutes les taches de la colonne correctement indentées

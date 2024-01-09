@@ -12,20 +12,30 @@ public class Vue extends HBox implements Observateur  {
     private Observateur courant;
     private  Systeme sujet;
 
+    /**
+     * Constructeur de la classe Vue
+     * @param systeme système à observer
+     */
     public Vue(Systeme systeme ){
         sujet = systeme;
         Tableau tableau = systeme.getTableauCourant();
-        this.vueBureau = new VueBureau();
-        tableau.enregistrerObservateur(vueBureau);
-        this.vueListe = new VueListe();
-        tableau.enregistrerObservateur(vueListe);
-        this.vueGantt = new VueGantt();
-        tableau.enregistrerObservateur(vueGantt);
-        this.vueArchive = new VueArchive();
-        tableau.enregistrerObservateur(vueArchive);
-        courant=vueBureau;
-    }
 
+        this.vueBureau = new VueBureau();
+        this.vueListe = new VueListe();
+        this.vueGantt = new VueGantt();
+        this.vueArchive = new VueArchive();
+
+        tableau.enregistrerObservateur(vueBureau);
+        tableau.enregistrerObservateur(vueListe);
+        tableau.enregistrerObservateur(vueGantt);
+        tableau.enregistrerObservateur(vueArchive);
+
+        courant = vueBureau;
+    }
+    /**
+     * Méthode changerVue qui change la vue courante
+     * @param s nom de la vue à mettre en courant
+     */
     public void changerVue(String s){
         this.getChildren().clear();
         switch (s){
@@ -45,11 +55,17 @@ public class Vue extends HBox implements Observateur  {
         this.getChildren().add((Node)courant);
 
     }
-
+    /**
+     * Méthode getCourant qui retourne l'observateur courant
+     * @return l'observateur courant
+     */
     public Observateur getCourant(){
         return courant;
     }
-
+    /**
+     * Méthode actualiser qui actualise la vue
+     * @param sujet sujet à observer
+     */
     @Override
     public void actualiser(Sujet sujet) {
         this.sujet.supprimerObservateur(vueBureau);
@@ -59,13 +75,19 @@ public class Vue extends HBox implements Observateur  {
         this.sujet = (Systeme) sujet;
 
         Tableau tableau = this.sujet.getTableauCourant();
+        /*this.vueBureau = new VueBureau();
+        this.vueListe = new VueListe();
+        this.vueGantt = new VueGantt();
+        this.vueArchive = new VueArchive();*/
+
         tableau.enregistrerObservateur(vueBureau);
         tableau.enregistrerObservateur(vueListe);
         tableau.enregistrerObservateur(vueGantt);
         tableau.enregistrerObservateur(vueArchive);
 
         this.getChildren().clear();
-        this.getChildren().add((Node)courant);
         this.courant.actualiser(tableau);
+        this.getChildren().add((Node)courant);
+
     }
 }
