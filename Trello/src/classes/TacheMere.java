@@ -13,14 +13,14 @@ public class TacheMere extends Tache {
     private ArrayList<Tache> sousTaches; //liste de sous-taches
 
     //constructeur
-    public TacheMere(String desc, double duree, int jour, int mois, int annee) {
-        super(desc,duree, jour, mois, annee);
+    public TacheMere(String desc,Colonne colonne, double duree, int jour, int mois, int annee) {
+        super(desc,colonne,duree, jour, mois, annee);
         sousTaches = new ArrayList<Tache>();
     }
 
     //constructeur par copie: pour transformer une sous tache en tache mere
     public TacheMere (SousTache t){
-        super(t.getNom(),t.getDuree(),t.getDateDebut().getDayOfMonth(),t.getDateDebut().getMonthValue(),t.getDateDebut().getYear());
+        super(t.getNom(),t.getColonneOrigine(),t.getDuree(),t.getDateDebut().getDayOfMonth(),t.getDateDebut().getMonthValue(),t.getDateDebut().getYear());
         sousTaches = new ArrayList<Tache>();
     }
 
@@ -30,8 +30,11 @@ public class TacheMere extends Tache {
      */
     public void ajouterSousTache(Tache t){
         //on vérifie que la sous tache n'est pas déjà dans la liste
-        if (!this.sousTaches.contains(t)&& t!=null) {
+        if(t!=null && !this.sousTaches.contains(t))
             this.sousTaches.add(t);
+
+        if (!this.verifSousTaches()) {
+            this.sousTaches.remove(t);
         }
     }
 
