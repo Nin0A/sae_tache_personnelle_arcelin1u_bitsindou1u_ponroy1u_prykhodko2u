@@ -7,15 +7,43 @@ import java.util.ArrayList;
 public class Systeme implements Sujet {
 
     //attributs
-    private Tableau tab; //tableau contenu
-    private ArrayList<Observateur> obsTab; //liste des observateurs du tableau
+    private ArrayList<Tableau> listTab; //tableaux du système
+    private Tableau tableauCourant; //tableau courant
+    private ArrayList<Observateur> observateurs; //liste des observateurs du système
 
     //constructeur
-    Systeme(Tableau t) {
-        tab = t;
-        obsTab = new ArrayList<>();
+    Systeme(){
+        this.listTab =new ArrayList<Tableau>();
+        observateurs = new ArrayList<>();
+        this.tableauCourant = null;
     }
 
+
+    /**
+     * Méthode ajouterTab qui ajoute un tableau à la liste de tableaux
+     * @param t tableau à ajouter à la liste
+     */
+   public void ajouterTab(Tableau t){
+       if(tableauCourant == null){
+           tableauCourant = t;
+       }
+       if(t!=null && !listTab.contains(t)){
+       this.listTab.add(t);
+
+       }
+       notifierObservateur();
+    }
+    public void supprimerTab(Tableau t){
+        listTab.remove(t);
+        notifierObservateur();
+    }
+    public void changerTableauCourrant(Tableau t){
+       if(t!=null && listTab.contains(t)){
+        tableauCourant = t;
+       }
+        System.out.println("nouveau tab courant : "+tableauCourant.getNom());
+        notifierObservateur();
+    }
     /**
      * Méhtode enregistrerObservateur qui ajoute l'observateur
      * observé en paramètre à la liste d'observateurs
@@ -23,7 +51,7 @@ public class Systeme implements Sujet {
      */
     @Override
     public void enregistrerObservateur(Observateur o) {
-        obsTab.add(o);
+        observateurs.add(o);
     }
 
     /**
@@ -33,7 +61,7 @@ public class Systeme implements Sujet {
      */
     @Override
     public void supprimerObservateur(Observateur o) {
-        obsTab.remove(o);
+        observateurs.remove(o);
     }
 
     /**
@@ -42,25 +70,22 @@ public class Systeme implements Sujet {
      */
     @Override
     public void notifierObservateur() {
-        for (Observateur obs : obsTab) {
+        for (Observateur obs : observateurs) {
             obs.actualiser(this);
         }
+        for(Tableau tab : listTab){
+            tab.notifierObservateur();
+        }
     }
-
-    /**
-     * Méthode setTab qui remplace le tableau par le paramètre
-     * @param tab tableau par lequel remplacé
-     */
-    public void setTab(Tableau tab) {
-        this.tab = tab;
-    }
-
     /**
      * Méthode getTab qui retourne l'attribut le tableau
      * @return le tableau en question
      */
-    public Tableau getTab() {
-        return tab;
+    public ArrayList<Tableau> getTableaux() {
+        return listTab;
     }
 
+    public Tableau getTableauCourant() {
+        return tableauCourant;
+    }
 }

@@ -257,9 +257,11 @@ public class VueBureau extends HBox implements Observateur {
 
     private VBox createPlaceholderColonne(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
+
         placeholder.setPrefWidth(100);
         placeholder.setStyle("-fx-background-color: black;");
         placeholder.setId("placeholderColonne");
+
         placeholder.setVisible(false);
 
         placeholder.setOnDragOver(new ControleurPlaceholder_OnDragOver(placeholder));

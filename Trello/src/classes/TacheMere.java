@@ -38,6 +38,19 @@ public class TacheMere extends Tache {
      */
     public void supprimerSousTache(Tache t){
         this.sousTaches.remove(t);
+        for(Tache tache : sousTaches){
+            if (tache instanceof TacheMere){
+                ((TacheMere) tache).supprimerSousTache(t);
+            }
+        }
+    }
+
+    @Override
+    public void supprimerAntecedent(Tache t) {
+        super.supprimerAntecedent(t);
+        for(Tache tache : sousTaches){
+            tache.supprimerAntecedent(t);
+        }
     }
 
     /**
@@ -76,5 +89,40 @@ public class TacheMere extends Tache {
      */
     public void reinitialiser(){
         sousTaches = new ArrayList<Tache>();
+    }
+
+    /**
+     * Méthode verifSousTaches qui vérifie que chaque sous tache ait une date de debut et une durée differente
+     * @return true si les sous taches sont correctes, false sinon
+     */
+    public boolean verifSousTaches() {
+        boolean res = true;
+        for (Tache t : sousTaches) {
+            if (t.getDateDebut().equals(this.getDateDebut()) ) {
+                res = false;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Méthode verifChevauche qui verifie que la durée d'une sous tache ne chevauche pas sur celle d'une autre
+     * @return true si les sous taches ne se chevauchent pas, false sinon
+     */
+    public boolean verifChevauche() { //A FINIR
+        boolean res = true;
+        Tache tacheCourante;
+        for (Tache t : sousTaches) {
+            tacheCourante = t;
+            //on verifie que la somme de la durée et de la date de debut d'une sous tache ne chevauche pas sur la date de debut d'une autre sous tache
+            for (Tache t2 : sousTaches) {
+                if (tacheCourante != t2) {
+                    if (tacheCourante.getDateDebut().plusDays((long) tacheCourante.getDuree()).isAfter(t2.getDateDebut()) && tacheCourante.getDateDebut().isBefore(t2.getDateDebut())) {
+                        res = false;
+                    }
+                }
+            }
+        }
+        return res;
     }
 }

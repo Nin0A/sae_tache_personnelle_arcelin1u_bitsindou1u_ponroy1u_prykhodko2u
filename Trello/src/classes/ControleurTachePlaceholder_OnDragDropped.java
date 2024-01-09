@@ -24,12 +24,16 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
         if (db.hasString()) {
             Tache source = (Tache) (((VBox)(event.getGestureSource())).getUserData());
             Colonne col = ((Colonne) ((VBox)(event.getGestureTarget())).getUserData());
-            
+
             tab.supprimerTache(source);
 //            System.out.println("OK");
-
-            col.liste.add( ((VBox)((VBox)event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder), source);
-
+            //////////////////////////////////FIX
+            if (((VBox)((VBox)event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)-1 > col.liste.size() || col.liste.size()==0){
+                col.liste.add(source);
+            }
+            else {
+                col.liste.add(((VBox) ((VBox) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)/2 , source);
+            }
             root.actualiser(tab);
             success = true;
         }

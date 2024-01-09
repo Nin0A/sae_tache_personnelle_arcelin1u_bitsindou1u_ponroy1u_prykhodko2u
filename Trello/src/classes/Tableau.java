@@ -13,8 +13,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     private Colonne archive; //Colonne des archives
 
 
-    private String nom;
-
     //constructeur
     public Tableau(String n) {
         super(n);
@@ -132,33 +130,37 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public void archiverTache(Tache t) {
         Colonne depart = chercherColonne(t);
         t.setColonneOrigine(depart);
+        if(t instanceof TacheMere){
+            for(Tache tache : ((TacheMere) t).getSousTaches()){
+                tache.setColonneOrigine(depart);
+            }
+        }
 
         //Liste des sous taches de la tache
-        ArrayList<Tache> sousTaches = new ArrayList<>();
+        //ArrayList<Tache> sousTaches = new ArrayList<>();
+
 
         //on recupere la liste des sous taches de la tache si elle est une tache mere
         /*if (t instanceof TacheMere) {
             sousTaches = ((TacheMere) t).getSousTaches();
         }*/
 
-
-
+        //si la tache est une tache mere et sous tache d'une autre tache mere, on en
+        
         //on vérifie que la tache n'est pas deja archivée
         if (!verifTacheArchive(t)) {
+            //on supprime tout lien du tableau avec la tache archivée
+            this.supprimerOcurance(t);
+            t.supprimerAntecedents();
             archive.liste.add(t);
             //on retire la tache de la colonne de depart
             depart.liste.remove(t);
-
-            /*for (Tache sousTache : sousTaches) {
-                archiverTache(sousTache);
-                //on retire aussi ses sous taches de la colonne de depart
-                depart.liste.remove(sousTache);
-            }*/
         }
-
         notifierObservateur();
 
     }
+
+
 
     /**
      * Méthode verifTacheArchive qui verifie si la tache n'est pas deja archivée
@@ -182,30 +184,13 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     public void desarchiverTache(Tache t) {
         Colonne depart = t.getColonneOrigine();
-        t.setColonneOrigine(depart);
-
-        //Liste des sous taches de la tache
-        ArrayList<Tache> sousTaches = new ArrayList<>();
-
-        //on recupere la liste des sous taches de la tache si elle est une tache mere
-        if (t instanceof TacheMere) {
-            sousTaches = ((TacheMere) t).getSousTaches();
-        }
+        //t.setColonneOrigine(depart);
 
         //on retire la tache de la colonne de depart
-        archive.liste.remove(t);
-
-        //on retire aussi ses sous taches de la colonne de depart
-        for (Tache sousTache : sousTaches) {
-            archive.liste.remove(sousTache);
-        }
+        archive.supprimerTache(t);/////////////////////////////////non?
 
         //on ajoute la tache à la colonne des archives
         depart.liste.add(t);
-
-        //on ajoute aussi ses sous taches à la colonne des archives si il y en a
-        depart.liste.addAll(sousTaches);
-
         notifierObservateur();
     }
 
@@ -305,6 +290,11 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             }
         }
         return colonne;
+    }
+    public void supprimerOcurance(Tache tache){
+        for (Colonne colonne : liste){
+            colonne.supprimerOcurance(tache);
+        }
     }
 ///////////////////////////////////////////////////////////////
     /**
