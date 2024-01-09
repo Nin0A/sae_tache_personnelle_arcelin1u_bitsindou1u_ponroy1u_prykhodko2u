@@ -17,16 +17,12 @@ public class VueBureau extends HBox implements Observateur {
 
     //POUR L'ITERATION 2 /!\
 
-
-
-
         //===============================================
         private void setContr(VBox col){
 
             col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
 
         }
-
 
         /**
         * Méhtode actualiser qui permet d'actualiser le sujet colonnes par colonnes
@@ -55,10 +51,6 @@ public class VueBureau extends HBox implements Observateur {
 
                 //----------------------------------
                 setContr(colonnetmp);
-//                setTabContr(colonnetmp);
-
-
-
 
                 HBox zoneHauteColonne = new HBox();
 
@@ -264,7 +256,7 @@ public class VueBureau extends HBox implements Observateur {
         VBox placeholder = new VBox();
 
         placeholder.setPrefWidth(100);
-        placeholder.setStyle("-fx-background-color: black;");
+        placeholder.setStyle("-fx-background-color: #3387a6;");
         placeholder.setId("placeholderColonne");
 
         placeholder.setVisible(false);
@@ -280,7 +272,7 @@ public class VueBureau extends HBox implements Observateur {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(100);
         placeholder.setPrefHeight(20);
-        placeholder.setStyle("-fx-background-color: black;");
+        placeholder.setStyle("-fx-background-color: #3387a6;");
         placeholder.setId("placeholderTache");
         placeholder.setVisible(false);
 

@@ -30,9 +30,13 @@ public class ControleurTache_SetOnDragDetected implements Controleur<MouseEvent>
 
         for (Node col :  root.getChildren()) {
             for (Node node : ((VBox)col).getChildren() )
-            if (node instanceof VBox && "placeholderTache".equals(node.getId())) {
+            if (node instanceof VBox && "placeholderTache".equals(node.getId()) ) {
                 node.setVisible(true);
             }
+            else if(node instanceof VBox && "placeholderSousTache".equals(node.getId()) ){
+
+            }
+
         }
     }
 }
