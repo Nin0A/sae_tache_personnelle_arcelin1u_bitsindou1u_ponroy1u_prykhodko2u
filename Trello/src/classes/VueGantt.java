@@ -32,33 +32,39 @@ public class VueGantt extends Pane implements Observateur {
 
 
     private void buildGantt() {
-
         this.getChildren().clear();
-        this.setStyle("-fx-background-color: rgb(255,255,255,0.5)");
-
-        LocalDate baseDate = determinerBaseDate(tableau).get(0);
-        LocalDate endDate = determinerBaseDate(tableau).get(1);
-        long totalDaysLong = ChronoUnit.DAYS.between(baseDate, endDate) + 1;
-        int totalDays = Math.toIntExact(totalDaysLong);
-
-        VBox timeLine = createTimeLine(baseDate, totalDays);
-        this.getChildren().add(timeLine);
-
-        double yPos = 100;
+        int nbTaches = 0;
         for (Colonne colonne : tableau.getColonnes()) {
-            for (Tache tache : colonne.getTaches()) {
-                yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
+            nbTaches += colonne.getTaches().size();
+        }
+        if(nbTaches != 0){
+            this.setStyle("-fx-background-color: rgb(255,255,255,0.5)");
+
+            LocalDate baseDate = determinerBaseDate(tableau).get(0);
+            LocalDate endDate = determinerBaseDate(tableau).get(1);
+            long totalDaysLong = ChronoUnit.DAYS.between(baseDate, endDate) + 1;
+            int totalDays = Math.toIntExact(totalDaysLong);
+
+            VBox timeLine = createTimeLine(baseDate, totalDays);
+            this.getChildren().add(timeLine);
+
+            double yPos = 100;
+            for (Colonne colonne : tableau.getColonnes()) {
+                for (Tache tache : colonne.getTaches()) {
+                    yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
+                }
+            }
+
+            drawDependencies();
+
+            yPos = 100;
+            for (Colonne colonne : tableau.getColonnes()) {
+                for (Tache tache : colonne.getTaches()) {
+                    yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
+                }
             }
         }
 
-        drawDependencies();
-
-        yPos = 100;
-        for (Colonne colonne : tableau.getColonnes()) {
-            for (Tache tache : colonne.getTaches()) {
-                yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
-            }
-        }
     }
 
     private  ArrayList<LocalDate> determinerBaseDate(Tableau tableau) {

@@ -8,7 +8,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class VueSysteme extends VBox implements Observateur{
-
+    /***
+     * Méthode actualiser qui actualise la vue
+     */
     @Override
     public void actualiser(Sujet sujet) {
         Systeme sys = (Systeme) sujet;
