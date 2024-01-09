@@ -24,7 +24,6 @@ public class VueSysteme extends VBox implements Observateur{
             Button titre = new Button(t.getNom());
             titre.setOnAction(e -> {
                 sys.changerTableauCourrant(t);
-                sys.notifierObservateur();
             });
             this.getChildren().add(titre);
 

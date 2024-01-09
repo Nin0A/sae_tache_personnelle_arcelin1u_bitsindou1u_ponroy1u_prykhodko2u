@@ -146,7 +146,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         }*/
 
         //si la tache est une tache mere et sous tache d'une autre tache mere, on en
-        
+
         //on vérifie que la tache n'est pas deja archivée
         if (!verifTacheArchive(t)) {
             //on supprime tout lien du tableau avec la tache archivée
