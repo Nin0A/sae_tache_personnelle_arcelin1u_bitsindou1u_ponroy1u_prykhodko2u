@@ -1,6 +1,5 @@
 package classes;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -71,7 +70,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                 t.ajouterTache(colonneCourante, tacheMere);
                 System.out.println(t+" et "+colonneCourante+" et "+tacheMere);
 
-                System.out.println(t.getColonneByName("Colonne").getTaches());
+                System.out.println(t.getColonneById("Colonne").getTaches());
 
                 if (vbox.getChildren().get(vbox.getChildren().size() - 1) instanceof VBox) {
                     ajouterSousTachesRecursive(tacheMere, vboxcontainer);

@@ -1,7 +1,6 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 //Classe Tableau
 
@@ -35,9 +34,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         if (!this.liste.contains(c)) {
             this.liste.add(c);
             notifierObservateur();
-        } else {
-            //Sinon, on génère une exception
-            throw new IllegalArgumentException("La colonne existe déjà");
         }
 
 
@@ -68,7 +64,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param s nom de la colonne
      * @return la colonne dont le nom est passé en paramètre
      */
-    public Colonne getColonneByName(String s){
+    public Colonne getColonneById(String s){
         Colonne res =null;
         for(int i=0; i<this.liste.size();i++) {
             if (this.liste.get(i).getNom().equals(s))
@@ -133,13 +129,13 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param t tache que l'on veut archiver
      */
     public void archiverTache(Tache t) {
-        Colonne depart = chercherColonne(t);
-        t.setColonneOrigine(depart);
-        if(t instanceof TacheMere){
+        //Colonne depart = chercherColonne(t);
+        //t.setColonneOrigine(depart);
+        /*if(t instanceof TacheMere){
             for(Tache tache : ((TacheMere) t).getSousTaches()){
                 tache.setColonneOrigine(depart);
             }
-        }
+        }*/
 
         //Liste des sous taches de la tache
         //ArrayList<Tache> sousTaches = new ArrayList<>();
@@ -159,10 +155,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             t.supprimerAntecedents();
             archive.liste.add(t);
             //on retire la tache de la colonne de depart
-            depart.liste.remove(t);
+            t.colonneOrigine.liste.remove(t);
         }
         notifierObservateur();
-
     }
 
 
@@ -234,8 +229,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param tache tache à supprimer
      */
     public void supprimerTache(Tache tache){
-       Colonne colonne = chercherColonne(tache);
-       colonne.supprimerTache(tache);
+       //Colonne colonne = chercherColonne(tache);
+       tache.colonneOrigine.supprimerTache(tache);
        notifierObservateur();
     }
 
@@ -316,6 +311,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
                 if(res != null)
                     break;
             }
+            if(res != null)
+                break;
         }
         return res;
     }

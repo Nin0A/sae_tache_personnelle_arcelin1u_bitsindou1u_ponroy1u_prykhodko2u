@@ -80,7 +80,6 @@ public class Colonne extends Composant<Tache> {
      */
     public TacheMere getTacheMere(Tache tCherchee, ArrayList<Tache> list) {
         TacheMere tMere = null;
-
         // On parcourt la liste de taches
         for (Tache t : list) {
 

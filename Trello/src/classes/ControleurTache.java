@@ -3,7 +3,6 @@ package classes;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ControleurTache implements Controleur<ActionEvent>{
@@ -47,7 +46,7 @@ public class ControleurTache implements Controleur<ActionEvent>{
                 VBox vboxtmp2 = (VBox) vboxtmp1.getChildren().get(0);
 
                 Label labeltmp = (Label) vboxtmp2.getChildren().get(0);
-                VuePopUpAjouter vpu = new VuePopUpAjouter(modele, modele.getColonneByName(labeltmp.getText()));
+                VuePopUpAjouter vpu = new VuePopUpAjouter(modele, modele.getColonneById(labeltmp.getText()));
                 vpu.actualiser(modele);
             break;
         }
