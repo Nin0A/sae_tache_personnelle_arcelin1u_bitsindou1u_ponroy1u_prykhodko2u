@@ -64,10 +64,10 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param s nom de la colonne
      * @return la colonne dont le nom est passé en paramètre
      */
-    public Colonne getColonneById(String s){
+    public Colonne getColonneById(int id){
         Colonne res =null;
         for(int i=0; i<this.liste.size();i++) {
-            if (this.liste.get(i).getNom().equals(s))
+            if (this.liste.get(i).getIdColonne() == id)
                 res = this.liste.get(i);
         }
 

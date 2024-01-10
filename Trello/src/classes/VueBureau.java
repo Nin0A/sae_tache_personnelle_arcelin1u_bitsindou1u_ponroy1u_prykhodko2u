@@ -54,6 +54,8 @@ public class VueBureau extends HBox implements Observateur {
 
             //On créer les titres des colonnes et on les ajoute à la vue
             Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
+            Label idColonne = new Label(tab.getColonnes().get(i).getIdColonne() + "");
+            idColonne.setVisible(false);
 
             titreColonne.setStyle("-fx-font-family: 'Arial';" +
                     "-fx-font-size: 30px;" +
@@ -69,12 +71,12 @@ public class VueBureau extends HBox implements Observateur {
             Button suppr = new Button("Supprimer");
             suppr.setOnAction(cc);
 
-            zoneHauteColonne.getChildren().addAll(titreColonne, modif, suppr);
+            zoneHauteColonne.getChildren().addAll(titreColonne,idColonne, modif, suppr);
 
 
             VBox vbox = new VBox();
 
-            vbox.getChildren().addAll(titreColonne, zoneHauteColonne);
+            vbox.getChildren().addAll(titreColonne,idColonne, zoneHauteColonne);
             zoneHauteColonne.setAlignment(Pos.CENTER);
 
             vbox.setAlignment(Pos.CENTER);

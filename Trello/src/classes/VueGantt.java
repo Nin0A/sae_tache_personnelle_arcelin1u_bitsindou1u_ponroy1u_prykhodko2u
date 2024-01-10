@@ -58,7 +58,7 @@ public class VueGantt extends Pane implements Observateur {
             HBox containerCheckBox = new HBox(10); // Ajout de la distance entre les checkboxes (10 pixels)
 
             for (Colonne colonnetmp : tableau.getColonnes()) {
-                for (Tache tache : tableau.getColonneByName(colonnetmp.getNom()).getTaches()) {
+                for (Tache tache : tableau.getColonneById(colonnetmp.getIdColonne()).getTaches()) {
                     HBox miniCheckBox = new HBox();
                     CheckBox checkBox = new CheckBox(tache.getNom());
                     miniCheckBox.getChildren().addAll(checkBox,new Label(""+tache.idTache));
@@ -107,7 +107,6 @@ public class VueGantt extends Pane implements Observateur {
 
 
             validerButton.setOnAction(event -> {
-                System.out.println("oui");
                 ArrayList listeIdTache = new ArrayList<>();
 
                 // Parcourir toutes les HBox dans containerCheckBox lors du clic sur le bouton "Valider"
@@ -135,13 +134,10 @@ public class VueGantt extends Pane implements Observateur {
 
 
                 //clear des taches
-                    System.out.println("solution ? "+this.getChildren());
 
                     for(int i=1;i<this.getChildren().size();i++){
                         this.getChildren().remove(i);
                     }
-
-                    System.out.println("solution ? 2"+this.getChildren());
 
 
                     for(int i=1;i<this.getChildren().size();i++){
@@ -173,7 +169,6 @@ public class VueGantt extends Pane implements Observateur {
                         }
                     }
                 }
-                System.out.println("test"+tableau.getColonneByName("Colonne").getTaches());
             });
 
 

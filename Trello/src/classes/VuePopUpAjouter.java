@@ -66,11 +66,9 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                 Tableau t = (Tableau) sujet;
                 TacheMere tacheMere = new TacheMere(nom, colonneCourante, Double.parseDouble(duree),
                         selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear());
-                System.out.println(t);
                 t.ajouterTache(colonneCourante, tacheMere);
-                System.out.println(t+" et "+colonneCourante+" et "+tacheMere);
 
-                System.out.println(t.getColonneById("Colonne").getTaches());
+
 
                 if (vbox.getChildren().get(vbox.getChildren().size() - 1) instanceof VBox) {
                     ajouterSousTachesRecursive(tacheMere, vboxcontainer);
