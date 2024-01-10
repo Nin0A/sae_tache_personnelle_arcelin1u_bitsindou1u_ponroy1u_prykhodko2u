@@ -96,6 +96,8 @@ public class VueBureau extends HBox implements Observateur {
                     //placeholder pour taches
                     tachetmp.setId("tache"+ tacheId);
                     tacheId++;
+//                    tachetmp.setOnDragDropped();
+                    tachetmp.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
                     tachetmp.setOnDragDetected(new ControleurTache_SetOnDragDetected(tachetmp, this));
                     tachetmp.setUserData(t);
                     VBox pl = createPlaceholderTache(tab, this);
@@ -249,6 +251,8 @@ public class VueBureau extends HBox implements Observateur {
             sousTacheId++;
             soutache.setUserData(st);
             soutache.setOnDragDetected(new ControleurTache_SetOnDragDetected(soutache, this));
+            soutache.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
+//            soutache.setOnDragDropped();
 
             ajouterBouton(soutache, ct);
             taches.add(soutache);
@@ -288,7 +292,7 @@ public class VueBureau extends HBox implements Observateur {
         placeholder.setId("placeholderTache");
         placeholder.setVisible(false);
 
-        placeholder.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver(placeholder));
+        placeholder.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
         placeholder.setOnDragDropped(new ControleurTachePlaceholder_OnDragDropped(vb, placeholder, tab));
 
         return placeholder;
