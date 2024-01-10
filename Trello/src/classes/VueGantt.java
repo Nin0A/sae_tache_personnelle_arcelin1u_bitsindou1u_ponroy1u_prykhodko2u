@@ -58,7 +58,7 @@ public class VueGantt extends Pane implements Observateur {
             HBox containerCheckBox = new HBox(10); // Ajout de la distance entre les checkboxes (10 pixels)
 
             for (Colonne colonnetmp : tableau.getColonnes()) {
-                for (Tache tache : tableau.getColonneByName(colonnetmp.getNom()).getTaches()) {
+                for (Tache tache : tableau.getColonneById(colonnetmp.getNom()).getTaches()) {
                     HBox miniCheckBox = new HBox();
                     CheckBox checkBox = new CheckBox(tache.getNom());
                     miniCheckBox.getChildren().addAll(checkBox,new Label(""+tache.idTache));
@@ -173,7 +173,7 @@ public class VueGantt extends Pane implements Observateur {
                         }
                     }
                 }
-                System.out.println("test"+tableau.getColonneByName("Colonne").getTaches());
+                System.out.println("test"+tableau.getColonneById("Colonne").getTaches());
             });
 
 
