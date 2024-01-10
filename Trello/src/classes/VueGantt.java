@@ -291,7 +291,7 @@ public class VueGantt extends Pane implements Observateur {
         label.setStyle("-fx-text-fill: white;");
 
 
-        Pane taskPane = new Pane();
+        Pane taskPane = new     Pane();
         taskPane.getChildren().addAll(rect, label);
 
         return taskPane;

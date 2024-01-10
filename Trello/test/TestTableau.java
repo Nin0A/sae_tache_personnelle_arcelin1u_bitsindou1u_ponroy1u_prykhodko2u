@@ -24,14 +24,15 @@ public class TestTableau {
 
 
         //créer 4 taches mères
-        t1 = new TacheMere("Tache 1",col, 7, 1 , 1, 1);
-        t2 = new TacheMere("Tache 2",col, 10, 1 , 1, 1);
-        t3 = new TacheMere("Tache 3",col, 5, 1 , 1, 1);
+        t1 = new TacheMere("Tache 1", col, 7, 1 , 1, 1);
+        t2 = new TacheMere("Tache 2", col,10, 1 , 1, 1);
+        t3 = new TacheMere("Tache 3", col,5, 1 , 1, 1);
         t4 = new TacheMere("Tache 4", col,5, 1 , 1, 1);
 
         //creer 2 sous taches
         t5 = new SousTache("Tache 5", col,5,  1, 1, 1);
-        t6 = new SousTache("Tache 6",col, 5,  1, 1, 1);
+        t6 = new SousTache("Tache 6", col,5,  1, 1, 1);
+
 
         //on ajoute les colonnes à la liste de colonnes du tableau
         tab.ajouterColonne(col);

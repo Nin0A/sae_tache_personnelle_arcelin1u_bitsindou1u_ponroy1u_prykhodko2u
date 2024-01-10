@@ -225,7 +225,7 @@ public class TestColonne {
     public void test_ajouterTache_tache_mere() { //test 14
 
         //on crée une nouvelle tache mere
-        TacheMere tache = new TacheMere("Tache 7",col, 5, 1 , 1 , 2023);
+        TacheMere tache = new TacheMere("Tache 7", col, 5, 1 , 1 , 2023);
 
         //on ajoute la tache mere à la colonne
         col.ajouterTache(tache);
@@ -239,7 +239,7 @@ public class TestColonne {
     public void test_ajouterTache_sous_tache() { //test 15
 
         //on crée une nouvelle sous tache
-        SousTache tache = new SousTache("Tache 7", col,5, 1 , 1, 2023);
+        SousTache tache = new SousTache("Tache 7",  col,5, 1 , 1, 2023);
 
         //on ajoute la sous tache à la colonne
         col.ajouterTache(tache);

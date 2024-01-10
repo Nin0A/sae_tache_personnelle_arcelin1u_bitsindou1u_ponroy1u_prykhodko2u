@@ -2,8 +2,12 @@ package classes;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -37,6 +41,58 @@ public class VueListe extends VBox implements Observateur {
                 }
             }
             TreeView<Composant> tree  = new TreeView<>(colonne);
+            Observateur ob = this;
+            tree.setCellFactory(tv -> new TreeCell<Composant>() {
+                @Override
+                protected void updateItem(Composant item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        setText(item.toString());
+                        setUserData(item);
+                        if (item instanceof Tache){
+                        setId("tache");
+
+                            setOnDragDetected(event -> {
+                                if (!isEmpty()) {
+                                    Dragboard db = startDragAndDrop(TransferMode.MOVE);
+                                    ClipboardContent content = new ClipboardContent();
+                                    content.putString(getItem().toString());
+                                    db.setContent(content);
+                                    event.consume();
+                                }
+                            });
+
+                            setOnDragDropped(new ControleurTache_SetOnDragDropped(ob, tab));
+                        }
+
+                        setOnDragOver(event -> {
+                            if (event.getGestureSource() != this &&
+                                    event.getDragboard().hasString()) {
+                                event.acceptTransferModes(TransferMode.MOVE);
+                            }
+                            event.consume();
+                        });
+
+                        setOnDragDone(event -> {
+                            actualiser(tab);
+                            event.consume();
+                        });
+
+
+
+//
+//                        setOnDragDetected(new ControleurTache_SetOnDragDetected( ,this) );
+//                        setOnDragOver(new );
+//                        setOnDragDropped(new );
+//                        setOnDragDone(new );
+                    }
+                }
+            });
+
+
             this.getChildren().add(tree);
         }
 

@@ -4,6 +4,7 @@ import javafx.scene.input.DataFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 //Classe TacheMere
 
@@ -14,8 +15,10 @@ public class TacheMere extends Tache {
 
     public TacheMere(Tache t){
         super(t.nom,t.getColonneOrigine() ,t.getDuree(), t.getDateDebut().getDayOfMonth() ,t.getDateDebut().getMonthValue(), t.getDateDebut().getYear());
-        sousTaches = new ArrayList<>();
+        sousTaches = new ArrayList<>(((TacheMere)t).getSousTaches());
     }
+
+
 
     //constructeur
     public TacheMere(String desc,Colonne colonne, double duree, int jour, int mois, int annee) {
@@ -39,12 +42,14 @@ public class TacheMere extends Tache {
      */
     public void ajouterSousTache(Tache t){
         //on vérifie que la sous tache n'est pas déjà dans la liste
-        if(t!=null && !this.sousTaches.contains(t))
-            this.sousTaches.add(t);
+//        boolean res = false;
 
-        if (!this.verifSousTaches()) {
-            this.sousTaches.remove(t);
+        if(verifAjout(t) && t!=null && !this.sousTaches.contains(t)) {
+            this.sousTaches.add(t);
         }
+//            this.sousTaches.add(t);
+//            System.out.println("REMOVED");
+//        return res;
     }
 
     /**
@@ -132,7 +137,7 @@ public class TacheMere extends Tache {
      * durée de la tache mère
      * @return true si la durée des sous taches est corrcte, false sinon
      */
-    public boolean verifDureeSousTaches() {
+    public boolean verifDureeSousTaches(Tache tache) {
         //on verifie que chaque sous tache n'ait pas la meme date de debut et que la somme des durées soient
         // inférieurs ou égales à la durée de la tache mère
         boolean res = true;
@@ -141,6 +146,8 @@ public class TacheMere extends Tache {
             //on additionne les durées des sous taches
             duree += t.getDuree();
         }
+        if (tache!=null)
+            duree += tache.getDuree();
         if (duree > this.getDuree()) {
             res = false;
         }
@@ -152,15 +159,21 @@ public class TacheMere extends Tache {
      * supérieure à la date de début de la tache mère
      * @return true si les dates des sous taches sont correctes, false sinon
      */
-    public boolean verifDateDebutSousTaches() {
+    public boolean verifDateDebutSousTaches(Tache t) {
         //on cherche la sous tache de la liste avec la date de debut la plus petite
 
         //on trie d'abord la liste de sous taches par date de debut
         boolean res = true;
         ArrayList<Tache> listeTrie = new ArrayList<Tache>();
         //on ajoute la premiere sous tache de la liste
-        listeTrie.add(sousTaches.get(0));
-        for (int i = 1; i < sousTaches.size(); i++) {
+        int start = 0;
+        if (t!=null)
+            listeTrie.add(t);
+        else {
+            listeTrie.add(sousTaches.get(0));
+            start=1;
+        }
+        for (int i = start; i < sousTaches.size(); i++) {
             Tache tacheCourante = sousTaches.get(i);
             int j = 0;
             //on cherche la position de la sous tache dans la liste triée
@@ -183,7 +196,7 @@ public class TacheMere extends Tache {
      * inférieure à la date de fin de la tache mère
      * @return true si les dates des sous taches sont correctes, false sinon
      */
-    public boolean verifDateFinSousTaches() {
+    public boolean verifDateFinSousTaches(Tache t) {
         //on cherche la sous tache de la liste avec la date de fin la plus grande
 
         //on trie d'abord la liste de sous taches par date de fin
@@ -191,8 +204,14 @@ public class TacheMere extends Tache {
         //on trie d'abord la liste de sous taches par date de fin
         ArrayList<Tache> listeTrie = new ArrayList<Tache>();
         //on ajoute la premiere sous tache de la liste
-        listeTrie.add(sousTaches.get(0));
-        for (int i = 1; i < sousTaches.size(); i++) {
+        int start = 0;
+        if (t!=null)
+            listeTrie.add(t);
+        else {
+            listeTrie.add(sousTaches.get(0));
+            start=1;
+        }
+        for (int i = start; i < sousTaches.size(); i++) {
             Tache tacheCourante = sousTaches.get(i);
             int j = 0;
             //on cherche la position de la sous tache dans la liste triée
@@ -213,26 +232,30 @@ public class TacheMere extends Tache {
      * @return true si les sous taches ne se chevauchent pas, false sinon
      */
 
-    public boolean verifChevauche() {
+    public boolean verifChevauche(Tache tache) {
+        ArrayList<Tache> cloned = new ArrayList<>(sousTaches);
+        if (tache!=null)
+            cloned.add(tache);
+
         boolean res = true;
         //Pour chaque sous tache on cherche sa date de fin et de début
-        for (Tache t : sousTaches) {
+        for (Tache t : cloned) {
 
             //on cherche la date de fin de la sous tache
             LocalDate dateFin = t.getDateFin();
 
             //on cherche la date de début de la sous tache
-            LocalDate dateDebut = t.getDateDebut();
+//            LocalDate dateDebut = t.getDateDebut();
 
             //on cherche la sous tache suivante dans la liste
-            int index = sousTaches.indexOf(t);
-            if (index < sousTaches.size() - 1) {
-                Tache tacheSuivante = sousTaches.get(index + 1);
+            int index = cloned.indexOf(t);
+            if (index < cloned.size() - 1) {
+                Tache tacheSuivante = cloned.get(index + 1);
 
                 //on cherche la date de début de la sous tache suivante
                 LocalDate dateDebutSuivante = tacheSuivante.getDateDebut();
                 //on cherche la date de fin de la sous tache suivante
-                LocalDate dateFinSuivante = tacheSuivante.getDateDebut().plusDays((long) tacheSuivante.getDuree());
+//                LocalDate dateFinSuivante = tacheSuivante.getDateDebut().plusDays((long) tacheSuivante.getDuree());
                 //on verifie que la date de début de la sous tache suivante soit supérieure à la date de fin de la sous tache
                 //courante
                 if (dateDebutSuivante.isBefore(dateFin)|| dateFin.isAfter(dateDebutSuivante)) {
@@ -243,12 +266,13 @@ public class TacheMere extends Tache {
         return res;
     }
 
+
     /**
      * Méthode verifSousTaches qui vérifie que les sous taches soient correctes
      * @return true si les sous taches sont correctes, false sinon
      */
-    public boolean verifSousTaches() {
-        return verifDureeSousTaches() && verifDateDebutSousTaches() && verifDateFinSousTaches() && verifChevauche();
+    public boolean verifSousTaches(Tache t) {
+        return verifDureeSousTaches(t) && verifDateDebutSousTaches(t) && verifDateFinSousTaches(t) && verifChevauche(t);
     }
     /**
      * Méthode verifAjout qui vérifie que l'ajout d'une sous tache soit correcte
@@ -256,9 +280,12 @@ public class TacheMere extends Tache {
      * @return true si l'ajout est correcte, false sinon
      */
     public boolean verifAjout(Tache t){
-        TacheMere tmp = new TacheMere(this);
-        tmp.ajouterSousTache(t);
-        return tmp.verifSousTaches();
+
+        System.out.println(verifDureeSousTaches(t));
+        System.out.println(verifDateDebutSousTaches(t));
+        System.out.println(verifDateFinSousTaches(t));
+        System.out.println(verifChevauche(t));
+        return verifSousTaches(t);
     }
 
 }

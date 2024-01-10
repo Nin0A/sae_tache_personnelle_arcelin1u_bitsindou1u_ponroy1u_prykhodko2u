@@ -32,31 +32,12 @@ public class ControleurTache_SetOnDragDetected implements Controleur<MouseEvent>
         event.consume();
 
 
-        for (Node col :  root.getChildren()) {
-            for (Node node : ((Pane)col).getChildren() ) {
+        for (Node col : root.getChildren()) {
+            for (Node node : ((Pane) col).getChildren()) {
                 if ("placeholderTache".equals(node.getId())) {
                     node.setVisible(true);
-                } else if (node.getId() != null && node.getId().contains("tache")) {
-                    showPlaceholdersOfTasks(node);
                 }
             }
-        }
-    }
-
-
-    private void showPlaceholdersOfTasks(Node node){
-        if (node.getId().contains("tache")) {
-            int i = 0;
-            for (Node sousTache : ((Pane) node).getChildren()){
-                if (i==0) {
-                    i++;
-                    continue;
-                }
-                if ("placeholderTache".equals(sousTache.getId())) {
-//                    Tache t = (Tache) ((Pane)sousTache.getParent()).getChildren().get(((Pane)sousTache.getParent()).getChildren().indexOf(sousTache)-1).getUserData();
-                }
-            }
-//            node.setVisible(true);
         }
     }
 }

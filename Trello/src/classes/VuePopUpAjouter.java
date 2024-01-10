@@ -291,28 +291,28 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                 int mois = selectedDate.getMonthValue();
                 int annee = selectedDate.getYear();
 
-                if (!tacheMere.verifDateDebutSousTaches()) {
+                if (!tacheMere.verifDateDebutSousTaches(null)) {
                     Label erreurLabel = new Label("La date de début de la sous-tâche " + nom + " est antérieure à la date de début de la tâche mère !");
                     erreurLabel.setStyle("-fx-text-fill: red");
                     vbox.getChildren().add(erreurLabel);
                     return false;
                 }
 
-                if (!tacheMere.verifDateFinSousTaches()) {
+                if (!tacheMere.verifDateFinSousTaches(null)) {
                     Label erreurLabel = new Label("La date de fin de la sous-tâche " + nom + " est supérieur à la date de fin de la tâche mère !");
                     erreurLabel.setStyle("-fx-text-fill: red");
                     vbox.getChildren().add(erreurLabel);
                     return false;
                 }
 
-                if (!tacheMere.verifDureeSousTaches()) {
+                if (!tacheMere.verifDureeSousTaches(null)) {
                     Label erreurLabel = new Label("La durée de la sous-tâche " + nom + " est supérieure à la durée de la tâche mère !");
                     erreurLabel.setStyle("-fx-text-fill: red");
                     vbox.getChildren().add(erreurLabel);
                     return false;
                 }
 
-                if (!tacheMere.verifChevauche()) {
+                if (!tacheMere.verifChevauche(null  )) {
                     return false;
                 }
             }

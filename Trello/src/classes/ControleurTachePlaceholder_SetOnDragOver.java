@@ -6,12 +6,6 @@ import javafx.scene.layout.VBox;
 
 public class ControleurTachePlaceholder_SetOnDragOver implements Controleur<DragEvent> {
 
-    private VBox placeholder;
-
-    ControleurTachePlaceholder_SetOnDragOver(VBox pl){
-        placeholder = pl;
-    }
-
     /**
      * Méthode handle
      * @param event action

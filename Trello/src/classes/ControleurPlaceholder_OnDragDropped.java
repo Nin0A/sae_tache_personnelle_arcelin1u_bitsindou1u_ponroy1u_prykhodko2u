@@ -39,7 +39,7 @@ public class ControleurPlaceholder_OnDragDropped implements Controleur<DragEvent
             int placeholderIndex = root.getChildren().indexOf(placeholder);
             if (placeholderIndex+1 != root.getChildren().indexOf(column) && placeholderIndex-1 != root.getChildren().indexOf(column)){
                 ArrayList<Colonne> liste =  tab.getColonnes();
-
+//                System.out.println("1111111111111111111111111");
                 int fromIndex = Integer.parseInt(nodeId);
                 int toIndex = (root.getChildren().indexOf((VBox)event.getGestureTarget())) <= fromIndex
                         ? (root.getChildren().indexOf((VBox)event.getGestureTarget())) / 2
