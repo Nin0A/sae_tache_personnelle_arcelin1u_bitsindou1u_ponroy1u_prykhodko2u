@@ -92,7 +92,9 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
         Button validerButton = new Button("Valider");
         Button annulerButton = new Button("Annuler");
+        Button ajouterSousTache = new Button("Ajouter une sous nouvelle sous tâche");
 
+        ajouterSousTache.setOnAction(event -> creerFormSousTache(vboxcontainer, 1, 1));
         validerButton.setOnAction(event -> {
             tache.setNom(nomTextField.getText());
             tache.setDuree(Double.parseDouble(dureeTextField.getText()));
@@ -110,7 +112,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
             this.close();
         });
 
-        HBox buttonBox = new HBox(validerButton, annulerButton);
+        HBox buttonBox = new HBox(validerButton, annulerButton,ajouterSousTache);
         vbox.getChildren().addAll(buttonBox,vboxcontainer);
 
         Scene scene = new Scene(vbox, 700, 350);

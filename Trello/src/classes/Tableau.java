@@ -23,7 +23,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * Méthode ajouterColonne qui ajoute une colonne à un tableau
      * @param c colonne à ajouter
      */
-    public void ajouterColonne(Colonne c){
+    public synchronized void ajouterColonne(Colonne c){
 
         //on vérifie que la colonne à ajouter n'est pas null
         if (c == null) {
@@ -43,7 +43,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * Méthode supprimerColonne qui supprime  une colonne d'un tableau
      * @param c colonne à supprimer
      */
-    public void supprimerColonne(Colonne c){
+    public synchronized void supprimerColonne(Colonne c){
 
         //on vérifie que la colonne à supprimer n'est pas null
         if (c == null) {
@@ -79,7 +79,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param t tache à déplacer
      * @param arrivee colonne où on veut déplacer la tache
      */
-    public void deplacerTache(Tache t, Colonne arrivee) {
+    public synchronized void deplacerTache(Tache t, Colonne arrivee) {
 
         Colonne depart = chercherColonne(t);
 
@@ -128,23 +128,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * Méthode archiverTache qui permet d'archiver la tache en parametre
      * @param t tache que l'on veut archiver
      */
-    public void archiverTache(Tache t) {
-        //Colonne depart = chercherColonne(t);
-        //t.setColonneOrigine(depart);
-        /*if(t instanceof TacheMere){
-            for(Tache tache : ((TacheMere) t).getSousTaches()){
-                tache.setColonneOrigine(depart);
-            }
-        }*/
-
-        //Liste des sous taches de la tache
-        //ArrayList<Tache> sousTaches = new ArrayList<>();
-
-
-        //on recupere la liste des sous taches de la tache si elle est une tache mere
-        /*if (t instanceof TacheMere) {
-            sousTaches = ((TacheMere) t).getSousTaches();
-        }*/
+    public synchronized void archiverTache(Tache t) {
 
         //si la tache est une tache mere et sous tache d'une autre tache mere, on en
 
