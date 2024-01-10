@@ -24,14 +24,14 @@ public class TestTacheMere {
         col = new Colonne("Colonne A");
 
         //créer 4 taches mères
-        t1 = new TacheMere("Tache 1", 7, 1 , 1, 2023);
-        t2 = new TacheMere("Tache 2", 10, 1 , 1, 1);
-        t3 = new TacheMere("Tache 3", 5, 1 , 1, 1);
-        t4 = new TacheMere("Tache 4", 5, 1 , 1, 1);
+        t1 = new TacheMere("Tache 1",col, 10, 1 , 1, 2023);
+        t2 = new TacheMere("Tache 2",col, 5, 1 , 1, 2023);
+        t3 = new TacheMere("Tache 3",col, 5, 1 , 1, 1);
+        t4 = new TacheMere("Tache 4",col, 5, 1 , 1, 1);
 
         //creer 2 sous taches
-        t5 = new SousTache("Tache 5", 3,  1, 1, 2023);
-        t6 = new SousTache("Tache 6", 2,2, 1, 2023);
+        t5 = new SousTache("Tache 5", col,4,  4, 1, 2023);
+        t6 = new SousTache("Tache 6", col,2,2, 1, 2023);
 
         //on ajoute la colonne à la liste de colonnes du tableau
         tab.ajouterColonne(col);
@@ -46,7 +46,7 @@ public class TestTacheMere {
 
         //on ajoute les sous taches 5 et 6 à la tache 1
         t1.ajouterSousTache(t5);
-        t1.ajouterSousTache(t6);
+        t1.ajouterSousTache(t2);
 
         //on ajoute les taches 1 et 2 comme antécédents de la tache 3
         t3.ajouterAntecedent(t1);
@@ -140,6 +140,16 @@ public class TestTacheMere {
     //test de la methode verifChevauche quand les sous taches se chevauchent entre elles et ne sont donc pas espacées
     @Test
     public void testVerifChevauche_KO2(){
+        assertFalse(t1.verifChevauche());
+    }
+
+    //test de la methode verifChevauche quand les sous taches dont une tache se chevauchent entre elles
+    @Test
+    public void testVerifChevauche_KO3(){
+        System.out.println(t2.getDateDebut());
+        System.out.println(t2.getDateFin());
+        System.out.println(t5.getDateDebut());
+        System.out.println(t5.getDateFin());
         assertFalse(t1.verifChevauche());
     }
 }

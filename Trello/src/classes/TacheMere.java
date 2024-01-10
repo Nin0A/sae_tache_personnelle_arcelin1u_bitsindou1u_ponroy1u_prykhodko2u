@@ -235,7 +235,7 @@ public class TacheMere extends Tache {
                 LocalDate dateFinSuivante = tacheSuivante.getDateDebut().plusDays((long) tacheSuivante.getDuree());
                 //on verifie que la date de début de la sous tache suivante soit supérieure à la date de fin de la sous tache
                 //courante
-                if (dateDebutSuivante.isBefore(dateFin)) {
+                if (dateDebutSuivante.isBefore(dateFin)|| dateFin.isAfter(dateDebutSuivante)) {
                     res = false;
                 }
             }
