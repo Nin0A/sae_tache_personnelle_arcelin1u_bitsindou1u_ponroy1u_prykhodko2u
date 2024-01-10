@@ -4,6 +4,8 @@ import javafx.scene.input.DataFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 //Classe TacheMere
@@ -42,14 +44,10 @@ public class TacheMere extends Tache {
      */
     public void ajouterSousTache(Tache t){
         //on vérifie que la sous tache n'est pas déjà dans la liste
-//        boolean res = false;
-
         if(verifAjout(t) && t!=null && !this.sousTaches.contains(t)) {
             this.sousTaches.add(t);
         }
-//            this.sousTaches.add(t);
-//            System.out.println("REMOVED");
-//        return res;
+
     }
 
     /**
@@ -231,10 +229,12 @@ public class TacheMere extends Tache {
      * Méthode verifChevauche qui verifie que la durée d'une sous tache ne chevauche pas sur celle d'une autre
      * @return true si les sous taches ne se chevauchent pas, false sinon
      */
-    
+
     public boolean verifChevauche(Tache tache) {
         ArrayList<Tache> clone = new ArrayList<>(sousTaches);
         clone.add(tache);
+
+        Collections.sort(clone, Comparator.comparing(Tache::getDateDebut));
 
         for (int i = 0; i < clone.size(); i++) {
             Tache t1 = clone.get(i);
@@ -253,6 +253,7 @@ public class TacheMere extends Tache {
     }
 
 
+
     /**
      * Méthode verifSousTaches qui vérifie que les sous taches soient correctes
      * @return true si les sous taches sont correctes, false sinon
@@ -267,10 +268,15 @@ public class TacheMere extends Tache {
      */
     public boolean verifAjout(Tache t){
 
+        System.out.println();
+        System.out.println("Start--------------------------");
         System.out.println(verifDureeSousTaches(t));
         System.out.println(verifDateDebutSousTaches(t));
         System.out.println(verifDateFinSousTaches(t));
         System.out.println(verifChevauche(t));
+        System.out.println("END*-----------------------");
+        System.out.println();
+
         return verifSousTaches(t);
     }
 

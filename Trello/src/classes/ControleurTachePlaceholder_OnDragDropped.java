@@ -33,26 +33,21 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
 
             int indexOfPlaceholder = ((((Pane) ((Pane) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)));
             int indexOfTache = ((((Pane) ((Pane) event.getGestureSource()).getParent()).getChildren().indexOf( (Pane) event.getGestureSource() )));
-            System.out.println("indexOfPlaceholder = " + indexOfPlaceholder + " indexOfTache = " + indexOfTache);
-            if (indexOfPlaceholder+1 != indexOfTache && indexOfPlaceholder-1 != indexOfTache || (source.getColonneOrigine() != col)) {
+            if (  ((Pane)event.getGestureSource()).getId().contains("soustache") || indexOfPlaceholder+1 != indexOfTache && indexOfPlaceholder-1 != indexOfTache || (source.getColonneOrigine() != col)) {
                 int index = (indexOfTache > indexOfPlaceholder) || (source.getColonneOrigine() != col) || (((Pane) event.getGestureSource()).getId()).contains("soustache")   ? (indexOfPlaceholder) / 2 : (indexOfPlaceholder - 2) / 2;
-            System.out.println("indexOfPlaceholder = " + indexOfPlaceholder + " indexOfTache = " + indexOfTache + " index = " + index + " 1 = " + (indexOfTache > indexOfPlaceholder) + " 2 = " + (source.getColonneOrigine() != col) + " 3 = " + (((Pane) event.getGestureSource()).getId()).contains("soustache"));
                 tab.supprimerTache(source);
                 if (index > col.liste.size() || col.liste.size() == 0) {
-                System.out.println("case1");
                     if (source instanceof SousTache)
                         source = new TacheMere(source);
                     col.liste.add(source);
                     source.setColonneOrigine(col);
 
                 } else {
-                System.out.println("case2");
                     if (source instanceof SousTache)
                         source = new TacheMere(source);
                     col.liste.add(index, source);
                     source.setColonneOrigine(col);
                     tab.getColonnes().get(1).afficher();
-//                    System.out.println();
                 }
                 success = true;
             }

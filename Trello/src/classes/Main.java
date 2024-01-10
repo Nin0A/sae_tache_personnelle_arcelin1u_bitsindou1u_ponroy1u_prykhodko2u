@@ -57,22 +57,11 @@ public class Main {
         tab1.ajouterColonne(col1);
         tab1.ajouterColonne(col2);
         Tache res = tab1.getTachebyId(t2.getId());
-        System.out.println(res);
         res = tab1.getTachebyId(t4.getId());
-        System.out.println(res);
         res = tab1.getTachebyId(t5.getId());
-        System.out.println(res);
         res = tab1.getTachebyId(t1.getId());
-        System.out.println(res);
         t5.afficher();
-        /*
-        System.out.println(t1.liste);
-        t5.afficher();
-        tab1.archiverTache(t2);
-        System.out.println(t1.liste);
-        t5.afficher();
-        System.out.println(t2.liste);
-        tab1.getArchive().afficher();*/
+
 
     }
 }

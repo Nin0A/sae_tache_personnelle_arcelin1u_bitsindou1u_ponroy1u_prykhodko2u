@@ -29,7 +29,6 @@ public class ControleurTache_SetOnDragDropped implements Controleur<DragEvent> {
                 if (event.getGestureSource() instanceof TreeCell && ((TreeCell<?>)event.getGestureTarget()).getUserData() instanceof Colonne){
                     move = (Tache) ((TreeCell<?>)event.getGestureSource()).getUserData();
                     Colonne col = (Colonne) ((TreeCell<?>)event.getGestureTarget()).getUserData();
-                    System.out.println(move);
                     tab.supprimerTache(move);
                     col.ajouterTache(move);
                 }
