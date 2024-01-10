@@ -18,6 +18,7 @@ public class Vue extends HBox implements Observateur  {
      */
     public Vue(Systeme systeme ){
         sujet = systeme;
+        systeme.enregistrerObservateur(this);
         Tableau tableau = systeme.getTableauCourant();
 
         this.vueBureau = new VueBureau();

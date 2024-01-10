@@ -257,7 +257,6 @@ public class VueGantt extends Pane implements Observateur {
         }
     }
 
-
     @Override
     public void actualiser(Sujet sujet) {
         if (sujet instanceof Tableau) {

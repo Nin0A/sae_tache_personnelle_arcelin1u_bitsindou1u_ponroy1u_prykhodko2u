@@ -33,7 +33,6 @@ public class Principale extends Application {
                 //test
 
 
-
                 Tableau tab = new Tableau("Tableau");
                 system.ajouterTab(tab);
                 Colonne col = new Colonne("Colonne");
@@ -157,7 +156,7 @@ public class Principale extends Application {
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
-                        system.notifierObservateur();
+                        //vue.actualiser(system);
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue
                         ScrollPane scrollPane = new ScrollPane(vue);
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -167,7 +166,6 @@ public class Principale extends Application {
                         main.getChildren().add(scrollPane);
                 });
 
-                pane.setStyle(" -fx-background: linear-gradient(to bottom, #ffb6c4, #ba8ef7);");
 
 
         pane.getChildren().addAll(vueSysteme,main);
