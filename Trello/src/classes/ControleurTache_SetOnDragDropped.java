@@ -9,11 +9,11 @@ import java.time.chrono.ThaiBuddhistChronology;
 
 public class ControleurTache_SetOnDragDropped implements Controleur<DragEvent> {
 
-    private VueBureau root;
+    private Observateur root;
     private Tableau tab;
 
 
-    ControleurTache_SetOnDragDropped(VueBureau r, Tableau t){
+    ControleurTache_SetOnDragDropped(Observateur r, Tableau t){
         tab = t;
         root = r;
     }
@@ -23,22 +23,29 @@ public class ControleurTache_SetOnDragDropped implements Controleur<DragEvent> {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
-            if (((Pane)event.getGestureSource()).getUserData() instanceof Tache){
+            if (((Pane)event.getGestureSource()).getUserData() instanceof Tache && event.getGestureSource() != event.getGestureTarget()){
                 Tache move = (Tache) ((Pane)event.getGestureSource()).getUserData();
                 Tache tMere = (Tache) ((Pane)event.getGestureTarget()).getUserData();
 
-                if (tMere instanceof SousTache)
-                    tMere = new TacheMere(tMere);
-//                System.out.println("AJOUTTTT");
-                if (((TacheMere)tMere).verifAjout(move)){
-//                    System.out.println("AJOTOK");
+
+                System.out.println("AJOUTTTT");
+
+                if(((TacheMere)tMere).verifAjout(move)){
+                    System.out.println("AJOUTOKKKKKKKK");
                     tab.supprimerTache(move);
-
                     ((TacheMere)tMere).ajouterSousTache(move);
-
                     success = true;
                     root.actualiser(tab);
                 }
+
+                StringBuilder str = new StringBuilder();
+
+                for(Tache t :((TacheMere) tMere).getSousTaches()){
+                    str.append(t);
+                }
+
+
+                System.out.println(str);
             }
         }
         event.setDropCompleted(success);

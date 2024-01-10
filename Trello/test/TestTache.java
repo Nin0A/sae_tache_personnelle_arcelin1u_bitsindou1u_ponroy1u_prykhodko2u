@@ -22,14 +22,14 @@ public class TestTache {
         col = new Colonne("Colonne A");
 
         //créer 4 taches mères
-         t1 = new TacheMere("Tache 1", 7, 1 , 1, 1);
-         t2 = new TacheMere("Tache 2", 10, 1 , 1, 1);
-         t3 = new TacheMere("Tache 3", 5, 1 , 1, 1);
-         t4 = new TacheMere("Tache 4", 5, 1 , 1, 1);
+         t1 = new TacheMere("Tache 1", col, 7, 1 , 1, 1);
+         t2 = new TacheMere("Tache 2", col,10, 1 , 1, 1);
+         t3 = new TacheMere("Tache 3",  col,5, 1 , 1, 1);
+         t4 = new TacheMere("Tache 4",  col,5, 1 , 1, 1);
 
          //creer 2 sous taches
-        t5 = new SousTache("Tache 5", 5,  1, 1, 1);
-        t6 = new SousTache("Tache 6", 5, 1, 1, 1);
+        t5 = new SousTache("Tache 5",  col,5,  1, 1, 1);
+        t6 = new SousTache("Tache 6",  col,5, 1, 1, 1);
 
         //on ajoute la colonne à la liste de colonnes du tableau
         tab.ajouterColonne(col);
@@ -125,7 +125,7 @@ public class TestTache {
     public void test_supprimerAntecedent_tache_pas_dans_liste(){
 
         //on supprime la tache 4 comme antécédent de la tache 3
-        t3.supprimerAntecedent(new TacheMere("Tache 4", 5, 1 , 1, 1));
+        t3.supprimerAntecedent(new TacheMere("Tache 4", col, 5, 1 , 1, 1));
 
         //on verifie qu'il n'y a pas eu de changement
         assertEquals(2, t3.getAntecedent().size());

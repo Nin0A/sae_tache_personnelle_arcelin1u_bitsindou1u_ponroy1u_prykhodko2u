@@ -49,6 +49,7 @@ public class VueBureau extends HBox implements Observateur {
 
             //----------------------------------
             setContr(colonnetmp);
+            colonnetmp.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));
 
             HBox zoneHauteColonne = new HBox();
 
@@ -99,6 +100,7 @@ public class VueBureau extends HBox implements Observateur {
                     tachetmp.setOnDragDropped(new ControleurTache_SetOnDragDropped(this, tab));
                     tachetmp.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
                     tachetmp.setOnDragDetected(new ControleurTache_SetOnDragDetected(tachetmp, this));
+                    tachetmp.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));
                     tachetmp.setUserData(t);
                     VBox pl = createPlaceholderTache(tab, this);
                     pl.setUserData(tab.getColonnes().get(i));
@@ -249,7 +251,7 @@ public class VueBureau extends HBox implements Observateur {
             sousTacheId++;
             soutache.setUserData(st);
             soutache.setOnDragDetected(new ControleurTache_SetOnDragDetected(soutache, this));
-
+            soutache.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));
             soutache.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
 
 //            soutache.setOnDragDropped();

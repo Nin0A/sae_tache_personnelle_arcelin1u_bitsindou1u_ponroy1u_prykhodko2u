@@ -22,15 +22,15 @@ public class TestColonne {
         col = new Colonne("Colonne A");
 
         //créer 4 taches mères
-        t1 = new TacheMere("Tache 1", 7, 1 , 1, 1);
-        t2 = new TacheMere("Tache 2", 10, 1 , 1, 1);
-        t3 = new TacheMere("Tache 3", 5, 1 , 1, 1);
-        t4 = new TacheMere("Tache 4", 5, 1 , 1, 1);
+        t1 = new TacheMere("Tache 1", col, 7, 1 , 1, 1);
+        t2 = new TacheMere("Tache 2", col, 10, 1 , 1, 1);
+        t3 = new TacheMere("Tache 3", col, 5, 1 , 1, 1);
+        t4 = new TacheMere("Tache 4", col, 5, 1 , 1, 1);
 
         //creer 2 sous taches
-        t5 = new SousTache("Tache 5", 5,  1, 1, 1);
-        t6 = new TacheMere("Tache 6", 5 , 1, 1, 1);
-        t7 = new SousTache("Tache 7", 5 , 1, 1, 1);
+        t5 = new SousTache("Tache 5", col, 5,  1, 1, 1);
+        t6 = new TacheMere("Tache 6", col, 5 , 1, 1, 1);
+        t7 = new SousTache("Tache 7", col, 5 , 1, 1, 1);
         t6.ajouterSousTache(t7);
         //créer des sous taches
 
@@ -225,7 +225,7 @@ public class TestColonne {
     public void test_ajouterTache_tache_mere() { //test 14
 
         //on crée une nouvelle tache mere
-        TacheMere tache = new TacheMere("Tache 7", 5, 1 , 1 , 2023);
+        TacheMere tache = new TacheMere("Tache 7", col, 5, 1 , 1 , 2023);
 
         //on ajoute la tache mere à la colonne
         col.ajouterTache(tache);
@@ -239,7 +239,7 @@ public class TestColonne {
     public void test_ajouterTache_sous_tache() { //test 15
 
         //on crée une nouvelle sous tache
-        SousTache tache = new SousTache("Tache 7", 5, 1 , 1, 2023);
+        SousTache tache = new SousTache("Tache 7",  col,5, 1 , 1, 2023);
 
         //on ajoute la sous tache à la colonne
         col.ajouterTache(tache);

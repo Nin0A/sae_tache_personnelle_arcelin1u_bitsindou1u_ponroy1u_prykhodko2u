@@ -391,7 +391,14 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     @Override
     public String toString() {
-        return this.nom;
+        StringBuilder str = new StringBuilder();
+        str.append(this.nom + "\n");
+        for (Colonne col :this.getColonnes()){
+            for(Tache t : col.getTaches()){
+                str.append(t.toString());
+            }
+        }
+        return str.toString();
     }
 
 }
