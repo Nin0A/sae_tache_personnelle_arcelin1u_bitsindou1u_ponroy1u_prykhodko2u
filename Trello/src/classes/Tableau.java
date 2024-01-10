@@ -316,6 +316,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
                 if(res != null)
                     break;
             }
+            if(res != null)
+                break;
         }
         return res;
     }

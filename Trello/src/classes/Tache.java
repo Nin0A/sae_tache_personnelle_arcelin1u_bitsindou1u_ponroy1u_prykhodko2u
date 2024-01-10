@@ -48,9 +48,13 @@ public abstract class Tache extends Composant<Tache> {
      */
     public void ajouterAntecedent(Tache t){
         //on vérifie que la tache n'est pas déjà dans la liste
-        if (!this.liste.contains(t)) {
+        //on verifie que la tache (this) n'est pas déjà dans la liste des antécédents de la tache t
+        if (!this.liste.contains(t)&&!t.etreAntecedent(this)&&t.getDateFin().isBefore(this.getDateDebut())) {
             this.liste.add(t);
+
         }
+
+
     }
 
     /**
@@ -138,7 +142,6 @@ public abstract class Tache extends Composant<Tache> {
             }
         }
         return res;
-
     }
 
 

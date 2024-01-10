@@ -14,7 +14,10 @@ public class Principale extends Application {
         public static void main(String[] args) {
                 launch(args);
         }
-
+        /**
+         * Méthode start qui lance l'application
+         * @param stage stage de l'application
+         */
         public void start(Stage stage) {
                 //initialisation
                 Systeme system = new Systeme();
@@ -154,7 +157,7 @@ public class Principale extends Application {
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
-
+                        system.notifierObservateur();
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue
                         ScrollPane scrollPane = new ScrollPane(vue);
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);

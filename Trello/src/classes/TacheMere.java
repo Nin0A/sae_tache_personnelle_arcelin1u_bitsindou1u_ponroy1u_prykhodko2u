@@ -102,6 +102,11 @@ public class TacheMere extends Tache {
         }
         return res;
     }
+    /**
+     * Méthode tacheById qui retourne la tache qui a l'id passé en paramètre
+     * @param id id de la tache recherchée
+     * @return la tache qui a l'id passé en paramètre
+     */
     public Tache tacheById(int id){
         if(this.idTache==id){
             return this;
@@ -245,7 +250,11 @@ public class TacheMere extends Tache {
     public boolean verifSousTaches() {
         return verifDureeSousTaches() && verifDateDebutSousTaches() && verifDateFinSousTaches() && verifChevauche();
     }
-
+    /**
+     * Méthode verifAjout qui vérifie que l'ajout d'une sous tache soit correcte
+     * @param t tache à ajouter
+     * @return true si l'ajout est correcte, false sinon
+     */
     public boolean verifAjout(Tache t){
         TacheMere tmp = new TacheMere(this);
         tmp.ajouterSousTache(t);
