@@ -17,6 +17,7 @@ public class Vue extends HBox implements Observateur  {
      * @param systeme système à observer
      */
     public Vue(Systeme systeme ){
+
         sujet = systeme;
         systeme.enregistrerObservateur(this);
         Tableau tableau = systeme.getTableauCourant();
@@ -56,6 +57,8 @@ public class Vue extends HBox implements Observateur  {
                 courant = vueBureau;
                 break;
         }
+        Node node =(Node)courant;
+        node.setStyle("-fx-background-color: transparent");
         this.getChildren().add((Node)courant);
 
     }

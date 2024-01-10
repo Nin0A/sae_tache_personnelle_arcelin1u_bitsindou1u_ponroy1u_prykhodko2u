@@ -2,10 +2,10 @@ package classes;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 
@@ -73,21 +73,21 @@ public class Principale extends Application {
         // Panel principal
         HBox pane = new HBox();
         pane.setPadding(new Insets(10));
-        pane.setStyle("-fx-background-color: #f0f0f0;"); // Set background color
 
         // Zone de gauche (Tableau)
 
         vueSysteme.setMinHeight(100);
         vueSysteme.setMinWidth(250);
-        vueSysteme.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
+        vueSysteme.setStyle("-fx-background-color: #a698da;-fx-background-radius: 20px;-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 10px;");
 
         // Zone de droite
         VBox main = new VBox();
         main.setMinHeight(100);
         main.setMinWidth(1030);
-        main.setStyle("-fx-border-color: white; -fx-border-width: 5px;-fx-border-radius: 20px;");
+        main.setStyle("-fx-background-color: #c3b0ff;-fx-background-radius: 20px;-fx-border-color: #ffffff; -fx-border-width: 5px;-fx-border-radius: 10px;");
         main.setSpacing(20);
         main.setAlignment(Pos.TOP_RIGHT);
+
 
         ComboBox<String> choixDeVues = new ComboBox<>();
         choixDeVues.getItems().addAll("Vue Bureau", "Vue Liste", "Vue Gantt","Vue Archive");
@@ -99,22 +99,20 @@ public class Principale extends Application {
         choixDeVues.setStyle(
                 "-fx-font-size: 14px; " +
                 "-fx-padding: 5px; " +
-                "-fx-background-color: #ffe1fd; " + // Couleur de fond
-                "-fx-text-fill: #ff0000; " + // Couleur du texte
-                "-fx-border-color: #555555; " + // Couleur de la bordure
-                "-fx-border-width: 2px; "+
+                "-fx-background-color: #ffead9; " +
+                "-fx-border-color: #ffffff; " + // Couleur de la bordure
+                "-fx-border-width: 3px; "+
                 "-fx-border-radius: 50px;" + // Bordure arrondie
-                "-fx-background-radius: 50px;" // Coin arrondi pour le fond
+                "-fx-background-radius: 40px;" // Coin arrondi pour le fond
         );
 
         // Style pour le survol
         choixDeVues.setOnMouseEntered(e -> choixDeVues.setStyle(
                 "-fx-font-size: 14px; " +
                 "-fx-padding: 5px; " +
-                "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                "-fx-text-fill: white; " + // Nouvelle couleur du texte au survol
-                "-fx-border-color: #555555; "+
-                "-fx-border-width: 2px; "+
+                "-fx-background-color: #ffffff; " + // Nouvelle couleur de fond au survol
+                "-fx-border-color: #ffead9; "+
+                "-fx-border-width: 3px; "+
                 "-fx-border-radius: 50px;" + // Bordure arrondie
                 "-fx-background-radius: 50px;"+
                 "-fx-text-fill: white;"// Coin arrondi pour le fond// Nouvelle couleur de bordure au survol
@@ -124,10 +122,9 @@ public class Principale extends Application {
         choixDeVues.setOnMouseExited(e -> choixDeVues.setStyle(
                 "-fx-font-size: 14px; " +
                 "-fx-padding: 5px; " +
-                "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
-                "-fx-text-fill: #b07171; " + // Retour à la couleur du texte blanche
-                "-fx-border-color: #555555; " + // Retour à la couleur de bordure initiale
-                "-fx-border-width: 2px; " +
+                "-fx-background-color: #ffead9; " + // Retour à la couleur de fond transparente
+                "-fx-border-color: #ffffff; " + // Retour à la couleur de bordure initiale
+                "-fx-border-width: 3px; " +
                 "-fx-border-radius: 50px;" + // Bordure arrondie
                 "-fx-background-radius: 50px;" // Coin arrondi pour le fond
         ));
@@ -159,22 +156,25 @@ public class Principale extends Application {
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
+                        vue.setStyle("-fx-background-color: transparent");
 
-                        //vue.actualiser(system);
 
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue
                         ScrollPane scrollPane = new ScrollPane(vue);
+
+
+                        scrollPane.setStyle("-fx-background-color:#c3b0ff ;-fx-background:transparent;-fx-border-radius:5000px;-fx-border-width: 20px");
+
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setPrefHeight(760);
-                        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
                         main.getChildren().add(scrollPane);
                 });
 
 
-
         pane.getChildren().addAll(vueSysteme,main);
         pane.setSpacing(5);
+        pane.setStyle("-fx-background-color: #ffcdf8");
         Scene scene = new Scene(pane, 1300, 800);
         stage.setScene(scene);
         stage.setTitle("Gestionnaire de tâches personnelles");
