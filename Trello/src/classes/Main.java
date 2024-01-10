@@ -32,27 +32,35 @@ public class Main {
         col.ajouterTache(t);
         col.ajouterTache(s3);
         col2.ajouterTache(s4);*/
-        /*Tache t1 = new TacheMere("Tache 1", 7, 1, 12, 2023);
-        TacheMere t2 = new TacheMere("Tache 2", 8, 1, 12, 2023);
-        TacheMere t3 = new TacheMere("Tache 3", 9, 1, 12, 2023);
-        TacheMere t4 = new TacheMere("Tache 4", 10, 1, 12, 2023);
-        TacheMere t5 = new TacheMere("Tache 5", 11, 1, 12, 2023);
-        TacheMere t6 = new TacheMere("Tache 6", 11, 1, 12, 2023);
+        Colonne col1 = new Colonne("Colonne 1");
+        Colonne col2 = new Colonne("Colonne 2");
 
-        t1.ajouterAntecedent(t2);
+        Tache t1 = new TacheMere("Tache 1", col1,7, 1, 12, 2023);
+        TacheMere t2 = new TacheMere("Tache 2",col1, 8, 1, 12, 2023);
+        TacheMere t3 = new TacheMere("Tache 3",col1, 9, 1, 12, 2023);
+        TacheMere t4 = new TacheMere("Tache 4",col1, 10, 1, 12, 2023);
+        TacheMere t5 = new TacheMere("Tache 5",col1, 11, 1, 12, 2023);
+        TacheMere t6 = new TacheMere("Tache 6",col1, 11, 1, 12, 2023);
+
+
         t5.ajouterSousTache(t4);
         t4.ajouterSousTache(t3);
         t3.ajouterSousTache(t2);
         t2.ajouterSousTache(t6);
 
-        Colonne col1 = new Colonne("Colonne 1");
-        Colonne col2 = new Colonne("Colonne 2");
-        col1.ajouterTache(t1);
         col1.ajouterTache(t5);
         Tableau tab1 = new Tableau("Tableau 1");
         tab1.ajouterColonne(col1);
         tab1.ajouterColonne(col2);
-
+        Tache res = tab1.getTachebyId(t2.getId());
+        System.out.println(res);
+        res = tab1.getTachebyId(t4.getId());
+        System.out.println(res);
+        res = tab1.getTachebyId(t5.getId());
+        System.out.println(res);
+        res = tab1.getTachebyId(t1.getId());
+        System.out.println(res);
+        /*
         System.out.println(t1.liste);
         t5.afficher();
         tab1.archiverTache(t2);
@@ -60,5 +68,6 @@ public class Main {
         t5.afficher();
         System.out.println(t2.liste);
         tab1.getArchive().afficher();*/
+
     }
 }
