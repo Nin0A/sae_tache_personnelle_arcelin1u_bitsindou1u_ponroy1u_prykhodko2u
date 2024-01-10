@@ -3,7 +3,6 @@ package classes;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ControleurTache implements Controleur<ActionEvent>{
@@ -45,9 +44,10 @@ public class ControleurTache implements Controleur<ActionEvent>{
             case "Ajouter une tâche":
                 VBox vboxtmp1 = (VBox)boutton.getParent();
                 VBox vboxtmp2 = (VBox) vboxtmp1.getChildren().get(0);
-
-                Label labeltmp = (Label) vboxtmp2.getChildren().get(0);
-                VuePopUpAjouter vpu = new VuePopUpAjouter(modele, modele.getColonneByName(labeltmp.getText()));
+                System.out.println("vboxtmp2.getChildren().get(1)"+vboxtmp2.getChildren());
+                Label labeltmp = (Label) vboxtmp2.getChildren().get(1);
+                System.out.println(labeltmp.getText());
+                VuePopUpAjouter vpu = new VuePopUpAjouter(modele, modele.getColonneById(Integer.parseInt(labeltmp.getText())));
                 vpu.actualiser(modele);
             break;
         }

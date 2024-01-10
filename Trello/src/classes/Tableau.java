@@ -1,7 +1,6 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 //Classe Tableau
 
@@ -24,7 +23,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * Méthode ajouterColonne qui ajoute une colonne à un tableau
      * @param c colonne à ajouter
      */
-    public void ajouterColonne(Colonne c){
+    public synchronized void ajouterColonne(Colonne c){
 
         //on vérifie que la colonne à ajouter n'est pas null
         if (c == null) {
@@ -44,7 +43,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * Méthode supprimerColonne qui supprime  une colonne d'un tableau
      * @param c colonne à supprimer
      */
-    public void supprimerColonne(Colonne c){
+    public synchronized void supprimerColonne(Colonne c){
 
         //on vérifie que la colonne à supprimer n'est pas null
         if (c == null) {
@@ -61,14 +60,14 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     }
 
     /**
-     * Méthode getColonneByName qui retourne la colonne dont le nom est passé en paramètre
-     * @param s nom de la colonne
-     * @return la colonne dont le nom est passé en paramètre
+     * Méthode getColonneById qui retourne la colonne dont l'id est passé en paramètre
+     * @param id id de la colonne
+     * @return la colonne dont l'id est passé en paramètre
      */
-    public Colonne getColonneByName(String s){
+    public Colonne getColonneById(int id){
         Colonne res =null;
         for(int i=0; i<this.liste.size();i++) {
-            if (this.liste.get(i).getNom().equals(s))
+            if (this.liste.get(i).getIdColonne() == id)
                 res = this.liste.get(i);
         }
 
@@ -80,7 +79,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param t tache à déplacer
      * @param arrivee colonne où on veut déplacer la tache
      */
-    public void deplacerTache(Tache t, Colonne arrivee) {
+    public synchronized void deplacerTache(Tache t, Colonne arrivee) {
 
         Colonne depart = chercherColonne(t);
 
@@ -129,23 +128,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * Méthode archiverTache qui permet d'archiver la tache en parametre
      * @param t tache que l'on veut archiver
      */
-    public void archiverTache(Tache t) {
-        Colonne depart = chercherColonne(t);
-        t.setColonneOrigine(depart);
-        if(t instanceof TacheMere){
-            for(Tache tache : ((TacheMere) t).getSousTaches()){
-                tache.setColonneOrigine(depart);
-            }
-        }
-
-        //Liste des sous taches de la tache
-        //ArrayList<Tache> sousTaches = new ArrayList<>();
-
-
-        //on recupere la liste des sous taches de la tache si elle est une tache mere
-        /*if (t instanceof TacheMere) {
-            sousTaches = ((TacheMere) t).getSousTaches();
-        }*/
+    public synchronized void archiverTache(Tache t) {
 
         //si la tache est une tache mere et sous tache d'une autre tache mere, on en
 
@@ -156,10 +139,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             t.supprimerAntecedents();
             archive.liste.add(t);
             //on retire la tache de la colonne de depart
-            depart.liste.remove(t);
+            t.colonneOrigine.liste.remove(t);
         }
         notifierObservateur();
-
     }
 
 
@@ -231,8 +213,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param tache tache à supprimer
      */
     public void supprimerTache(Tache tache){
-       Colonne colonne = chercherColonne(tache);
-       colonne.supprimerTache(tache);
+       //Colonne colonne = chercherColonne(tache);
+       tache.colonneOrigine.supprimerTache(tache);
        notifierObservateur();
     }
 
@@ -390,7 +372,14 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      */
     @Override
     public String toString() {
-        return this.nom;
+        StringBuilder str = new StringBuilder();
+        str.append(this.nom + "\n");
+        for (Colonne col :this.getColonnes()){
+            for(Tache t : col.getTaches()){
+                str.append(t.toString());
+            }
+        }
+        return str.toString();
     }
 
 }

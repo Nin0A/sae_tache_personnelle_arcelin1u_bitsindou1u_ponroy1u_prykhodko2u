@@ -14,8 +14,8 @@ public class VueSysteme extends VBox implements Observateur{
     @Override
     public void actualiser(Sujet sujet) {
         Systeme sys = (Systeme) sujet;
-        System.out.println(sys.getTableaux().size());
         this.setSpacing(3);
+
         this.setPadding(new Insets(20));
         this.getChildren().clear();
 

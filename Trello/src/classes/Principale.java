@@ -14,7 +14,10 @@ public class Principale extends Application {
         public static void main(String[] args) {
                 launch(args);
         }
-
+        /**
+         * Méthode start qui lance l'application
+         * @param stage stage de l'application
+         */
         public void start(Stage stage) {
                 //initialisation
                 Systeme system = new Systeme();
@@ -30,7 +33,6 @@ public class Principale extends Application {
                 //test
 
 
-
                 Tableau tab = new Tableau("Tableau");
                 system.ajouterTab(tab);
                 Colonne col = new Colonne("Colonne");
@@ -40,14 +42,16 @@ public class Principale extends Application {
                 Colonne col5 = new Colonne("Colonne5");
 
                 TacheMere t = new TacheMere("Tache blabla",col, 15, 1 , 1 , 2023);
-                TacheMere s = new TacheMere("Tache s",col, 5, 10, 1 ,2023);
+                TacheMere s = new TacheMere("Tache s",col, 4, 10, 1 ,2023);
                 TacheMere s2 = new TacheMere("Tache s2",col, 3, 5, 1, 2023);
                 TacheMere s3 = new TacheMere("Tache s3",col, 10, 4, 2, 2023);
                 TacheMere s4 = new TacheMere("Tache s4",col2, 10, 10, 3, 2023);
                 TacheMere t2 = new TacheMere("Tache t2",col, 10, 2, 1, 2023);
-                TacheMere st = new TacheMere("Soustache st",col, 10, 1 , 1, 2023);
+
+                TacheMere st = new TacheMere("Soustache st",col, 9, 1 , 1, 2023);
+
                 t.ajouterSousTache(st);
-                t.ajouterSousTache(s);
+//                t.ajouterSousTache(s);
                 s.ajouterSousTache(s2);
 
                 s4.ajouterAntecedent(s3);
@@ -59,6 +63,7 @@ public class Principale extends Application {
                 tab.ajouterColonne(col4);
                 tab.ajouterColonne(col5);
                 col.ajouterTache(t);
+                col.ajouterTache(s);
                 col.ajouterTache(t2);
                 col.ajouterTache(s3);
                 col2.ajouterTache(s4);
@@ -153,6 +158,7 @@ public class Principale extends Application {
                         vue.changerVue(cb.getValue());
                         vue.setStyle("-fx-background-color: transparent");
 
+
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue
                         ScrollPane scrollPane = new ScrollPane(vue);
 
@@ -164,9 +170,6 @@ public class Principale extends Application {
                         scrollPane.setPrefHeight(760);
                         main.getChildren().add(scrollPane);
                 });
-
-
-
 
 
         pane.getChildren().addAll(vueSysteme,main);

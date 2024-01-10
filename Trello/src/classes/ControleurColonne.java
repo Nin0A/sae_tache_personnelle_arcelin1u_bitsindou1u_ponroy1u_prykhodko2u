@@ -10,6 +10,10 @@ public class ControleurColonne implements Controleur<ActionEvent> {
         this.modele = modele;
         this.colonne = colonne;
     }
+    /**
+     * Méthode handle qui gère les actions sur les boutons
+     * @param actionEvent action sur un bouton
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         Button boutton = (Button) actionEvent.getSource();
@@ -21,6 +25,7 @@ public class ControleurColonne implements Controleur<ActionEvent> {
             case "Supprimer":
                 modele.supprimerColonne(colonne);
                 break;
+
             case "+":
                VuePopUpAjouterColonne vpac = new VuePopUpAjouterColonne(modele);
                vpac.actualiser(modele);

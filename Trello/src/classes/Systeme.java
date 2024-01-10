@@ -24,13 +24,13 @@ public class Systeme implements Sujet {
      * @param t tableau à ajouter à la liste
      */
    public void ajouterTab(Tableau t){
-       if(tableauCourant == null){
-           tableauCourant = t;
-       }
+
+
+
        if(t!=null && !listTab.contains(t)){
        this.listTab.add(t);
-
        }
+       tableauCourant = t;
        notifierObservateur();
     }
 

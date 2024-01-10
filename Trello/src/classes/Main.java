@@ -36,17 +36,21 @@ public class Main {
         Colonne col2 = new Colonne("Colonne 2");
 
         Tache t1 = new TacheMere("Tache 1", col1,7, 1, 12, 2023);
-        TacheMere t2 = new TacheMere("Tache 2",col1, 8, 1, 12, 2023);
-        TacheMere t3 = new TacheMere("Tache 3",col1, 9, 1, 12, 2023);
-        TacheMere t4 = new TacheMere("Tache 4",col1, 10, 1, 12, 2023);
-        TacheMere t5 = new TacheMere("Tache 5",col1, 11, 1, 12, 2023);
-        TacheMere t6 = new TacheMere("Tache 6",col1, 11, 1, 12, 2023);
+        TacheMere t2 = new TacheMere("Tache 2",col1, 1, 6, 12, 2023);
+        TacheMere t3 = new TacheMere("Tache 3",col1, 1, 5, 12, 2023);
+        TacheMere t4 = new TacheMere("Tache 4",col1, 1, 4, 12, 2023);
+        TacheMere t5 = new TacheMere("Tache 5",col1, 10, 1, 12, 2023);
+        TacheMere t6 = new TacheMere("Tache 6",col1, 1, 2, 12, 2023);
+        TacheMere t7 = new TacheMere("Tache 7",col1, 1, 3, 12, 2023);
 
 
         t5.ajouterSousTache(t4);
         t4.ajouterSousTache(t3);
         t3.ajouterSousTache(t2);
         t2.ajouterSousTache(t6);
+        t5.ajouterSousTache(t3);
+        t5.ajouterSousTache(t1);
+        t5.ajouterSousTache(t7);
 
         col1.ajouterTache(t5);
         Tableau tab1 = new Tableau("Tableau 1");
@@ -60,6 +64,7 @@ public class Main {
         System.out.println(res);
         res = tab1.getTachebyId(t1.getId());
         System.out.println(res);
+        t5.afficher();
         /*
         System.out.println(t1.liste);
         t5.afficher();

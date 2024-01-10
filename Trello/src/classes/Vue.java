@@ -19,6 +19,7 @@ public class Vue extends HBox implements Observateur  {
     public Vue(Systeme systeme ){
 
         sujet = systeme;
+        systeme.enregistrerObservateur(this);
         Tableau tableau = systeme.getTableauCourant();
 
         this.vueBureau = new VueBureau();
@@ -74,13 +75,15 @@ public class Vue extends HBox implements Observateur  {
      */
     @Override
     public void actualiser(Sujet sujet) {
-        this.sujet.getTableauCourant().supprimerObservateur(vueBureau);
-        this.sujet.getTableauCourant().supprimerObservateur(vueArchive);
-        this.sujet.getTableauCourant().supprimerObservateur(vueGantt);
-        this.sujet.getTableauCourant().supprimerObservateur(vueListe);
+        Tableau tableau = this.sujet.getTableauCourant();
+
+        tableau.supprimerObservateur(vueBureau);
+        tableau.supprimerObservateur(vueArchive);
+        tableau.supprimerObservateur(vueGantt);
+        tableau.supprimerObservateur(vueListe);
         this.sujet = (Systeme) sujet;
 
-        Tableau tableau = this.sujet.getTableauCourant();
+
         this.vueBureau = new VueBureau();
         this.vueListe = new VueListe();
         this.vueGantt = new VueGantt();

@@ -13,9 +13,10 @@ import java.util.ArrayList;
 public class VueBureau extends HBox implements Observateur {
 
 
-    //POUR L'ITERATION 2 /!\
-
-    //===============================================
+    /**
+     * Méthode setContr qui permet de mettre les controleurs sur les colonnes
+     * @param col
+     */
     private void setContr(VBox col){
 
         col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
@@ -49,11 +50,14 @@ public class VueBureau extends HBox implements Observateur {
 
             //----------------------------------
             setContr(colonnetmp);
+            colonnetmp.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));
 
             HBox zoneHauteColonne = new HBox();
 
             //On créer les titres des colonnes et on les ajoute à la vue
             Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
+            Label idColonne = new Label(tab.getColonnes().get(i).getIdColonne() + "");
+            idColonne.setVisible(false);
 
             titreColonne.setStyle("-fx-font-family: 'Arial';" +
                     "-fx-font-size: 30px;" +
@@ -97,12 +101,12 @@ public class VueBureau extends HBox implements Observateur {
 
             suppr.setOnAction(cc);
 
-            zoneHauteColonne.getChildren().addAll(titreColonne, modif, suppr);
+            zoneHauteColonne.getChildren().addAll(titreColonne,idColonne, modif, suppr);
 
 
             VBox vbox = new VBox();
 
-            vbox.getChildren().addAll(titreColonne, zoneHauteColonne);
+            vbox.getChildren().addAll(titreColonne,idColonne, zoneHauteColonne);
             zoneHauteColonne.setAlignment(Pos.CENTER);
 
             vbox.setAlignment(Pos.CENTER);
@@ -114,41 +118,41 @@ public class VueBureau extends HBox implements Observateur {
 
                 VBox tachetmp = new VBox();
 
-                tachetmp.setAlignment(Pos.CENTER_LEFT);
-                HBox boutonstachetmp = new HBox();
-                boutonstachetmp.setAlignment(Pos.CENTER_LEFT);
-                //Button et Controleur
-                ct = new ControleurTache(tab, t);
-                ajouterBouton(boutonstachetmp, ct);
-                ;
-                //placeholder pour taches
-                tachetmp.setId("tache"+ tacheId);
-                tacheId++;
-                //tachetmp.setOnDragDropped();
-                //tachetmp.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
-                tachetmp.setOnDragDetected(new ControleurTache_SetOnDragDetected(tachetmp, this));
-                tachetmp.setUserData(t);
-                VBox pl = createPlaceholderTache(tab, this);
-                pl.setUserData(tab.getColonnes().get(i));
+                    tachetmp.setAlignment(Pos.CENTER_LEFT);
+                    HBox boutonstachetmp = new HBox();
+                    boutonstachetmp.setAlignment(Pos.CENTER_LEFT);
+                    //Button et Controleur
+                    ct = new ControleurTache(tab, t);
+                    ajouterBouton(boutonstachetmp, ct);
+
+                    //placeholder pour taches
+                    tachetmp.setId("tache"+ tacheId);
+                    tacheId++;
+                    tachetmp.setOnDragDropped(new ControleurTache_SetOnDragDropped(this, tab));
+                    tachetmp.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
+                    tachetmp.setOnDragDetected(new ControleurTache_SetOnDragDetected(tachetmp, this));
+                    tachetmp.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));
+                    tachetmp.setUserData(t);
+                    VBox pl = createPlaceholderTache(tab, this);
+                    pl.setUserData(tab.getColonnes().get(i));
+
 
                 Label ll = new Label(t.getNom());
                 ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
-                HBox tmp = new HBox(); ///////////////////////////////////////////////////////////////////////supprimer HBOX SI TOUT EST CASSER
-                tmp.getChildren().addAll(ll,boutonstachetmp);
-                tachetmp.getChildren().addAll(tmp);
+                
+                tachetmp.getChildren().addAll(ll,boutonstachetmp);
 
-                //Sous taches
-                if (t instanceof TacheMere) {
-                    ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
-                    for (HBox hbox : listeSoustache) {
-                        VBox p = createPlaceholderTache(tab,this);
-                        p.setId("soustachePlaceholder");
+                    //Sous taches
+                    if (t instanceof TacheMere) {
+                        ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
+                        for (HBox hbox : listeSoustache) {
+                            VBox p = createPlaceholderTache(tab,this);
+                            p.setId("soustachePlaceholder");
 
-                        tachetmp.getChildren().addAll(p ,hbox);
+                            tachetmp.getChildren().addAll(p ,hbox);
+                        }
                     }
-                }
-                colonnetmp.getChildren().addAll(pl, tachetmp);
-
+                    colonnetmp.getChildren().addAll(pl, tachetmp);
             }
             VBox pl = createPlaceholderTache(tab, this);
             pl.setUserData(tab.getColonnes().get(i));
@@ -258,7 +262,9 @@ public class VueBureau extends HBox implements Observateur {
             sousTacheId++;
             soutache.setUserData(st);
             soutache.setOnDragDetected(new ControleurTache_SetOnDragDetected(soutache, this));
-            //soutache.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
+            soutache.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));
+            soutache.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
+
 //            soutache.setOnDragDropped();
 
             ajouterBouton(soutache, ct);
@@ -290,7 +296,12 @@ public class VueBureau extends HBox implements Observateur {
 
         return placeholder;
     }
-
+    /**
+     * Méthode createPlaceholderTache qui permet de créer un placeholder pour une tache
+     * @param tab tableau où se trouve la tache
+     * @param vb vue du bureau
+     * @return le placeholder
+     */
     private VBox createPlaceholderTache(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(100);
@@ -299,12 +310,19 @@ public class VueBureau extends HBox implements Observateur {
         placeholder.setId("placeholderTache");
         placeholder.setVisible(false);
 
-        //placeholder.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
+
+        placeholder.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
+
         placeholder.setOnDragDropped(new ControleurTachePlaceholder_OnDragDropped(vb, placeholder, tab));
 
         return placeholder;
     }
 
+    /**
+     * methode addPlaceholdersColonnes qui permet d'ajouter les placeholders pour les colonnes
+     * @param vb
+     * @param tab
+     */
     private void addPlaceholdersColonnes(VueBureau vb, Tableau tab) {
         int size = getChildren().size();
         for (int i = 0; i < size; i++) {
@@ -314,7 +332,11 @@ public class VueBureau extends HBox implements Observateur {
 
     }
 
-
+    /**
+     * Méthode ajouterBouton qui permet d'ajouter un bouton à une tache
+     * @param tache à laquelle on veut ajouter un bouton
+     * @param c controleur du bouton
+     */
     public void ajouterBouton(HBox tache, Controleur c){
         String[] action= {"Modifier","Archiver","Supprimer"};
         Button[] buttons = new Button[3];

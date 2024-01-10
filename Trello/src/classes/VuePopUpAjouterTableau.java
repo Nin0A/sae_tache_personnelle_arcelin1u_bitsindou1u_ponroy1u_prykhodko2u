@@ -17,7 +17,10 @@ public class VuePopUpAjouterTableau extends Stage implements Observateur {
     VuePopUpAjouterTableau(Sujet sujet) {
         this.systeme = (Systeme) sujet;
     }
-
+    /**
+     * Méthode actualiser d'ouvrir une pop up pour ajouter un tableau
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         VBox vbox = new VBox();

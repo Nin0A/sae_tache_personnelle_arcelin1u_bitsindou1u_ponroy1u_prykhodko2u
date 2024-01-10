@@ -13,7 +13,10 @@ public class ControleurPlaceholder_OnDragOver implements Controleur<DragEvent>{
     ControleurPlaceholder_OnDragOver(VBox pl){
         placeholder = pl;
     }
-
+    /**
+     * Méthode handle qui gère les actions sur les boutons
+     * @param event action sur un bouton
+     */
     public void handle(DragEvent event) {
         if (event.getDragboard().hasContent(DataFormat.PLAIN_TEXT)) {
             event.acceptTransferModes(TransferMode.MOVE);

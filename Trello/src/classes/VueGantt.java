@@ -58,10 +58,14 @@ public class VueGantt extends Pane implements Observateur {
             HBox containerCheckBox = new HBox(10); // Ajout de la distance entre les checkboxes (10 pixels)
 
             for (Colonne colonnetmp : tableau.getColonnes()) {
-                for (Tache tache : tableau.getColonneByName(colonnetmp.getNom()).getTaches()) {
+
+                for (Tache tache : tableau.getColonneById(colonnetmp.getIdColonne()).getTaches()) {
+
                     HBox miniCheckBox = new HBox();
                     CheckBox checkBox = new CheckBox(tache.getNom());
-                    miniCheckBox.getChildren().addAll(checkBox,new Label(""+tache.idTache));
+                    Label idLabel = new Label(""+tache.idTache);
+                    idLabel.setVisible(false);
+                    miniCheckBox.getChildren().addAll(checkBox,idLabel);
 
                     containerCheckBox.getChildren().add(miniCheckBox);
                 }
@@ -89,7 +93,6 @@ public class VueGantt extends Pane implements Observateur {
 
 
             validerButton.setOnAction(event -> {
-                System.out.println("oui");
                 ArrayList listeIdTache = new ArrayList<>();
 
                 // Parcourir toutes les HBox dans containerCheckBox lors du clic sur le bouton "Valider"
@@ -151,7 +154,7 @@ public class VueGantt extends Pane implements Observateur {
                         }
                     }
                 }
-                System.out.println("test"+tableau.getColonneByName("Colonne").getTaches());
+
             });
 
 
@@ -243,7 +246,14 @@ public class VueGantt extends Pane implements Observateur {
         return timeLine;
     }
 
-
+    /**
+     * Méthode createTask qui crée une tache
+     * @param tache tache à créer
+     * @param yPos position en y de la tache
+     * @param baseDate date de début du projet
+     * @param col couleur de la tache
+     * @return la tache dans un Pane
+     */
     private Pane createTask(Tache tache, double yPos, LocalDate baseDate, Color col) {
         LocalDate startDate = tache.getDateDebut();
         long startOffset = ChronoUnit.DAYS.between(baseDate, startDate);
@@ -259,7 +269,7 @@ public class VueGantt extends Pane implements Observateur {
         label.setStyle("-fx-text-fill: black;");
 
 
-        Pane taskPane = new Pane();
+        Pane taskPane = new     Pane();
         taskPane.getChildren().addAll(rect, label);
 
         return taskPane;
@@ -302,7 +312,14 @@ public class VueGantt extends Pane implements Observateur {
         return maxYPos;
     }
 
-
+    /**
+     * Méthode drawArrowLine qui dessine une flèche entre deux taches
+     * @param startX position en x de la tache de départ
+     * @param startY position en y de la tache de départ
+     * @param endX position en x de la tache d'arrivée
+     * @param endY position en y de la tache d'arrivée
+     * @param pane pane sur lequel dessiner la flèche
+     */
     private void drawArrowLine(double startX, double startY, double endX, double endY, Pane pane) {
         double controlOffsetY = 60;
 
@@ -345,7 +362,9 @@ public class VueGantt extends Pane implements Observateur {
         pane.getChildren().addAll(quadCurve, arrow1, arrow2);
     }
 
-
+    /**
+     * Méthode drawDependencies qui dessine les dépendances entre les taches
+     */
     private void drawDependencies(){
         for (Tache to : taskPositions.keySet()){
             for (Tache from : taskPositions.keySet()){
@@ -355,8 +374,10 @@ public class VueGantt extends Pane implements Observateur {
             }
         }
     }
-
-
+    /**
+     * Méthode actualiser qui actualise le diagramme de Gantt
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         Tableau tableau = (Tableau) sujet;

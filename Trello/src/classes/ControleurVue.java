@@ -19,6 +19,10 @@ public class ControleurVue implements Controleur<ActionEvent> {
     }
 
 */
+    /**
+     * Méthode handle
+     * @param e action
+     */
     public void handle(ActionEvent e){
         ComboBox<String> cb = (ComboBox<String>) e.getSource();
 
