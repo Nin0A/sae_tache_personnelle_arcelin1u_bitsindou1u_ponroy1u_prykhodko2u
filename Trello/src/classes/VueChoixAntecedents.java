@@ -45,10 +45,10 @@ public class VueChoixAntecedents extends Stage implements Observateur{
            }
 
        }
-        System.out.println(vboxCheckBox.getChildren());
+
        for(Node node : vboxCheckBox.getChildren()) {
            HBox hBox = (HBox) node;
-           System.out.println(hBox.getChildren());
+
        }
         Button validerButton = new Button("Valider");
         Button annulerButton = new Button("Annuler");

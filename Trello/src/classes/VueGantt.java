@@ -63,7 +63,9 @@ public class VueGantt extends Pane implements Observateur {
 
                     HBox miniCheckBox = new HBox();
                     CheckBox checkBox = new CheckBox(tache.getNom());
-                    miniCheckBox.getChildren().addAll(checkBox,new Label(""+tache.idTache));
+                    Label idLabel = new Label(""+tache.idTache);
+                    idLabel.setVisible(false);
+                    miniCheckBox.getChildren().addAll(checkBox,idLabel);
 
                     containerCheckBox.getChildren().add(miniCheckBox);
                 }
