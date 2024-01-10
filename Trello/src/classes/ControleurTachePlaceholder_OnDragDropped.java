@@ -30,25 +30,26 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
 
             int indexOfPlaceholder = ((((Pane) ((Pane) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)));
             int indexOfTache = ((((Pane) ((Pane) event.getGestureSource()).getParent()).getChildren().indexOf( (Pane) event.getGestureSource() )));
-            int index =  (indexOfTache > indexOfPlaceholder) || (source.getColonneOrigine() != col)  ? (indexOfPlaceholder)/2 : (indexOfPlaceholder-2)/2 ;
+            if (indexOfPlaceholder+1 != indexOfTache && indexOfPlaceholder-1 != indexOfTache) {
+                int index = (indexOfTache > indexOfPlaceholder) || (source.getColonneOrigine() != col) ? (indexOfPlaceholder) / 2 : (indexOfPlaceholder - 2) / 2;
 //            System.out.println("indexOfPlaceholder = " + indexOfPlaceholder + " indexOfTache = " + indexOfTache + " index = " + index + " 1 = " + (indexOfTache > indexOfPlaceholder) + " 2 = " + (source.getColonneOrigine() != col) );
-            if (index > col.liste.size() || col.liste.size()==0){
+                if (index > col.liste.size() || col.liste.size() == 0) {
 //                System.out.println("case1");
 
-                if (source instanceof SousTache)
-                    source = new TacheMere(source);
-                source.setColonneOrigine(col);
-                col.liste.add(source);
-            }
-            else {
+                    if (source instanceof SousTache)
+                        source = new TacheMere(source);
+                    source.setColonneOrigine(col);
+                    col.liste.add(source);
+                } else {
 //                System.out.println("case2");
-                if (source instanceof SousTache)
-                    source = new TacheMere(source);
-                source.setColonneOrigine(col);
-                col.liste.add(index , source);
+                    if (source instanceof SousTache)
+                        source = new TacheMere(source);
+                    source.setColonneOrigine(col);
+                    col.liste.add(index, source);
+                }
+                root.actualiser(tab);
+                success = true;
             }
-            root.actualiser(tab);
-            success = true;
         }
         event.setDropCompleted(success);
         event.consume();

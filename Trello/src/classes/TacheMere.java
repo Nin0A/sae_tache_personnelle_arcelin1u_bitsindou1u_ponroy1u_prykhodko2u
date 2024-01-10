@@ -14,8 +14,16 @@ public class TacheMere extends Tache {
 
     public TacheMere(Tache t){
         super(t.nom,t.getColonneOrigine() ,t.getDuree(), t.getDateDebut().getDayOfMonth() ,t.getDateDebut().getMonthValue(), t.getDateDebut().getYear());
-        sousTaches = new ArrayList<>();
+
+        if (t instanceof TacheMere)
+            sousTaches = new ArrayList<>(((TacheMere) t).sousTaches);
+        else
+            sousTaches = new ArrayList<>();
+
+
     }
+
+
 
     //constructeur
     public TacheMere(String desc,Colonne colonne, double duree, int jour, int mois, int annee) {
@@ -40,6 +48,7 @@ public class TacheMere extends Tache {
 
         if (!this.verifSousTaches()) {
             this.sousTaches.remove(t);
+            System.out.println("REMOVED");
         }
     }
 
@@ -231,7 +240,7 @@ public class TacheMere extends Tache {
 
     public boolean verifAjout(Tache t){
         TacheMere tmp = new TacheMere(this);
-        tmp.ajouterSousTache(t);
+        tmp.sousTaches.add(t);
         return tmp.verifSousTaches();
     }
 

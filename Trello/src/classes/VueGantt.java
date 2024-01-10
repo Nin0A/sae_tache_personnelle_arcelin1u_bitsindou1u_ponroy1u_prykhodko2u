@@ -30,7 +30,9 @@ public class VueGantt extends Pane implements Observateur {
     private Map<TacheMere, Double[]> taskPositions = new HashMap<>();
 
 
-
+    /**
+     * Methode Build Gaaant qui initialise diagramme de Gantt
+     */
     private void buildGantt() {
         this.getChildren().clear();
         int nbTaches = 0;
@@ -67,6 +69,11 @@ public class VueGantt extends Pane implements Observateur {
 
     }
 
+    /**
+     * Méthode determinerBaseDate qui détermine la date de début et de fin du projet
+     * @param tableau tableau à analyser
+     * @return la date de début et de fin du projet
+     */
     private  ArrayList<LocalDate> determinerBaseDate(Tableau tableau) {
         LocalDate minDate = LocalDate.MAX;
         LocalDate maxDate = LocalDate.MIN;
@@ -139,7 +146,6 @@ public class VueGantt extends Pane implements Observateur {
     }
 
 
-
     private Pane createTask(Tache tache, double yPos, LocalDate baseDate, Color col) {
         LocalDate startDate = tache.getDateDebut();
         long startOffset = ChronoUnit.DAYS.between(baseDate, startDate);
@@ -161,7 +167,14 @@ public class VueGantt extends Pane implements Observateur {
         return taskPane;
 
     }
-
+    /**
+     * Méthode addTaskAndSubtasks qui ajoute une tache et ses sous-taches au diagramme de Gantt
+     * @param tache tache à ajouter
+     * @param yPos position en y de la tache
+     * @param baseDate date de début du projet
+     * @param depth profondeur de la tache
+     * @return la position en y de la tache
+     */
     private double addTaskAndSubtasks(Tache tache, double yPos, LocalDate baseDate, int depth) {
         Color color = (depth == 0) ? Color.rgb(225,142,255) : Color.rgb(255,142,188);
         if (depth==0){
