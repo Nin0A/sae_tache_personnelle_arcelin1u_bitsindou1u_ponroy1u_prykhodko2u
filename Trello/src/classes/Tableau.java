@@ -229,8 +229,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param tache tache à supprimer
      */
     public void supprimerTache(Tache tache){
-       //Colonne colonne = chercherColonne(tache);
-       tache.colonneOrigine.supprimerTache(tache);
+       Colonne colonne = chercherColonne(tache);
+       colonne.supprimerTache(tache);
        notifierObservateur();
     }
 

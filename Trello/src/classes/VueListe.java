@@ -41,7 +41,6 @@ public class VueListe extends VBox implements Observateur {
                 }
             }
             TreeView<Composant> tree  = new TreeView<>(colonne);
-            Observateur ob = this;
             tree.setCellFactory(tv -> new TreeCell<Composant>() {
                 @Override
                 protected void updateItem(Composant item, boolean empty) {
@@ -65,7 +64,10 @@ public class VueListe extends VBox implements Observateur {
                                 }
                             });
 
-                            setOnDragDropped(new ControleurTache_SetOnDragDropped(ob, tab));
+                            setOnDragDropped(new ControleurTache_SetOnDragDropped(tab));
+                        } else if (item instanceof Colonne) {
+                            setId("colonne");
+                            setOnDragDropped(new ControleurTache_SetOnDragDropped(tab));
                         }
 
                         setOnDragOver(event -> {
@@ -81,9 +83,6 @@ public class VueListe extends VBox implements Observateur {
                             event.consume();
                         });
 
-
-
-//
 //                        setOnDragDetected(new ControleurTache_SetOnDragDetected( ,this) );
 //                        setOnDragOver(new );
 //                        setOnDragDropped(new );

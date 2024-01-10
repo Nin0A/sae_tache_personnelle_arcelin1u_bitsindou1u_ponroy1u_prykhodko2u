@@ -100,7 +100,7 @@ public class VueBureau extends HBox implements Observateur {
                     //placeholder pour taches
                     tachetmp.setId("tache"+ tacheId);
                     tacheId++;
-                    tachetmp.setOnDragDropped(new ControleurTache_SetOnDragDropped(this, tab));
+                    tachetmp.setOnDragDropped(new ControleurTache_SetOnDragDropped( tab));
                     tachetmp.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
                     tachetmp.setOnDragDetected(new ControleurTache_SetOnDragDetected(tachetmp, this));
                     tachetmp.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));

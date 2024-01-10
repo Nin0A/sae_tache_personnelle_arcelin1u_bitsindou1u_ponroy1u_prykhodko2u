@@ -1,5 +1,6 @@
 package classes;
 
+import javafx.scene.control.TreeCell;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.layout.Pane;
@@ -9,13 +10,11 @@ import java.time.chrono.ThaiBuddhistChronology;
 
 public class ControleurTache_SetOnDragDropped implements Controleur<DragEvent> {
 
-    private Observateur root;
     private Tableau tab;
 
 
-    ControleurTache_SetOnDragDropped(Observateur r, Tableau t){
+    ControleurTache_SetOnDragDropped(Tableau t){
         tab = t;
-        root = r;
     }
 
     @Override
@@ -23,29 +22,32 @@ public class ControleurTache_SetOnDragDropped implements Controleur<DragEvent> {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
-            if (((Pane)event.getGestureSource()).getUserData() instanceof Tache && event.getGestureSource() != event.getGestureTarget()){
-                Tache move = (Tache) ((Pane)event.getGestureSource()).getUserData();
-                Tache tMere = (Tache) ((Pane)event.getGestureTarget()).getUserData();
+            if(event.getGestureSource() != event.getGestureTarget()){
+                Tache move = null;
+                Tache tMere = null;
 
+                if (event.getGestureSource() instanceof TreeCell && ((TreeCell<?>)event.getGestureTarget()).getUserData() instanceof Colonne){
+                    move = (Tache) ((TreeCell<?>)event.getGestureSource()).getUserData();
+                    Colonne col = (Colonne) ((TreeCell<?>)event.getGestureTarget()).getUserData();
+                    System.out.println(move);
+                    tab.supprimerTache(move);
+                    col.ajouterTache(move);
+                }
+                else if (event.getGestureSource() instanceof TreeCell && ((TreeCell<?>)event.getGestureTarget()).getUserData() instanceof Tache){
+                     move = (Tache) ((TreeCell<?>)event.getGestureSource()).getUserData();
+                     tMere = (Tache) ((TreeCell<?>)event.getGestureTarget()).getUserData();
 
-                System.out.println("AJOUTTTT");
+                }
+                else if (((Pane)event.getGestureSource()).getUserData() instanceof Tache) {
+                    move = (Tache) ((Pane) event.getGestureSource()).getUserData();
+                    tMere = (Tache) ((Pane) event.getGestureTarget()).getUserData();
+                }
 
-                if(((TacheMere)tMere).verifAjout(move)){
-                    System.out.println("AJOUTOKKKKKKKK");
+                if(tMere!= null && ((TacheMere)tMere).verifAjout(move)){
                     tab.supprimerTache(move);
                     ((TacheMere)tMere).ajouterSousTache(move);
                     success = true;
-                    root.actualiser(tab);
                 }
-
-                StringBuilder str = new StringBuilder();
-
-                for(Tache t :((TacheMere) tMere).getSousTaches()){
-                    str.append(t);
-                }
-
-
-                System.out.println(str);
             }
         }
         event.setDropCompleted(success);
