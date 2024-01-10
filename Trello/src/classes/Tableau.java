@@ -35,9 +35,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         if (!this.liste.contains(c)) {
             this.liste.add(c);
             notifierObservateur();
-        } else {
-            //Sinon, on génère une exception
-            throw new IllegalArgumentException("La colonne existe déjà");
         }
 
 
@@ -316,6 +313,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
                 if(res != null)
                     break;
             }
+            if(res != null)
+                break;
         }
         return res;
     }
