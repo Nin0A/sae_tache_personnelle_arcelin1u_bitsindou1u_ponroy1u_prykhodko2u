@@ -2,4 +2,17 @@ Bilan de l'itération n°5 :
 
 Lors de l'itération n°5, nous avons reussi à faire:
 
-    -
+    - L'implémentation des méthodes de vérifications des dates et durées pour le diagramme de Gantt et l'ajout des
+    sous-tâches. --> Maëlle
+    - Finaliser l'interface graphique de l'application (dont la Vue Système) --> Nino
+    - Régler les problèmes restants, d'archivage, désarchivage, actualisation lors des changements de tableau --> Célie
+    - Finir la fonctionnnalité Drag and Drop pour les tâches --> Yehor
+    - Ajouter des messages d'erreurs lors de l'ajout de tâches --> Maëlle
+
+En conclusion, lors de cette itération, nous avons fait 2 fonctionnalités prévues sur les 4. D'un commun accord, nous avons
+décidé finalement de ne pas faire la fonctionnalité de sauvegarde du tableau pour des raisons de temps. D'autre part, la
+gestion des antécédents lors de l'ajout des tâches à été commencé mais sera terminé pendant l'itération 6.
+Néanmoins nous avons pu finir le Drag and Drop des tâches.
+
+Nous commencerons donc l'itération n°6 presque comme nous le souhaitions, pour ensuite pouvoir optimiser les classes
+finales.
