@@ -1,5 +1,11 @@
 package classes;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
@@ -34,7 +40,7 @@ public class VueGantt extends Pane implements Observateur {
      * Methode Build Gaaant qui initialise diagramme de Gantt
      */
     private void buildGantt() {
-        this.getChildren().clear();
+        VBox container = new VBox();
         int nbTaches = 0;
         for (Colonne colonne : tableau.getColonnes()) {
             nbTaches += colonne.getTaches().size();
@@ -48,23 +54,138 @@ public class VueGantt extends Pane implements Observateur {
             int totalDays = Math.toIntExact(totalDaysLong);
 
             VBox timeLine = createTimeLine(baseDate, totalDays);
-            this.getChildren().add(timeLine);
 
-            double yPos = 100;
-            for (Colonne colonne : tableau.getColonnes()) {
-                for (Tache tache : colonne.getTaches()) {
-                    yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
+            HBox containerCheckBox = new HBox(10); // Ajout de la distance entre les checkboxes (10 pixels)
+
+            for (Colonne colonnetmp : tableau.getColonnes()) {
+                for (Tache tache : tableau.getColonneByName(colonnetmp.getNom()).getTaches()) {
+                    HBox miniCheckBox = new HBox();
+                    CheckBox checkBox = new CheckBox(tache.getNom());
+                    miniCheckBox.getChildren().addAll(checkBox,new Label(""+tache.idTache));
+
+                    containerCheckBox.getChildren().add(miniCheckBox);
                 }
             }
 
-            drawDependencies();
+            Button validerButton = new Button("Valider");
 
-            yPos = 100;
-            for (Colonne colonne : tableau.getColonnes()) {
-                for (Tache tache : colonne.getTaches()) {
-                    yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
+
+
+            // Style pour le survol
+            validerButton.setOnMouseEntered(e -> validerButton.setStyle(
+
+
+
+
+                    "-fx-font-size: 10px; " +
+                            "-fx-padding: 5px; " +
+                            "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
+                            "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
+                            "-fx-border-color: #ffc3f8; " +
+                            "-fx-border-width: 2px; " +
+                            "-fx-border-radius: 50px;" + // Bordure arrondie
+                            "-fx-background-radius: 50px;"+
+                            "-fx-font-size:  15px;"
+            ));
+
+            validerButton.setOnMouseExited(e -> validerButton.setStyle(
+
+
+                    "-fx-font-size: 10px; " +
+                            "-fx-padding: 5px; " +
+                            "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
+                            "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
+                            "-fx-border-color: #d4ff6a; " +
+                            "-fx-border-width: 2px; " +
+                            "-fx-border-radius: 50px;" + // Bordure arrondie
+                            "-fx-background-radius: 50px;"+
+                            "-fx-font-size:  15px;"
+            ));
+
+            // Associez un gestionnaire d'événements pour le clic sur le bouton "Valider"
+
+
+
+            validerButton.setOnAction(event -> {
+                System.out.println("oui");
+                ArrayList listeIdTache = new ArrayList<>();
+
+                // Parcourir toutes les HBox dans containerCheckBox lors du clic sur le bouton "Valider"
+                for (Node node : containerCheckBox.getChildren()) {
+
+
+                    if (node instanceof HBox) {
+                        HBox miniCheckBoxBox = (HBox) node;
+                        for (Node miniNode : miniCheckBoxBox.getChildren()) {
+                            if (miniNode instanceof CheckBox) {
+                                CheckBox checkBox = (CheckBox) miniNode;
+                                if (checkBox.isSelected()) {
+                                    // La CheckBox est sélectionnée, vous pouvez faire quelque chose avec elle
+                                    String label = checkBox.getText();
+                                    HBox hboxtmp = (HBox)checkBox.getParent();
+                                    Label l = (Label)hboxtmp.getChildren().get(hboxtmp.getChildren().size()-1);
+                                    int idtache = Integer.parseInt(l.getText());
+                                    listeIdTache.add(idtache);
+
+                                }
+                            }
+                        }
+                    }
                 }
-            }
+
+
+                //clear des taches
+                    System.out.println("solution ? "+this.getChildren());
+
+                    for(int i=1;i<this.getChildren().size();i++){
+                        this.getChildren().remove(i);
+                    }
+
+                    System.out.println("solution ? 2"+this.getChildren());
+
+
+                    for(int i=1;i<this.getChildren().size();i++){
+                        this.getChildren().remove(i);
+                    }
+
+
+
+
+                //construire le gantt
+
+                double yPos = 100;
+                for (Colonne colonne : tableau.getColonnes()) {
+                    for (Tache tache : colonne.getTaches()) {
+                        if(listeIdTache.contains(tache.idTache)) {
+                            yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
+                        }
+                    }
+                }
+
+                drawDependencies();
+
+
+                yPos = 100;
+                for (Colonne colonne : tableau.getColonnes()) {
+                    for (Tache tache : colonne.getTaches()) {
+                        if(listeIdTache.contains(tache.idTache)) {
+                            yPos = addTaskAndSubtasks(tache, yPos, baseDate, 0);
+                        }
+                    }
+                }
+                System.out.println("test"+tableau.getColonneByName("Colonne").getTaches());
+            });
+
+
+            containerCheckBox.getChildren().add(validerButton);
+            ScrollPane sp = new ScrollPane(containerCheckBox);
+            sp.setStyle("-fx-background-color: white");
+            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            container.getChildren().add(sp);
+            container.getChildren().add(timeLine);
+            this.getChildren().add(container);
+
         }
 
     }
@@ -106,6 +227,7 @@ public class VueGantt extends Pane implements Observateur {
      */
     private VBox createTimeLine(LocalDate baseDate, int days) {
         HBox daysLine = new HBox();
+
         HBox monthsLine = new HBox();
         LocalDate currentDate = baseDate;
         for (int day = 0, huita123 = 0; day < days; day++, huita123++) {
@@ -140,6 +262,7 @@ public class VueGantt extends Pane implements Observateur {
         }
 
         VBox timeLine = new VBox();
+
         timeLine.getChildren().addAll(monthsLine, daysLine);
 
         return timeLine;
@@ -176,6 +299,7 @@ public class VueGantt extends Pane implements Observateur {
      * @return la position en y de la tache
      */
     private double addTaskAndSubtasks(Tache tache, double yPos, LocalDate baseDate, int depth) {
+
         Color color = (depth == 0) ? Color.rgb(225,142,255) : Color.rgb(255,142,188);
         if (depth==0){
             LocalDate startDate = tache.getDateDebut();
@@ -259,10 +383,8 @@ public class VueGantt extends Pane implements Observateur {
 
     @Override
     public void actualiser(Sujet sujet) {
-        if (sujet instanceof Tableau) {
-            Tableau tableau = (Tableau) sujet;
-            this.tableau = tableau;
-            buildGantt();
-        }
+        Tableau tableau = (Tableau) sujet;
+        this.tableau = tableau;
+        buildGantt();
     }
 }

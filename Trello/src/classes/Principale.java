@@ -156,7 +156,9 @@ public class Principale extends Application {
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
+
                         //vue.actualiser(system);
+
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue
                         ScrollPane scrollPane = new ScrollPane(vue);
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
