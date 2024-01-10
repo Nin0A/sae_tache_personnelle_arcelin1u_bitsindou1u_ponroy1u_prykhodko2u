@@ -42,14 +42,10 @@ public class TacheMere extends Tache {
      */
     public void ajouterSousTache(Tache t){
         //on vérifie que la sous tache n'est pas déjà dans la liste
-//        boolean res = false;
-
         if(verifAjout(t) && t!=null && !this.sousTaches.contains(t)) {
             this.sousTaches.add(t);
         }
-//            this.sousTaches.add(t);
-//            System.out.println("REMOVED");
-//        return res;
+
     }
 
     /**
@@ -259,7 +255,6 @@ public class TacheMere extends Tache {
                 //on verifie que la date de début de la sous tache suivante soit supérieure à la date de fin de la sous tache
                 //courante
 //                if (dateDebutSuivante.isBefore(dateFin)|| dateFin.isAfter(dateDebutSuivante)) {
-//                    System.out.println("huita");
 //                    res = false;
 //                }
 //            }

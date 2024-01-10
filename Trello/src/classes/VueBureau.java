@@ -193,7 +193,6 @@ public class VueBureau extends HBox implements Observateur {
         VBox ajoutColonne= new VBox();
         ajoutColonne.setPadding(new Insets(50));
         Button ajouterColonne = new Button("+");
-
         ajouterColonne.setStyle(
                 "-fx-min-width: 70px; -fx-min-height: 70px;" +
                         "-fx-background-color: #9dcfff; " + // Couleur de fond
