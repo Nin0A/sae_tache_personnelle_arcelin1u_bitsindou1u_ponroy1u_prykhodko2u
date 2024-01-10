@@ -141,7 +141,7 @@ public class VueBureau extends HBox implements Observateur {
 
                 Label ll = new Label(t.getNom());
                 ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
-                HBox tmp = new HBox(); ///////////////////////////////////////////////////////////////////////supprimer HBOX SI TOUT EST CASSER
+                HBox tmp = new HBox();
                 tmp.getChildren().addAll(ll,boutonstachetmp);
                 tachetmp.getChildren().addAll(tmp);
 

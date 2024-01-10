@@ -23,52 +23,8 @@ public class Principale extends Application {
                 Systeme system = new Systeme();
                 VueSysteme vueSysteme = new VueSysteme();
                 system.enregistrerObservateur(vueSysteme);
-                Tableau tab2 = new Tableau("Tableau qui est tout beau");
-                Colonne  col42 = new Colonne("Colonne");
-                tab2.ajouterColonne(col42);
-                col42.ajouterTache(new TacheMere("Tache",col42, 10, 1, 1, 2023));
-                col42.ajouterTache(new TacheMere("Tache",col42, 10, 1, 1, 2023));
+                Tableau tab2 = new Tableau("Tableau");
                 system.ajouterTab(tab2);
-
-                //test
-
-
-                Tableau tab = new Tableau("Tableau");
-                system.ajouterTab(tab);
-                Colonne col = new Colonne("Colonne");
-                Colonne col2 = new Colonne("Colonne2");
-                Colonne col3 = new Colonne("Colonne3");
-                Colonne col4 = new Colonne("Colonne4");
-                Colonne col5 = new Colonne("Colonne5");
-
-                TacheMere t = new TacheMere("Tache blabla",col, 15, 1 , 1 , 2023);
-                TacheMere s = new TacheMere("Tache s",col, 4, 10, 1 ,2023);
-                TacheMere s2 = new TacheMere("Tache s2",col, 3, 5, 1, 2023);
-                TacheMere s3 = new TacheMere("Tache s3",col, 10, 4, 2, 2023);
-                TacheMere s4 = new TacheMere("Tache s4",col2, 10, 10, 3, 2023);
-                TacheMere t2 = new TacheMere("Tache t2",col, 10, 2, 1, 2023);
-
-                TacheMere st = new TacheMere("Soustache st",col, 9, 1 , 1, 2023);
-
-                t.ajouterSousTache(st);
-//                t.ajouterSousTache(s);
-                s.ajouterSousTache(s2);
-
-                s4.ajouterAntecedent(s3);
-                s4.ajouterAntecedent(t);
-                t2.ajouterAntecedent(t);
-                tab.ajouterColonne(col);
-                tab.ajouterColonne(col2);
-                tab.ajouterColonne(col3);
-                tab.ajouterColonne(col4);
-                tab.ajouterColonne(col5);
-                col.ajouterTache(t);
-                col.ajouterTache(s);
-                col.ajouterTache(t2);
-                col.ajouterTache(s3);
-                col2.ajouterTache(s4);
-
-
 
         // Panel principal
         HBox pane = new HBox();
