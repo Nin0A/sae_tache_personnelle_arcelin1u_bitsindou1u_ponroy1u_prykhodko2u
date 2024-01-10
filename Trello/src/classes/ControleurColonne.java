@@ -21,8 +21,7 @@ public class ControleurColonne implements Controleur<ActionEvent> {
             case "Supprimer":
                 modele.supprimerColonne(colonne);
                 break;
-            case "Ajouter Colonne":
-                System.out.println("existe tu ?");
+            case "+":
                VuePopUpAjouterColonne vpac = new VuePopUpAjouterColonne(modele);
                vpac.actualiser(modele);
 
