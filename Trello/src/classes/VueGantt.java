@@ -268,7 +268,14 @@ public class VueGantt extends Pane implements Observateur {
         return timeLine;
     }
 
-
+    /**
+     * Méthode createTask qui crée une tache
+     * @param tache tache à créer
+     * @param yPos position en y de la tache
+     * @param baseDate date de début du projet
+     * @param col couleur de la tache
+     * @return la tache dans un Pane
+     */
     private Pane createTask(Tache tache, double yPos, LocalDate baseDate, Color col) {
         LocalDate startDate = tache.getDateDebut();
         long startOffset = ChronoUnit.DAYS.between(baseDate, startDate);
@@ -327,7 +334,14 @@ public class VueGantt extends Pane implements Observateur {
         return maxYPos;
     }
 
-
+    /**
+     * Méthode drawArrowLine qui dessine une flèche entre deux taches
+     * @param startX position en x de la tache de départ
+     * @param startY position en y de la tache de départ
+     * @param endX position en x de la tache d'arrivée
+     * @param endY position en y de la tache d'arrivée
+     * @param pane pane sur lequel dessiner la flèche
+     */
     private void drawArrowLine(double startX, double startY, double endX, double endY, Pane pane) {
         double controlOffsetY = 60;
 
@@ -370,7 +384,9 @@ public class VueGantt extends Pane implements Observateur {
         pane.getChildren().addAll(quadCurve, arrow1, arrow2);
     }
 
-
+    /**
+     * Méthode drawDependencies qui dessine les dépendances entre les taches
+     */
     private void drawDependencies(){
         for (Tache to : taskPositions.keySet()){
             for (Tache from : taskPositions.keySet()){
@@ -380,7 +396,10 @@ public class VueGantt extends Pane implements Observateur {
             }
         }
     }
-
+    /**
+     * Méthode actualiser qui actualise le diagramme de Gantt
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         Tableau tableau = (Tableau) sujet;

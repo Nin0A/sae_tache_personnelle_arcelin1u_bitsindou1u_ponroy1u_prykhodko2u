@@ -23,7 +23,10 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         this.tacheMere=null;
         this.sujet=sujet;
     }
-
+    /**
+     * Méthode actualiser d'ouvrir une pop up pour ajouter une tache
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         VBox vbox = new VBox();

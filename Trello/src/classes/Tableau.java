@@ -60,9 +60,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     }
 
     /**
-     * Méthode getColonneByName qui retourne la colonne dont le nom est passé en paramètre
-     * @param s nom de la colonne
-     * @return la colonne dont le nom est passé en paramètre
+     * Méthode getColonneById qui retourne la colonne dont l'id est passé en paramètre
+     * @param id id de la colonne
+     * @return la colonne dont l'id est passé en paramètre
      */
     public Colonne getColonneById(int id){
         Colonne res =null;

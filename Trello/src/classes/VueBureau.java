@@ -13,9 +13,10 @@ import java.util.ArrayList;
 public class VueBureau extends HBox implements Observateur {
 
 
-    //POUR L'ITERATION 2 /!\
-
-    //===============================================
+    /**
+     * Méthode setContr qui permet de mettre les controleurs sur les colonnes
+     * @param col
+     */
     private void setContr(VBox col){
 
         col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
@@ -284,7 +285,12 @@ public class VueBureau extends HBox implements Observateur {
 
         return placeholder;
     }
-
+    /**
+     * Méthode createPlaceholderTache qui permet de créer un placeholder pour une tache
+     * @param tab tableau où se trouve la tache
+     * @param vb vue du bureau
+     * @return le placeholder
+     */
     private VBox createPlaceholderTache(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(100);
@@ -299,6 +305,11 @@ public class VueBureau extends HBox implements Observateur {
         return placeholder;
     }
 
+    /**
+     * methode addPlaceholdersColonnes qui permet d'ajouter les placeholders pour les colonnes
+     * @param vb
+     * @param tab
+     */
     private void addPlaceholdersColonnes(VueBureau vb, Tableau tab) {
         int size = getChildren().size();
         for (int i = 0; i < size; i++) {
@@ -308,7 +319,11 @@ public class VueBureau extends HBox implements Observateur {
 
     }
 
-
+    /**
+     * Méthode ajouterBouton qui permet d'ajouter un bouton à une tache
+     * @param tache à laquelle on veut ajouter un bouton
+     * @param c controleur du bouton
+     */
     public void ajouterBouton(HBox tache, Controleur c){
         String[] action= {"Modifier","Archiver","Supprimer"};
         Button[] buttons = new Button[3];

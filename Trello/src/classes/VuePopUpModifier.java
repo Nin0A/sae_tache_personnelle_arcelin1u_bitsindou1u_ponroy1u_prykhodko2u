@@ -28,7 +28,10 @@ public class VuePopUpModifier extends Stage implements Observateur {
         this.tableau = (Tableau) sujet;
         this.colonne=tache.getColonneOrigine();
     }
-
+    /**
+     * Méthode actualiser d'ouvrir une pop up pour modifier une tache
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         VBox vbox = new VBox();
@@ -114,7 +117,13 @@ public class VuePopUpModifier extends Stage implements Observateur {
         this.setScene(scene);
         this.show();
     }
-
+    /**
+     * Méthode displaySubtasks d'afficher les sous taches
+     * @param tache tache à afficher
+     * @param container container à afficher
+     * @param rangTache rang de la tache
+     * @param marge marge de la tache
+     */
     private void displaySubtasks(Tache tache, VBox container,int rangTache, int marge) {
         //création
 
@@ -186,7 +195,11 @@ public class VuePopUpModifier extends Stage implements Observateur {
             }
         }
     }
-
+    /**
+     * Méthode majSousTachesRecursive de mettre à jour les sous taches
+     * @param tacheMere tache mère des sousTaches à mettre à jour
+     * @param vbox vbox à mettre à jour
+     */
     private void majSousTachesRecursive(TacheMere tacheMere, VBox vbox) {
         if (vbox != null) {
             for (Node vboxtmp : vbox.getChildren()) {
@@ -236,7 +249,11 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
 
 
-
+    /** Méthode creerFormSousTache de créer un formulaire pour une sous tache
+     * @param vbox vbox à mettre à jour
+     * @param rangTache rang de la tache
+     * @param marge marge de la tache
+     */
     public void creerFormSousTache(VBox vbox,int rangTache,int marge) {
         //création
         VBox vBoxSousTache = new VBox();

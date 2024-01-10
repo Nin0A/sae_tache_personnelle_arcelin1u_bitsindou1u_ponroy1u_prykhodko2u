@@ -16,7 +16,10 @@ public class VuePopUpAjouterColonne extends Stage implements Observateur {
 
         this.tableau = (Tableau) sujet;
     }
-
+    /**
+     * Méthode actualiser d'ouvrir une pop up pour ajouter une colonne
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         VBox vbox = new VBox();

@@ -19,7 +19,10 @@ public class ControleurTache_SetOnDragDetected implements Controleur<MouseEvent>
         tache = t;
         root = r;
     }
-
+    /**
+     * Méthode handle
+     * @param event action
+     */
     @Override
     public void handle(MouseEvent event) {
         Dragboard db = tache.startDragAndDrop(TransferMode.MOVE);

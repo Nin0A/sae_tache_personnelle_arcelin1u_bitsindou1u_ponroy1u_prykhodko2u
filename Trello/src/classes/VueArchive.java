@@ -122,7 +122,7 @@ public class VueArchive extends HBox implements Observateur{
         tache.getChildren().addAll(buttons);
     }
 
-    /*
+    /**
      * Méthode ajoutersoustache qui permet d'ajouter les sous taches d'une tache mère
      * @param t tache mère dont on veut ajouter les sous taches
      * @param tab tableau dans lequel se trouve la tache mère

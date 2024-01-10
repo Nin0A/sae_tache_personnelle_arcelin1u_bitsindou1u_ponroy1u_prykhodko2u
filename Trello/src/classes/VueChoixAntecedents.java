@@ -20,7 +20,10 @@ public class VueChoixAntecedents extends Stage implements Observateur{
         this.tache = tache;
     }
 
-
+    /**
+     * Méthode actualiser d'ouvrir une pop up pour choisir les antécédents d'une tache
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         Tableau tableau = (Tableau) sujet;

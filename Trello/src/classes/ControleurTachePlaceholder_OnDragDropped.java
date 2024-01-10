@@ -17,7 +17,10 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
         tab = t;
     }
 
-
+    /**
+     * Méthode handle
+     * @param event action
+     */
     @Override
     public void handle(DragEvent event) {
         Dragboard db = event.getDragboard();

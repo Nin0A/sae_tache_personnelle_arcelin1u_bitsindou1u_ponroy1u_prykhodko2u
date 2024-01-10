@@ -12,7 +12,10 @@ public class ControleurTachePlaceholder_SetOnDragOver implements Controleur<Drag
         placeholder = pl;
     }
 
-
+    /**
+     * Méthode handle
+     * @param event action
+     */
     @Override
     public void handle(DragEvent event) {
         if (event.getGestureSource() != event.getTarget() &&
