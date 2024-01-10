@@ -147,7 +147,7 @@ public class VueGantt extends Pane implements Observateur {
                     for(int i=1;i<this.getChildren().size();i++){
                         this.getChildren().remove(i);
                     }
-
+                    
 
 
 
