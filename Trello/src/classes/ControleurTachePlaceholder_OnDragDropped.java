@@ -33,7 +33,7 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
 
             int indexOfPlaceholder = ((((Pane) ((Pane) event.getGestureTarget()).getParent()).getChildren().indexOf(placeholder)));
             int indexOfTache = ((((Pane) ((Pane) event.getGestureSource()).getParent()).getChildren().indexOf( (Pane) event.getGestureSource() )));
-            if (indexOfPlaceholder+1 != indexOfTache && indexOfPlaceholder-1 != indexOfTache || (source.getColonneOrigine() != col)) {
+            if (  ((Pane)event.getGestureSource()).getId().contains("soustache") || indexOfPlaceholder+1 != indexOfTache && indexOfPlaceholder-1 != indexOfTache || (source.getColonneOrigine() != col)) {
                 int index = (indexOfTache > indexOfPlaceholder) || (source.getColonneOrigine() != col) || (((Pane) event.getGestureSource()).getId()).contains("soustache")   ? (indexOfPlaceholder) / 2 : (indexOfPlaceholder - 2) / 2;
                 tab.supprimerTache(source);
                 if (index > col.liste.size() || col.liste.size() == 0) {

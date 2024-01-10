@@ -18,9 +18,12 @@ public class Principale extends Application {
          * Méthode start qui lance l'application
          * @param stage stage de l'application
          */
+
+        public final static Systeme system = new Systeme();
         public void start(Stage stage) {
                 //initialisation
-                Systeme system = new Systeme();
+
+
                 VueSysteme vueSysteme = new VueSysteme();
                 system.enregistrerObservateur(vueSysteme);
                 Tableau tab2 = new Tableau("Tableau");
@@ -112,6 +115,8 @@ public class Principale extends Application {
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
+                        Principale.system.notifierObservateur();
+
                         vue.setStyle("-fx-background-color: transparent");
 
 
@@ -135,6 +140,7 @@ public class Principale extends Application {
         stage.setScene(scene);
         stage.setTitle("Gestionnaire de tâches personnelles");
         stage.show();
-    }
+        }
+
 }
 

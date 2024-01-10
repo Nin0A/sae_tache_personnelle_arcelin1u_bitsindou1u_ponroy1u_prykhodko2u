@@ -19,6 +19,8 @@ public class Systeme implements Sujet {
     }
 
 
+
+
     /**
      * Méthode ajouterTab qui ajoute un tableau à la liste de tableaux
      * @param t tableau à ajouter à la liste
@@ -103,4 +105,5 @@ public class Systeme implements Sujet {
     public Tableau getTableauCourant() {
         return tableauCourant;
     }
+
 }
