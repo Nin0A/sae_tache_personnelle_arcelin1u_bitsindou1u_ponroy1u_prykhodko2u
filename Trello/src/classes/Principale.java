@@ -154,6 +154,7 @@ public class Principale extends Application {
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
+                        system.notifierObservateur();
 
                         // Créez un nouveau ScrollPane avec le contenu actuel de vue
                         ScrollPane scrollPane = new ScrollPane(vue);
