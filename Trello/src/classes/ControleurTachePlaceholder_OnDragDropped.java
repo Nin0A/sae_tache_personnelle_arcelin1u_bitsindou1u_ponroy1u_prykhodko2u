@@ -42,15 +42,17 @@ public class ControleurTachePlaceholder_OnDragDropped implements Controleur<Drag
                 System.out.println("case1");
                     if (source instanceof SousTache)
                         source = new TacheMere(source);
-                    source.setColonneOrigine(col);
                     col.liste.add(source);
+                    source.setColonneOrigine(col);
 
                 } else {
                 System.out.println("case2");
                     if (source instanceof SousTache)
                         source = new TacheMere(source);
-                    source.setColonneOrigine(col);
                     col.liste.add(index, source);
+                    source.setColonneOrigine(col);
+                    tab.getColonnes().get(1).afficher();
+//                    System.out.println();
                 }
                 success = true;
             }

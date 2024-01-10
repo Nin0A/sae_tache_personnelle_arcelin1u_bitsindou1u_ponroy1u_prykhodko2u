@@ -232,38 +232,60 @@ public class TacheMere extends Tache {
      * @return true si les sous taches ne se chevauchent pas, false sinon
      */
 
-    public boolean verifChevauche(Tache tache) {
-        ArrayList<Tache> cloned = new ArrayList<>(sousTaches);
-        if (tache!=null)
-            cloned.add(tache);
-
-        boolean res = true;
+//    public boolean verifChevauche(Tache tache) {
+//        ArrayList<Tache> cloned = new ArrayList<>(sousTaches);
+//        if (tache!=null)
+//            cloned.add(tache);
+//
+//        boolean res = true;
         //Pour chaque sous tache on cherche sa date de fin et de début
-        for (Tache t : cloned) {
+//        for (Tache t : cloned) {
 
             //on cherche la date de fin de la sous tache
-            LocalDate dateFin = t.getDateFin();
+//            LocalDate dateFin = t.getDateFin();
 
             //on cherche la date de début de la sous tache
 //            LocalDate dateDebut = t.getDateDebut();
 
             //on cherche la sous tache suivante dans la liste
-            int index = cloned.indexOf(t);
-            if (index < cloned.size() - 1) {
-                Tache tacheSuivante = cloned.get(index + 1);
+//            int index = cloned.indexOf(t);
+//            if (index < cloned.size() - 1) {
+//                Tache tacheSuivante = cloned.get(index + 1);
 
                 //on cherche la date de début de la sous tache suivante
-                LocalDate dateDebutSuivante = tacheSuivante.getDateDebut();
+//                LocalDate dateDebutSuivante = tacheSuivante.getDateDebut();
                 //on cherche la date de fin de la sous tache suivante
 //                LocalDate dateFinSuivante = tacheSuivante.getDateDebut().plusDays((long) tacheSuivante.getDuree());
                 //on verifie que la date de début de la sous tache suivante soit supérieure à la date de fin de la sous tache
                 //courante
-                if (dateDebutSuivante.isBefore(dateFin)|| dateFin.isAfter(dateDebutSuivante)) {
-                    res = false;
+//                if (dateDebutSuivante.isBefore(dateFin)|| dateFin.isAfter(dateDebutSuivante)) {
+//                    System.out.println("huita");
+//                    res = false;
+//                }
+//            }
+//        }
+//        return res;
+//    }
+
+
+    public boolean verifChevauche(Tache tache) {
+        ArrayList<Tache> clone = new ArrayList<>(sousTaches);
+        clone.add(tache);
+
+        for (int i = 0; i < clone.size(); i++) {
+            Tache t1 = clone.get(i);
+            LocalDate dateFinT1 = t1.getDateDebut().plusDays((long) t1.getDuree());
+
+            for (int j = i + 1; j < clone.size(); j++) {
+                Tache t2 = clone.get(j);
+                LocalDate dateDebutT2 = t2.getDateDebut();
+
+                if ( !dateFinT1.equals(dateDebutT2) && !dateFinT1.isBefore(dateDebutT2)) {
+                    return false;
                 }
             }
         }
-        return res;
+        return true;
     }
 
 
