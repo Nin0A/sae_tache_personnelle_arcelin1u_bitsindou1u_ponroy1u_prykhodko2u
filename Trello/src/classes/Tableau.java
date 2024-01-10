@@ -312,10 +312,9 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         Tache res = null;
         for (Colonne colonne : liste){
             for (Tache tache : colonne.getTaches()){
-                if(tache.tacheExiste(id)){
-                    res = tache;
+                res=tache.tacheById(id);
+                if(res != null)
                     break;
-                }
             }
         }
         return res;

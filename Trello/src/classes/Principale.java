@@ -45,7 +45,7 @@ public class Principale extends Application {
                 TacheMere s3 = new TacheMere("Tache s3",col, 10, 4, 2, 2023);
                 TacheMere s4 = new TacheMere("Tache s4",col2, 10, 10, 3, 2023);
                 TacheMere t2 = new TacheMere("Tache t2",col, 10, 2, 1, 2023);
-                SousTache st = new SousTache("Soustache st",col, 10, 1 , 1, 2023);
+                TacheMere st = new TacheMere("Soustache st",col, 10, 1 , 1, 2023);
                 t.ajouterSousTache(st);
                 t.ajouterSousTache(s);
                 s.ajouterSousTache(s2);
@@ -139,20 +139,12 @@ public class Principale extends Application {
                 main.getChildren().addAll(containerTop);
                 main.setPadding(new Insets(20));
 
+                choixDeVues.setValue("Home");
+
 
                 //Vue
                 Vue vue = new Vue(system);
                 system.enregistrerObservateur(vue);
-
-                //initialistation de la vue:
-                ScrollPane scrollPaneIni = new ScrollPane((Node) vue.getCourant());
-                scrollPaneIni.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                scrollPaneIni.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-                scrollPaneIni.setPrefHeight(760);
-                scrollPaneIni.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
-                system.notifierObservateur();
-                main.getChildren().add(scrollPaneIni);
-
 
                 choixDeVues.setOnAction(e -> {
                         system.notifierObservateur();
@@ -163,8 +155,8 @@ public class Principale extends Application {
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
 
-                        // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
-                        ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
+                        // Créez un nouveau ScrollPane avec le contenu actuel de vue
+                        ScrollPane scrollPane = new ScrollPane(vue);
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setPrefHeight(760);

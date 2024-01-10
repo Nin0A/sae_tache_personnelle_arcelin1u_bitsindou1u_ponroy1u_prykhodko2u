@@ -30,7 +30,7 @@ public class ControleurTache implements Controleur<ActionEvent>{
         switch (boutton.getText()){
             case "Modifier":
 
-                VuePopUpModifier vpm= new VuePopUpModifier(modele,tache);
+                VuePopUpModifier vpm= new VuePopUpModifier(modele,(TacheMere) tache);
                 vpm.actualiser(modele);
                 break;
             case "Supprimer":

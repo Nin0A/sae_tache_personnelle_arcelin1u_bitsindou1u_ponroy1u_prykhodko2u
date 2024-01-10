@@ -31,6 +31,9 @@ public class Vue extends HBox implements Observateur  {
         tableau.enregistrerObservateur(vueArchive);
 
         courant = vueBureau;
+        this.getChildren().clear();
+        this.courant.actualiser(tableau);
+        this.getChildren().add((Node)courant);
     }
     /**
      * Méthode changerVue qui change la vue courante
@@ -68,17 +71,17 @@ public class Vue extends HBox implements Observateur  {
      */
     @Override
     public void actualiser(Sujet sujet) {
-        this.sujet.supprimerObservateur(vueBureau);
-        this.sujet.supprimerObservateur(vueArchive);
-        this.sujet.supprimerObservateur(vueGantt);
-        this.sujet.supprimerObservateur(vueListe);
+        this.sujet.getTableauCourant().supprimerObservateur(vueBureau);
+        this.sujet.getTableauCourant().supprimerObservateur(vueArchive);
+        this.sujet.getTableauCourant().supprimerObservateur(vueGantt);
+        this.sujet.getTableauCourant().supprimerObservateur(vueListe);
         this.sujet = (Systeme) sujet;
 
         Tableau tableau = this.sujet.getTableauCourant();
-        /*this.vueBureau = new VueBureau();
+        this.vueBureau = new VueBureau();
         this.vueListe = new VueListe();
         this.vueGantt = new VueGantt();
-        this.vueArchive = new VueArchive();*/
+        this.vueArchive = new VueArchive();
 
         tableau.enregistrerObservateur(vueBureau);
         tableau.enregistrerObservateur(vueListe);

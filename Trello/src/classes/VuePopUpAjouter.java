@@ -63,10 +63,15 @@ public class VuePopUpAjouter extends Stage implements Observateur {
 
             //on verifie que les champs de la tache mere et des sous taches sont remplis
             if (validerChampsTacheEtSousTaches(nom, duree, selectedDate, vbox, vboxcontainer)) {
+
                 Tableau t = (Tableau) sujet;
                 TacheMere tacheMere = new TacheMere(nom, colonneCourante, Double.parseDouble(duree),
                         selectedDate.getDayOfMonth(), selectedDate.getMonthValue(), selectedDate.getYear());
+                System.out.println(t);
                 t.ajouterTache(colonneCourante, tacheMere);
+                System.out.println(t+" et "+colonneCourante+" et "+tacheMere);
+
+                System.out.println(t.getColonneByName("Colonne").getTaches());
 
                 if (vbox.getChildren().get(vbox.getChildren().size() - 1) instanceof VBox) {
                     ajouterSousTachesRecursive(tacheMere, vboxcontainer);
@@ -213,7 +218,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
      * @param datePicker date de début de la tâche
      * @param vbox la vbox dans laquelle on veut ajouter les sous-tâches
      * @return true si les champs sont remplis, false sinon
-    */
+     */
     private boolean validerChampsSousTache(TextField nomTextField, TextField dureeTextField, DatePicker datePicker, VBox vbox) {
         String nom = nomTextField.getText();
         String duree = dureeTextField.getText();
