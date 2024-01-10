@@ -1,26 +1,24 @@
 package classes;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 
-public class ControleurPlaceholder_OnDragOver implements Controleur<DragEvent>{
+public class ControleurTachePlaceholder_SetOnDragOver implements Controleur<DragEvent> {
 
     private VBox placeholder;
 
-    ControleurPlaceholder_OnDragOver(VBox pl){
+    ControleurTachePlaceholder_SetOnDragOver(VBox pl){
         placeholder = pl;
     }
 
+
+    @Override
     public void handle(DragEvent event) {
-        if (event.getDragboard().hasContent(DataFormat.PLAIN_TEXT)) {
+        if (event.getGestureSource() != event.getTarget() &&
+                event.getDragboard().hasString()) {
             event.acceptTransferModes(TransferMode.MOVE);
         }
         event.consume();
     }
-
-
-
 }

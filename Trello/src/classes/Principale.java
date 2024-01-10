@@ -139,11 +139,13 @@ public class Principale extends Application {
                 main.getChildren().addAll(containerTop);
                 main.setPadding(new Insets(20));
 
+                choixDeVues.setValue("Home");
+
 
                 //Vue
                 Vue vue = new Vue(system);
                 system.enregistrerObservateur(vue);
-
+/*
                 //initialistation de la vue:
                 ScrollPane scrollPaneIni = new ScrollPane((Node) vue.getCourant());
                 scrollPaneIni.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -152,19 +154,19 @@ public class Principale extends Application {
                 scrollPaneIni.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
                 system.notifierObservateur();
                 main.getChildren().add(scrollPaneIni);
-
+*/
 
                 choixDeVues.setOnAction(e -> {
-                        system.notifierObservateur();
+
                         ComboBox<String> cb = (ComboBox<String>) e.getSource();
                         // Supprimez l'ancien contenu
                         main.getChildren().removeIf(node -> node instanceof ScrollPane);
 
                         // Mettez à jour le contenu avec le nouveau choix
                         vue.changerVue(cb.getValue());
-
-                        // Créez un nouveau ScrollPane avec le contenu actuel de vue.getCourant()
-                        ScrollPane scrollPane = new ScrollPane((Node) vue.getCourant());
+                        system.notifierObservateur();
+                        // Créez un nouveau ScrollPane avec le contenu actuel de vue
+                        ScrollPane scrollPane = new ScrollPane(vue);
                         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                         scrollPane.setPrefHeight(760);
