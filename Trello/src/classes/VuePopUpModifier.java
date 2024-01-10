@@ -14,12 +14,12 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 
 public class VuePopUpModifier extends Stage implements Observateur {
-    private Tache tache;
+    private TacheMere tache;
     private Tableau tableau;
 
     private Colonne colonne;
 
-    VuePopUpModifier(Sujet sujet, Tache tache) {
+    VuePopUpModifier(Sujet sujet, TacheMere tache) {
         this.tache = tache;
         this.tableau = (Tableau) sujet;
         this.colonne=tache.getColonneOrigine();
@@ -166,7 +166,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
         }
     }
 
-    private void majSousTachesRecursive(Tache tacheMere, VBox vbox) {
+    private void majSousTachesRecursive(TacheMere tacheMere, VBox vbox) {
         if (vbox != null) {
             for (Node vboxtmp : vbox.getChildren()) {
                 if (vboxtmp instanceof VBox) {
@@ -187,7 +187,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
                     if (Integer.parseInt(idLabel.getText()) > -1) {
                         // La sous-tâche existe, mettez à jour ses propriétés
 
-                        Tache sousTache =  tacheMere.tacheById(Integer.parseInt(idLabel.getText()));
+                        TacheMere sousTache =  (TacheMere) tacheMere.tacheById(Integer.parseInt(idLabel.getText()));
 
                         sousTache.setNom(nomTextField.getText());
                         sousTache.setDuree(Double.parseDouble(dureeTextField.getText()));
@@ -201,18 +201,9 @@ public class VuePopUpModifier extends Stage implements Observateur {
                         nouvelleSousTache.setDuree(Double.parseDouble(dureeTextField.getText()));
                         nouvelleSousTache.setDate(datePicker.getValue());
 
-                        // Ajoutez la nouvelle sous-tâche à la liste des sous-tâches de la tâche mère
-                        if(!(tacheMere instanceof TacheMere)){
-                            SousTache sousTache = (SousTache) tacheMere;
-                            System.out.println(sousTache.idTache);
-                            tacheMere= new TacheMere(sousTache);
-                            System.out.println(tacheMere.idTache);
-                        }
-
                         System.out.println("test"+((TacheMere) tacheMere).getSousTaches());
-                        ((TacheMere)tacheMere).ajouterSousTache(nouvelleSousTache);
+                        tacheMere.ajouterSousTache(nouvelleSousTache);
                         System.out.println("test"+((TacheMere)tacheMere).getSousTaches());
-
 
                         // Appel récursif pour traiter les sous-sous-tâches
                         majSousTachesRecursive(nouvelleSousTache, vboxcast);
