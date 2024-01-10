@@ -17,9 +17,11 @@ public class VuePopUpModifier extends Stage implements Observateur {
     private TacheMere tache;
     private Tableau tableau;
 
+
     private Colonne colonne;
 
     VuePopUpModifier(Sujet sujet, TacheMere tache) {
+
         this.tache = tache;
         this.tableau = (Tableau) sujet;
         this.colonne=tache.getColonneOrigine();

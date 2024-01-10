@@ -59,6 +59,3 @@ public class VueListe extends VBox implements Observateur {
 
     }
 }
-/*Tableau tab = (Tableau) sujet;
-        System.out.println("VueListe : ");
-        tab.afficher();*/
