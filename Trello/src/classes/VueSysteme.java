@@ -28,7 +28,7 @@ public class VueSysteme extends VBox implements Observateur{
             if(sys.getTableauCourant()==t){
                 titre.setStyle("-fx-background-color: rgb(255,243,198);-fx-font-size: 15;-fx-border-width: 2px;-fx-border-color: transparent;");
                 titre.setOnMouseEntered(e -> titre.setStyle(
-                        "-fx-background-color: rgb(255,243,198);    -fx-font-size: 15;-fx-border-width: 2px;-fx-border-color: black;-fx-border-radius: 2px;"
+                        "-fx-background-color: rgb(255,243,198);    -fx-font-size: 15;-fx-border-width: 2px;-fx-border-color: rgb(255,243,198);-fx-border-radius: 2px;"
                 ));
                 // Style par défaut après le survol
                 titre.setOnMouseExited(e -> titre.setStyle(
@@ -37,7 +37,7 @@ public class VueSysteme extends VBox implements Observateur{
             }else{
                 titre.setStyle("-fx-border-width: 0;-fx-background-color: transparent;-fx-border-width: 2px;-fx-border-color: transparent;-fx-font-size: 15;");
                 titre.setOnMouseEntered(e -> titre.setStyle(
-                        "-fx-background-color: transparent;-fx-border-width: 2px;-fx-border-color: black;-fx-border-radius: 2px;-fx-font-size: 15;"
+                        "-fx-background-color: transparent;-fx-border-width: 2px;-fx-border-color: rgb(255,243,198);-fx-border-radius: 2px;-fx-font-size: 15;"
                 ));
                 // Style par défaut après le survol
                 titre.setOnMouseExited(e -> titre.setStyle(

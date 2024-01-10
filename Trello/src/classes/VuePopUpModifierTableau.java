@@ -1,6 +1,7 @@
 package classes;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,6 +34,8 @@ public class VuePopUpModifierTableau extends Stage implements Observateur {
         Label nomLabel = new Label("Nom :");
 
         HBox hbox1 = new HBox();
+        hbox1.setSpacing(3);
+        hbox1.setAlignment(Pos.CENTER);
         hbox1.getChildren().addAll(nomLabel,nomTextField);
         vbox.getChildren().add(hbox1);
 
@@ -57,11 +60,11 @@ public class VuePopUpModifierTableau extends Stage implements Observateur {
         });
 
 
-        HBox buttonBox = new HBox(validerButton, annulerButton);
-        vbox.getChildren().add(buttonBox);
+        hbox1.getChildren().addAll(validerButton,annulerButton);
 
-        Scene scene = new Scene(vbox, 700, 350);
+        Scene scene = new Scene(vbox, 400, 50);
         this.setScene(scene);
+        this.setTitle("Modifier Tableau");
         this.show();
     }
 }

@@ -1,6 +1,7 @@
 package classes;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -54,12 +55,14 @@ public class VuePopUpAjouterTableau extends Stage implements Observateur {
         annulerButton.setOnAction(event -> {
             this.close();
         });
+        hbox1.setSpacing(3);
+        hbox1.setAlignment(Pos.CENTER);
 
 
-        HBox buttonBox = new HBox(validerButton, annulerButton);
-        vbox.getChildren().add(buttonBox);
+        hbox1.getChildren().addAll(validerButton,annulerButton);
 
-        Scene scene = new Scene(vbox, 700, 350);
+        Scene scene = new Scene(vbox, 400, 50);
+        this.setTitle("Ajout Tableau");
         this.setScene(scene);
         this.show();
     }
