@@ -43,7 +43,7 @@ public class VueBureau extends HBox implements Observateur {
             colonnetmp = new VBox();
             colonnetmp.setSpacing(10);
             colonnetmp.setMinWidth(250);
-            colonnetmp.setStyle("-fx-border-color: purple; -fx-border-width: 5px;-fx-border-radius: 50px;-fx-background-color: rgb(255,255,255,0.5) ; -fx-background-radius:50px; ");
+            colonnetmp.setStyle("-fx-border-color: #ffffff; -fx-border-width: 5px;-fx-border-radius: 10px;-fx-background-color: rgb(255,255,255,0.5) ; -fx-background-radius:10px; ");
 
             colonnetmp.setAlignment(Pos.TOP_CENTER);
             colonnetmp.setId(i + "");
@@ -62,15 +62,43 @@ public class VueBureau extends HBox implements Observateur {
             titreColonne.setStyle("-fx-font-family: 'Arial';" +
                     "-fx-font-size: 30px;" +
                     "-fx-font-weight: bold;" +
-                    "-fx-text-fill: #b40047;" +
+                    "-fx-text-fill: #b66682;" +
                     "-fx-font-family: Krungthep;");
 
             //On créer les boutons de modification et de suppression des colonnes et on les ajoute à la vue
             ControleurColonne cc = new ControleurColonne(tab, tab.getColonnes().get(i));
             Button modif = new Button("Modifier");
+            modif.setStyle("-fx-background-color: transparent;");
+
+            // Style pour le survol
+            modif.setOnMouseEntered(e -> modif.setStyle(
+                    "-fx-background-color: transparent;-fx-underline: true;"
+            ));
+
+            // Style par défaut après le survol
+            modif.setOnMouseExited(e -> modif.setStyle(
+                    "-fx-background-color: transparent;-fx-underline: false"
+            ));
+
+
             modif.setOnAction(cc);
 
             Button suppr = new Button("Supprimer");
+            suppr.setStyle("-fx-background-color: transparent;");
+
+            suppr.setOnMouseEntered(e -> suppr.setStyle(
+                    "-fx-background-color: transparent;-fx-underline: true"
+            ));
+
+            // Style par défaut après le survol
+            suppr.setOnMouseExited(e -> suppr.setStyle(
+                    "-fx-background-color: transparent;-fx-underline: false"
+            ));
+
+
+
+
+
             suppr.setOnAction(cc);
 
             zoneHauteColonne.getChildren().addAll(titreColonne,idColonne, modif, suppr);
@@ -108,9 +136,12 @@ public class VueBureau extends HBox implements Observateur {
                     VBox pl = createPlaceholderTache(tab, this);
                     pl.setUserData(tab.getColonnes().get(i));
 
-                    Label ll = new Label(t.getNom());
-                    ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
-                    tachetmp.getChildren().addAll(ll,boutonstachetmp);
+
+                Label ll = new Label(t.getNom());
+                ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
+                HBox tmp = new HBox(); ///////////////////////////////////////////////////////////////////////supprimer HBOX SI TOUT EST CASSER
+                tmp.getChildren().addAll(ll,boutonstachetmp);
+                tachetmp.getChildren().addAll(tmp);
 
                     //Sous taches
                     if (t instanceof TacheMere) {
@@ -134,48 +165,22 @@ public class VueBureau extends HBox implements Observateur {
 
             ////***** Buton supprimer //////
 
-            ajouterTache.setStyle(
-                    "-fx-font-size: 10px; " +
-                            "-fx-padding: 5px; " +
-                            "-fx-background-color: #ffe1fd; " + // Couleur de fond
-                            "-fx-text-fill: #000000; " + // Couleur du texte
-                            "-fx-border-color: #cea1c9; " + // Couleur de la bordure
-                            "-fx-border-width: 2px; " +
-                            "-fx-border-radius: 50px;" + // Bordure arrondie
-                            "-fx-background-radius: 50px;" + // Coin arrondi pour le fond
-                            "-fx-font-size:  15px;"
-            );
+            ajouterTache.setStyle("-fx-background-color:black;-fx-border-color: black;-fx-text-fill: white ;-fx-border-radius:5px;-fx-font-size: 15px;");
 
-            // Style pour le survol
             ajouterTache.setOnMouseEntered(e -> ajouterTache.setStyle(
-                    "-fx-font-size: 10px; " +
-                            "-fx-padding: 5px; " +
-                            "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                            "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                            "-fx-border-color: #ffc3f8; " +
-                            "-fx-border-width: 2px; " +
-                            "-fx-border-radius: 50px;" + // Bordure arrondie
-                            "-fx-background-radius: 50px;"+
-                            "-fx-font-size:  15px;"
+                    "-fx-background-color:transparent;" +
+                            "-fx-text-fill: black ;-fx-border-width: 2px;-fx-border-color: black;-fx-border-radius:5px;-fx-font-size: 15px;"
             ));
 
             // Style par défaut après le survol
             ajouterTache.setOnMouseExited(e -> ajouterTache.setStyle(
-                    "-fx-font-size: 10px; " +
-                            "-fx-padding: 5px; " +
-                            "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
-                            "-fx-text-fill: #000000; " + // Retour à la couleur du texte blanche
-                            "-fx-border-color: #cea1c9; " + // Retour à la couleur de bordure initiale
-                            "-fx-border-width: 2px; " +
-                            "-fx-border-radius: 50px;" + // Bordure arrondie
-                            "-fx-background-radius: 50px;" +
-                            "-fx-font-size:  15px;" // Coin arrondi pour le fond
+                    "-fx-background-color:black;-fx-border-color: black;-fx-text-fill: white ;-fx-border-radius:5px;-fx-font-size: 15px;"
             ));
-
             /////////////////////////////////
-            ajouterTache.setAlignment(Pos.CENTER);
+            ajouterTache.setAlignment(Pos.BOTTOM_CENTER);
 
-            ajouterTache.setPadding(new Insets(20,0,0,0));
+
+
             colonnetmp.getChildren().addAll(ajouterTache);
             colonnetmp.setMinHeight(650);
             colonnetmp.setPadding(new Insets(20));
@@ -184,39 +189,39 @@ public class VueBureau extends HBox implements Observateur {
 
 
         VBox ajoutColonne= new VBox();
-        ajoutColonne.setStyle("-fx-border-color: green; -fx-border-width: 5px;-fx-border-radius: 50px");
         ajoutColonne.setPadding(new Insets(50));
-        Button ajouterColonne = new Button("Ajouter Colonne");
+        Button ajouterColonne = new Button("+");
+
         ajouterColonne.setStyle(
-                "-fx-font-size: 10px; " +
-                        "-fx-background-color: #aedc93; " + // Couleur de fond
+                "-fx-min-width: 70px; -fx-min-height: 70px;" +
+                        "-fx-background-color: #9dcfff; " + // Couleur de fond
                         "-fx-text-fill: #ffffff; " + // Couleur du texte
-                        "-fx-border-color: #6a8759; " + // Couleur de la bordure
+                        "-fx-border-color: #005686; " + // Couleur de la bordure
                         "-fx-border-width: 2px; " +
                         "-fx-border-radius: 50px;" + // Bordure arrondie
-                        "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+                        "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 40px;" // Coin arrondi pour le fond
         );
 
         // Style pour le survol
         ajouterColonne.setOnMouseEntered(e -> ajouterColonne.setStyle(
-                "-fx-font-size: 10px; " +
+                "-fx-min-width: 70px; -fx-min-height: 70px;" +
                         "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
                         "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                        "-fx-border-color: #6a8759; " +
+                        "-fx-border-color: #005686; " +
                         "-fx-border-width: 2px; " +
                         "-fx-border-radius: 50px;" + // Bordure arrondie
-                        "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;"
+                        "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 40px;"
         ));
 
         // Style par défaut après le survol
         ajouterColonne.setOnMouseExited(e -> ajouterColonne.setStyle(
-                "-fx-font-size: 10px; " +
-                        "-fx-background-color: #aedc93; " + // Retour à la couleur de fond transparente
-                        "-fx-text-fill: #ffffff; " + // Retour à la couleur du texte blanche
-                        "-fx-border-color: #6a8759; " + // Retour à la couleur de bordure initiale
+                "-fx-min-width: 70px; -fx-min-height: 70px;" +
+                        "-fx-background-color: #9dcfff; " + // Couleur de fond
+                        "-fx-text-fill: #ffffff; " + // Couleur du texte
+                        "-fx-border-color: #005686; " + // Couleur de la bordure
                         "-fx-border-width: 2px; " +
                         "-fx-border-radius: 50px;" + // Bordure arrondie
-                        "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+                        "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 40px;" // Coin arrondi pour le fond
         ));
 
         ajoutColonne.setAlignment(Pos.CENTER);
@@ -245,10 +250,14 @@ public class VueBureau extends HBox implements Observateur {
 
             HBox soutache = new HBox();
 
+            soutache.setSpacing(2);
+
+
             ControleurTache ct = new ControleurTache(tab, st);
             soutache.setPadding(new Insets(0,0,0,padding));
             Label l = new Label(st.getNom());
-            l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats'");
+            l.setPadding(new Insets(0,0,0,5));
+            l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats';-fx-border-color: black;-fx-border-width: 0 0 0 2px;");
             soutache.getChildren().add(l);
             soutache.setId("soustache"+sousTacheId);
             sousTacheId++;
@@ -276,8 +285,8 @@ public class VueBureau extends HBox implements Observateur {
     private VBox createPlaceholderColonne(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
 
-        placeholder.setPrefWidth(100);
-        placeholder.setStyle("-fx-background-color: #3387a6;");
+        placeholder.setPrefWidth(30);
+        placeholder.setStyle("-fx-background-color: #7bb6d2;-fx-border-radius: 50px;-fx-border-width: 20px");
         placeholder.setId("placeholderColonne");
 
         placeholder.setVisible(false);
@@ -298,7 +307,7 @@ public class VueBureau extends HBox implements Observateur {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(100);
         placeholder.setPrefHeight(20);
-        placeholder.setStyle("-fx-background-color: #3387a6;");
+        placeholder.setStyle("-fx-background-color: #7bb6d2;-fx-border-radius: 50px;-fx-border-width: 20px");
         placeholder.setId("placeholderTache");
         placeholder.setVisible(false);
 
@@ -340,9 +349,9 @@ public class VueBureau extends HBox implements Observateur {
             buttons[j].setStyle(
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
-                            "-fx-background-color: #ffe1fd; " + // Couleur de fond
-                            "-fx-text-fill: #000000; " + // Couleur du texte
-                            "-fx-border-color: #cea1c9; " + // Couleur de la bordure
+                            "-fx-background-color: #bde7cc; " + // Couleur de fond
+                            "-fx-text-fill: white; " + // Couleur du texte
+                            "-fx-border-color: #ffffff; " + // Couleur de la bordure
                             "-fx-border-width: 2px; "+
                             "-fx-border-radius: 50px;" + // Bordure arrondie
                             "-fx-background-radius: 50px;" // Coin arrondi pour le fond
@@ -354,8 +363,8 @@ public class VueBureau extends HBox implements Observateur {
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
                             "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                            "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                            "-fx-border-color: #ffc3f8; "+
+                            "-fx-text-fill: #95c2a8; " + // Nouvelle couleur du texte au survol
+                            "-fx-border-color: #95c2a8; "+
                             "-fx-border-width: 2px; "+
                             "-fx-border-radius: 50px;" + // Bordure arrondie
                             "-fx-background-radius: 50px;"
@@ -366,9 +375,9 @@ public class VueBureau extends HBox implements Observateur {
             buttons[j].setOnMouseExited(e ->  buttons[finalJ1].setStyle(
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
-                            "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
-                            "-fx-text-fill: #000000; " + // Retour à la couleur du texte blanche
-                            "-fx-border-color: #cea1c9; " + // Retour à la couleur de bordure initiale
+                            "-fx-background-color: #bde7cc; " + // Retour à la couleur de fond transparente
+                            "-fx-text-fill: white; " + // Retour à la couleur du texte blanche
+                            "-fx-border-color: #ffffff; " + // Retour à la couleur de bordure initiale
                             "-fx-border-width: 2px; " +
                             "-fx-border-radius: 50px;" + // Bordure arrondie
                             "-fx-background-radius: 50px;" // Coin arrondi pour le fond

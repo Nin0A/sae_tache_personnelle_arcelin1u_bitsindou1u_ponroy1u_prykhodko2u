@@ -76,34 +76,16 @@ public class VueGantt extends Pane implements Observateur {
 
 
             // Style pour le survol
+            validerButton.setStyle("-fx-background-color:black;-fx-border-color: black;-fx-text-fill: white ;-fx-border-radius:5px");
+
             validerButton.setOnMouseEntered(e -> validerButton.setStyle(
-
-
-
-
-                    "-fx-font-size: 10px; " +
-                            "-fx-padding: 5px; " +
-                            "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                            "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                            "-fx-border-color: #ffc3f8; " +
-                            "-fx-border-width: 2px; " +
-                            "-fx-border-radius: 50px;" + // Bordure arrondie
-                            "-fx-background-radius: 50px;"+
-                            "-fx-font-size:  15px;"
+                    "-fx-background-color:transparent;" +
+                            "-fx-text-fill: black ;-fx-border-color: black;-fx-border-radius:5px"
             ));
 
+            // Style par défaut après le survol
             validerButton.setOnMouseExited(e -> validerButton.setStyle(
-
-
-                    "-fx-font-size: 10px; " +
-                            "-fx-padding: 5px; " +
-                            "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                            "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                            "-fx-border-color: #d4ff6a; " +
-                            "-fx-border-width: 2px; " +
-                            "-fx-border-radius: 50px;" + // Bordure arrondie
-                            "-fx-background-radius: 50px;"+
-                            "-fx-font-size:  15px;"
+                    "-fx-background-color:black;-fx-border-color: black;-fx-text-fill: white;-fx-border-radius:5px"
             ));
 
             // Associez un gestionnaire d'événements pour le clic sur le bouton "Valider"
@@ -143,7 +125,6 @@ public class VueGantt extends Pane implements Observateur {
                         this.getChildren().remove(i);
                     }
 
-
                     for(int i=1;i<this.getChildren().size();i++){
                         this.getChildren().remove(i);
                     }
@@ -178,11 +159,8 @@ public class VueGantt extends Pane implements Observateur {
 
 
             containerCheckBox.getChildren().add(validerButton);
-            ScrollPane sp = new ScrollPane(containerCheckBox);
-            sp.setStyle("-fx-background-color: white");
-            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-            container.getChildren().add(sp);
+            containerCheckBox.setAlignment(Pos.CENTER_LEFT);
+            container.getChildren().add(containerCheckBox);
             container.getChildren().add(timeLine);
             this.getChildren().add(container);
 
@@ -288,7 +266,7 @@ public class VueGantt extends Pane implements Observateur {
         Label label = new Label(tache.getNom());
         label.setLayoutX(rect.getX() + 5);
         label.setLayoutY(rect.getY() + 5);
-        label.setStyle("-fx-text-fill: white;");
+        label.setStyle("-fx-text-fill: black;");
 
 
         Pane taskPane = new     Pane();
@@ -307,7 +285,7 @@ public class VueGantt extends Pane implements Observateur {
      */
     private double addTaskAndSubtasks(Tache tache, double yPos, LocalDate baseDate, int depth) {
 
-        Color color = (depth == 0) ? Color.rgb(225,142,255) : Color.rgb(255,142,188);
+        Color color = (depth == 0) ? Color.rgb(255,234,217) : Color.rgb(255,243,198);
         if (depth==0){
             LocalDate startDate = tache.getDateDebut();
             double startOffset = ChronoUnit.DAYS.between(baseDate, startDate);
