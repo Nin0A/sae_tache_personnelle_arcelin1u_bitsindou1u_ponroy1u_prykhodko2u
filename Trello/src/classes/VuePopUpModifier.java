@@ -17,6 +17,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
     private Tache tache;
     private Tableau tableau;
 
+
     VuePopUpModifier(Sujet sujet, Tache tache) {
         this.tache = tache;
         this.tableau = (Tableau) sujet;
