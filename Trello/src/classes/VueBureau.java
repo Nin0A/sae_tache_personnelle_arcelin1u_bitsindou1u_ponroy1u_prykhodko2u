@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Polygon;
+
 import java.util.ArrayList;
 
 
@@ -128,7 +130,7 @@ public class VueBureau extends HBox implements Observateur {
                     //placeholder pour taches
                     tachetmp.setId("tache"+ tacheId);
                     tacheId++;
-                    tachetmp.setOnDragDropped(new ControleurTache_SetOnDragDropped(this, tab));
+                    tachetmp.setOnDragDropped(new ControleurTache_SetOnDragDropped( tab));
                     tachetmp.setOnDragOver(new ControleurTachePlaceholder_SetOnDragOver());
                     tachetmp.setOnDragDetected(new ControleurTache_SetOnDragDetected(tachetmp, this));
                     tachetmp.setOnDragDone(new ControleurTache_SetOnDragDone(tab, this));
@@ -191,7 +193,6 @@ public class VueBureau extends HBox implements Observateur {
         VBox ajoutColonne= new VBox();
         ajoutColonne.setPadding(new Insets(50));
         Button ajouterColonne = new Button("+");
-
         ajouterColonne.setStyle(
                 "-fx-min-width: 70px; -fx-min-height: 70px;" +
                         "-fx-background-color: #9dcfff; " + // Couleur de fond
@@ -257,8 +258,9 @@ public class VueBureau extends HBox implements Observateur {
             soutache.setPadding(new Insets(0,0,0,padding));
             Label l = new Label(st.getNom());
             l.setPadding(new Insets(0,0,0,5));
-            l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats';-fx-border-color: black;-fx-border-width: 0 0 0 2px;");
-            soutache.getChildren().add(l);
+            l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats';");
+            soutache.setAlignment(Pos.CENTER_LEFT);
+            soutache.getChildren().addAll(createArrow(),l);
             soutache.setId("soustache"+sousTacheId);
             sousTacheId++;
             soutache.setUserData(st);
@@ -280,6 +282,19 @@ public class VueBureau extends HBox implements Observateur {
         }
 
         return taches;
+    }
+
+    public static Polygon createArrow() {
+        // Créer une flèche avec un triangle
+        Polygon arrow = new Polygon();
+        arrow.getPoints().addAll(0.0, 0.0, 10.0, 5.0, 0.0, 10.0);
+
+        // Positionner et styliser la flèche
+        arrow.setLayoutX(50);
+        arrow.setLayoutY(50);
+        arrow.setStyle("-fx-fill: black;");
+
+        return arrow;
     }
 
     private VBox createPlaceholderColonne(Tableau tab, VueBureau vb) {

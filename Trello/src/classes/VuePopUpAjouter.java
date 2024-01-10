@@ -1,11 +1,13 @@
 package classes;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -85,8 +87,14 @@ public class VuePopUpAjouter extends Stage implements Observateur {
 
         });
 
-        Scene scene = new Scene(vbox, 800, 550);
+        ScrollPane sp = new ScrollPane(vbox);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+
+        Scene scene = new Scene(sp, 900, 500);
         this.setScene(scene);
+        this.setTitle("Ajout Tâche");
         this.show();
     }
 
@@ -107,10 +115,12 @@ public class VuePopUpAjouter extends Stage implements Observateur {
     public void creerFormSousTache(VBox vbox, int rangTache, int marge) {
         VBox vBoxSousTache = new VBox();
         HBox hbox = new HBox();
-
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(3);
         TextField nomTextField = new TextField();
         Label nomLabel = new Label("Nom :");
-        hbox.getChildren().addAll(nomLabel, nomTextField);
+        hbox.getChildren().addAll(VueBureau.createArrow(),nomLabel, nomTextField);
+
 
         TextField dureeTextField = new TextField();
         Label dureeLabel = new Label("Durée :");
@@ -156,9 +166,9 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                     VBox vboxcast = (VBox) vboxtmp;
                     HBox hbox = (HBox) vboxcast.getChildren().get(0);
 
-                    TextField nomTextField = (TextField) hbox.getChildren().get(1);
-                    TextField dureeTextField = (TextField) hbox.getChildren().get(3);
-                    DatePicker datePicker = (DatePicker) hbox.getChildren().get(5);
+                    TextField nomTextField = (TextField) hbox.getChildren().get(2);
+                    TextField dureeTextField = (TextField) hbox.getChildren().get(4);
+                    DatePicker datePicker = (DatePicker) hbox.getChildren().get(6);
 
                     if (validerChampsSousTache(nomTextField, dureeTextField, datePicker, vboxcast)) {
                         String nom = nomTextField.getText();
@@ -245,9 +255,9 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                 VBox vboxcast = (VBox) vboxtmp;
                 HBox hbox = (HBox) vboxcast.getChildren().get(0);
 
-                TextField nomTextField = (TextField) hbox.getChildren().get(1);
-                TextField dureeTextField = (TextField) hbox.getChildren().get(3);
-                DatePicker datePicker = (DatePicker) hbox.getChildren().get(5);
+                TextField nomTextField = (TextField) hbox.getChildren().get(2);
+                TextField dureeTextField = (TextField) hbox.getChildren().get(4);
+                DatePicker datePicker = (DatePicker) hbox.getChildren().get(6);
 
                 if (!validerChampsSousTache(nomTextField, dureeTextField, datePicker, vboxcast)) {
                     return false; // Arrête la validation si un champ de sous-tâche est invalide
@@ -275,9 +285,9 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                 VBox vboxcast = (VBox) vboxtmp;
                 HBox hbox = (HBox) vboxcast.getChildren().get(0);
 
-                TextField nomTextField = (TextField) hbox.getChildren().get(1);
-                TextField dureeTextField = (TextField) hbox.getChildren().get(3);
-                DatePicker datePicker = (DatePicker) hbox.getChildren().get(5);
+                TextField nomTextField = (TextField) hbox.getChildren().get(2);
+                TextField dureeTextField = (TextField) hbox.getChildren().get(4);
+                DatePicker datePicker = (DatePicker) hbox.getChildren().get(6);
 
                 String nom = nomTextField.getText();
                 String duree = dureeTextField.getText();
@@ -319,5 +329,6 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         }
         return true;
     }
+
 
 }

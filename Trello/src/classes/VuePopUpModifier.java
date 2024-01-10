@@ -1,12 +1,10 @@
 package classes;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -114,9 +112,12 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
         HBox buttonBox = new HBox(validerButton, annulerButton,ajouterSousTache);
         vbox.getChildren().addAll(buttonBox,vboxcontainer);
-
-        Scene scene = new Scene(vbox, 700, 350);
+        ScrollPane sp = new ScrollPane(vbox);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        Scene scene = new Scene(sp, 900, 500);
         this.setScene(scene);
+        this.setTitle("Modifier Tâche");
         this.show();
     }
     /**
@@ -137,11 +138,13 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
                 sousTacheBox.setId("#id"+rangTache);
                 sousTacheBox.setPadding(new Insets(0, 0, 0, marge*30));
+                sousTacheBox.setAlignment(Pos.CENTER);
+                sousTacheBox.setSpacing(3);
 
-                Label sousTacheLabel = new Label("Sous-tâche :");
+                Label sousTacheLabel = new Label("Nom :");
                 TextField sousTacheTextField = new TextField(sousTache.getNom());
 
-                sousTacheBox.getChildren().addAll(sousTacheLabel, sousTacheTextField);
+                sousTacheBox.getChildren().addAll(VueBureau.createArrow(),sousTacheLabel, sousTacheTextField);
                 //
 
                 //champ durée
@@ -189,7 +192,6 @@ public class VuePopUpModifier extends Stage implements Observateur {
                 });
 
                 vBoxSousTachetmp.getChildren().add(sousTacheBox);
-                vBoxSousTachetmp.setStyle("-fx-border-color: black");
                 container.getChildren().add(vBoxSousTachetmp);
 
                 // Recursively display sub-subtasks
@@ -211,11 +213,11 @@ public class VuePopUpModifier extends Stage implements Observateur {
                     HBox hbox = (HBox) vboxcast.getChildren().get(0);
 
                     // Récupérer les champs du formulaire depuis lastHBox
-                    TextField nomTextField = (TextField) hbox.getChildren().get(1);
-                    TextField dureeTextField = (TextField) hbox.getChildren().get(3);
-                    DatePicker datePicker = (DatePicker) hbox.getChildren().get(5);
+                    TextField nomTextField = (TextField) hbox.getChildren().get(2);
+                    TextField dureeTextField = (TextField) hbox.getChildren().get(4);
+                    DatePicker datePicker = (DatePicker) hbox.getChildren().get(6);
 
-                    Label idLabel = (Label) hbox.getChildren().get(6);
+                    Label idLabel = (Label) hbox.getChildren().get(7);
 
 
                     // Vérifiez si la sous-tâche existe déjà en comparant l'ID
@@ -259,14 +261,16 @@ public class VuePopUpModifier extends Stage implements Observateur {
     public void creerFormSousTache(VBox vbox,int rangTache,int marge) {
         //création
         VBox vBoxSousTache = new VBox();
-        vBoxSousTache.setStyle("-fx-border-color: black");
+
         //vBoxSousTache.setStyle("-fx-border-color: black ");
         HBox hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(3);
 
         //champ nom
         TextField nomTextField = new TextField();
         Label nomLabel = new Label("Nom :");
-        hbox.getChildren().addAll(nomLabel, nomTextField);
+        hbox.getChildren().addAll(VueBureau.createArrow(),nomLabel, nomTextField);
 
         //champ durée
         TextField dureeTextField = new TextField();

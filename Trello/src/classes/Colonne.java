@@ -39,6 +39,7 @@ public class Colonne extends Composant<Tache> {
      */
     public void ajouterTache(Tache t){
         this.liste.add(t);
+        t.setColonneOrigine(this);
     }
 
     /**

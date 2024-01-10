@@ -213,8 +213,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
      * @param tache tache à supprimer
      */
     public void supprimerTache(Tache tache){
-       //Colonne colonne = chercherColonne(tache);
-       tache.colonneOrigine.supprimerTache(tache);
+       Colonne colonne = chercherColonne(tache);
+       colonne.supprimerTache(tache);
        notifierObservateur();
     }
 
@@ -227,7 +227,6 @@ public class Tableau extends Composant<Colonne> implements Sujet {
     public void ajouterTache(Colonne colonne, Tache tache){
         if(chercherColonne(tache)==null) {
             colonne.ajouterTache(tache);
-            System.out.println("la date de la tache ajouter : "+tache.getDateDebut());
         }
         notifierObservateur();
     }
