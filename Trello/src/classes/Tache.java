@@ -15,11 +15,11 @@ public abstract class Tache extends Composant<Tache> {
 
     //attributs
     static int nbTaches = 0;
-    int idTache;
-    private double duree; //durée de la tache en jours
-    private LocalDate dateDebut; //date de début de la tache
+    protected int idTache;
+    protected double duree; //durée de la tache en jours
+    protected LocalDate dateDebut; //date de début de la tache
 
-    private Colonne colonneOrigine; //colonne d'origine de la tache
+    protected Colonne colonneOrigine; //colonne d'origine de la tache
 
    // private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
@@ -30,6 +30,13 @@ public abstract class Tache extends Composant<Tache> {
         this.dateDebut = LocalDate.of(anneeDebut, moisDebut, jourDebut);
         nbTaches ++;
         idTache = nbTaches;
+        this.colonneOrigine = colCourante;
+    }
+    public Tache(String desc,Colonne colCourante, double duree, int jourDebut, int moisDebut ,int anneeDebut,int id) {
+        super(desc);
+        this.duree = duree;
+        this.dateDebut = LocalDate.of(anneeDebut, moisDebut, jourDebut);
+        idTache = id;
         this.colonneOrigine = colCourante;
     }
 
@@ -88,6 +95,13 @@ public abstract class Tache extends Composant<Tache> {
      */
     public boolean tacheExiste(int id){
         return this.idTache == id;
+    }
+    public Tache tacheById(int id){
+       if(this.idTache==id){
+           return this;
+       }else{
+           return null;
+       }
     }
 
     public void afficher() {
@@ -156,7 +170,6 @@ public abstract class Tache extends Composant<Tache> {
 
     public int getId() {
         return idTache;
-
     }
 
     public void reinitialiser(){}
@@ -170,6 +183,10 @@ public abstract class Tache extends Composant<Tache> {
         return tache.idTache==this.idTache;
     }
 
+
+    public void setId(int id){
+        this.idTache=id;
+    }
 
 
 }

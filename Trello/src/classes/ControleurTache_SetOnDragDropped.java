@@ -29,9 +29,9 @@ public class ControleurTache_SetOnDragDropped implements Controleur<DragEvent> {
 
                 if (tMere instanceof SousTache)
                     tMere = new TacheMere(tMere);
-                System.out.println("AJOUTTTT");
+//                System.out.println("AJOUTTTT");
                 if (((TacheMere)tMere).verifAjout(move)){
-                    System.out.println("AJOTOK");
+//                    System.out.println("AJOTOK");
                     tab.supprimerTache(move);
 
                     ((TacheMere)tMere).ajouterSousTache(move);

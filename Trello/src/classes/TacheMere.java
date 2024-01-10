@@ -32,8 +32,12 @@ public class TacheMere extends Tache {
     }
 
     //constructeur par copie: pour transformer une sous tache en tache mere
+    public TacheMere (TacheMere t){
+        super(t.getNom(),t.getColonneOrigine(),t.getDuree(),t.getDateDebut().getDayOfMonth(),t.getDateDebut().getMonthValue(),t.getDateDebut().getYear(),t.idTache);
+        sousTaches = t.sousTaches;
+    }
     public TacheMere (SousTache t){
-        super(t.getNom(),t.getColonneOrigine(),t.getDuree(),t.getDateDebut().getDayOfMonth(),t.getDateDebut().getMonthValue(),t.getDateDebut().getYear());
+        super(t.getNom(),t.getColonneOrigine(),t.getDuree(),t.getDateDebut().getDayOfMonth(),t.getDateDebut().getMonthValue(),t.getDateDebut().getYear(),t.idTache);
         sousTaches = new ArrayList<Tache>();
     }
 
@@ -106,6 +110,19 @@ public class TacheMere extends Tache {
             }
         }
         return res;
+    }
+    public Tache tacheById(int id){
+        if(this.idTache==id){
+            return this;
+        }else{
+            Tache res = null;
+            for(Tache st: sousTaches){
+                res = st.tacheById(id);
+                if(res!=null)
+                    break;
+            }
+            return res;
+        }
     }
     /**
      * Méthode reinitialiser qui supprime toutes les sous-taches de la tache

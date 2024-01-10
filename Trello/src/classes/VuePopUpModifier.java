@@ -14,12 +14,15 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 
 public class VuePopUpModifier extends Stage implements Observateur {
-    private Tache tache;
+    private TacheMere tache;
     private Tableau tableau;
 
-    VuePopUpModifier(Sujet sujet, Tache tache) {
+    private Colonne colonne;
+
+    VuePopUpModifier(Sujet sujet, TacheMere tache) {
         this.tache = tache;
         this.tableau = (Tableau) sujet;
+        this.colonne=tache.getColonneOrigine();
     }
 
     @Override
@@ -70,7 +73,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
             tache.setDate(datePicker.getValue());
 
             // Update the names of existing subtasks
-            majSousTachesRecursive((TacheMere) tache, vbox);
+            majSousTachesRecursive(tache, vboxcontainer);
 
             // Close the pop-up window after validation
             this.close();
@@ -120,8 +123,9 @@ public class VuePopUpModifier extends Stage implements Observateur {
                 datePicker.setValue(sousTache.getDateDebut());
                 sousTacheBox.getChildren().addAll(dateLabel, datePicker);
 
+                System.out.println("lolilll+ : "+sousTache.getId());
+                Label id = new Label(String.valueOf(sousTache.getId()));
 
-                Label id = new Label(""+sousTache.getId());
                 sousTacheBox.getChildren().add(id);
 
                 //button ajouter sous tache
@@ -167,22 +171,24 @@ public class VuePopUpModifier extends Stage implements Observateur {
             for (Node vboxtmp : vbox.getChildren()) {
                 if (vboxtmp instanceof VBox) {
                     VBox vboxcast = (VBox) vboxtmp;
-
+                    System.out.println(vboxcast.getChildren());
                     HBox hbox = (HBox) vboxcast.getChildren().get(0);
 
                     // Récupérer les champs du formulaire depuis lastHBox
                     TextField nomTextField = (TextField) hbox.getChildren().get(1);
                     TextField dureeTextField = (TextField) hbox.getChildren().get(3);
                     DatePicker datePicker = (DatePicker) hbox.getChildren().get(5);
+
                     Label idLabel = (Label) hbox.getChildren().get(6);
 
-                    // Obtenez l'indice de la sous-tâche dans la liste des sous-tâches de la tâche mère
-                    int index = vbox.getChildren().indexOf(vboxtmp);
+                    System.out.println(idLabel);
 
                     // Vérifiez si la sous-tâche existe déjà en comparant l'ID
-                    if (Integer.parseInt(idLabel.getText()) > 0) {
+                    if (Integer.parseInt(idLabel.getText()) > -1) {
                         // La sous-tâche existe, mettez à jour ses propriétés
-                        TacheMere sousTache = (TacheMere) tacheMere.getSousTaches().get(index);
+
+                        TacheMere sousTache =  (TacheMere) tacheMere.tacheById(Integer.parseInt(idLabel.getText()));
+
                         sousTache.setNom(nomTextField.getText());
                         sousTache.setDuree(Double.parseDouble(dureeTextField.getText()));
                         sousTache.setDate(datePicker.getValue());
@@ -190,24 +196,24 @@ public class VuePopUpModifier extends Stage implements Observateur {
                         // Appel récursif pour traiter les sous-sous-tâches
                         majSousTachesRecursive(sousTache, vboxcast);
                     } else {
-                        // La sous-tâche n'existe pas ou n'a pas d'ID, créez une nouvelle sous-tâche
-                        TacheMere nouvelleSousTache = new TacheMere(nomTextField.getText(), tacheMere.getColonneOrigine(), Double.parseDouble(dureeTextField.getText()),datePicker.getValue().getDayOfMonth(),datePicker.getValue().getMonthValue(),datePicker.getValue().getYear() ); // Assurez-vous d'ajuster la création en fonction de votre modèle
+                        TacheMere nouvelleSousTache = new TacheMere(nomTextField.getText(),colonne,Double.parseDouble(dureeTextField.getText()),datePicker.getValue().getDayOfMonth(),datePicker.getValue().getMonthValue(),datePicker.getValue().getYear()); // Assurez-vous d'ajuster la création en fonction de votre modèle
                         nouvelleSousTache.setNom(nomTextField.getText());
                         nouvelleSousTache.setDuree(Double.parseDouble(dureeTextField.getText()));
                         nouvelleSousTache.setDate(datePicker.getValue());
 
-                        // Ajoutez la nouvelle sous-tâche à la liste des sous-tâches de la tâche mère
+                        System.out.println("test"+((TacheMere) tacheMere).getSousTaches());
                         tacheMere.ajouterSousTache(nouvelleSousTache);
+                        System.out.println("test"+((TacheMere)tacheMere).getSousTaches());
 
                         // Appel récursif pour traiter les sous-sous-tâches
                         majSousTachesRecursive(nouvelleSousTache, vboxcast);
 
-                        // Notifiez les observateurs après l'ajout de la nouvelle sous-tâche
-                        tableau.notifierObservateur();
                     }
                 }
             }
         }
+        // Notifiez les observateurs après l'ajout de la nouvelle sous-tâche
+        tableau.notifierObservateur();
     }
 
 
@@ -216,6 +222,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
     public void creerFormSousTache(VBox vbox,int rangTache,int marge) {
         //création
         VBox vBoxSousTache = new VBox();
+        vBoxSousTache.setStyle("-fx-border-color: black");
         //vBoxSousTache.setStyle("-fx-border-color: black ");
         HBox hbox = new HBox();
 
@@ -234,7 +241,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
         Label dateLabel = new Label("Date :");
         hbox.getChildren().addAll(dateLabel, datePicker);
 
-        Label id = new Label("0");
+        Label id = new Label("-1");
         hbox.getChildren().add(id);
 
         //button ajouter sous tache

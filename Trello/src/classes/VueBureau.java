@@ -221,7 +221,6 @@ public class VueBureau extends HBox implements Observateur {
         this.getChildren().addAll(ajoutColonne);
         //============================
         addPlaceholdersColonnes(this, tab);
-
     }
 
 
