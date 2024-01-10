@@ -18,229 +18,223 @@ import java.util.ArrayList;
 
 public class VueBureau extends HBox implements Observateur {
 
+    /**
+     * Méthode setContr qui permet de mettre les contrôleurs sur les colonnes
+     * @param col
+     */
+    private void setContr(VBox col){
 
-    //POUR L'ITERATION 2 /!\
+        col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
 
+        col.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
 
-
-
-        //===============================================
-        private void setContr(VBox col){
-
-            col.setOnDragDetected(new ControleurColonne_SetOnDragDetected(col, this));
-
-            col.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasString()) {
-
-                    success = true;
-                }
-                event.setDropCompleted(success);
-                event.consume();
-                System.out.println(3333);
-            });
-
-
-
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+            System.out.println(3333);
+        });
         }
 
 
-        /**
-        * Méhtode actualiser qui permet d'actualiser le sujet colonnes par colonnes
-        * @param sujet sujet à actualiser
-        */
-        @Override
-        public void actualiser(Sujet sujet) {
-            Tableau tab = (Tableau) sujet;
-            this.getChildren().clear();
-            this.setSpacing(10);
+    /**
+    * Méhtode actualiser qui permet d'actualiser le sujet colonnes par colonnes
+    * @param sujet sujet à actualiser
+    */
+    @Override
+    public void actualiser(Sujet sujet) {
+        Tableau tab = (Tableau) sujet;
+        this.getChildren().clear();
+        this.setSpacing(10);
 
 
-            //Création de la vbox du tableau
+        //Création de la vbox du tableau
 
-            VBox colonnetmp;
+        VBox colonnetmp;
 
-            //On créer le fond du tableau et on l'ajoute à la vue
-            for(int i=0;i<tab.getColonnes().size();i++) {
-                colonnetmp = new VBox();
-                colonnetmp.setSpacing(10);
-                colonnetmp.setMinWidth(250);
-                colonnetmp.setStyle("-fx-border-color: purple; -fx-border-width: 5px;-fx-border-radius: 50px;-fx-background-color: rgb(255,255,255,0.5) ; -fx-background-radius:50px; ");
+        //On créer le fond du tableau et on l'ajoute à la vue
+        for(int i=0;i<tab.getColonnes().size();i++) {
+            colonnetmp = new VBox();
+            colonnetmp.setSpacing(10);
+            colonnetmp.setMinWidth(250);
+            colonnetmp.setStyle("-fx-border-color: purple; -fx-border-width: 5px;-fx-border-radius: 50px;-fx-background-color: rgb(255,255,255,0.5) ; -fx-background-radius:50px; ");
 
-                colonnetmp.setAlignment(Pos.TOP_CENTER);
-                colonnetmp.setId(i + "");
+            colonnetmp.setAlignment(Pos.TOP_CENTER);
+            colonnetmp.setId(i + "");
 
-                //----------------------------------
-                setContr(colonnetmp);
+            //----------------------------------
+            setContr(colonnetmp);
 //                setTabContr(colonnetmp);
 
 
 
 
-                HBox zoneHauteColonne = new HBox();
+            HBox zoneHauteColonne = new HBox();
 
-                //On créer les titres des colonnes et on les ajoute à la vue
-                Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
+            //On créer les titres des colonnes et on les ajoute à la vue
+            Label titreColonne = new Label(tab.getColonnes().get(i).getNom());
 
-                titreColonne.setStyle("-fx-font-family: 'Arial';" +
-                        "-fx-font-size: 30px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #b40047;" +
-                        "-fx-font-family: Krungthep;");
+            titreColonne.setStyle("-fx-font-family: 'Arial';" +
+                    "-fx-font-size: 30px;" +
+                    "-fx-font-weight: bold;" +
+                    "-fx-text-fill: #b40047;" +
+                    "-fx-font-family: Krungthep;");
 
-                //On créer les boutons de modification et de suppression des colonnes et on les ajoute à la vue
-                ControleurColonne cc = new ControleurColonne(tab, tab.getColonnes().get(i));
-                Button modif = new Button("Modifier");
-                modif.setOnAction(cc);
+            //On créer les boutons de modification et de suppression des colonnes et on les ajoute à la vue
+            ControleurColonne cc = new ControleurColonne(tab, tab.getColonnes().get(i));
+            Button modif = new Button("Modifier");
+            modif.setOnAction(cc);
 
-                Button suppr = new Button("Supprimer");
-                suppr.setOnAction(cc);
+            Button suppr = new Button("Supprimer");
+            suppr.setOnAction(cc);
 
-                zoneHauteColonne.getChildren().addAll(titreColonne, modif, suppr);
+            zoneHauteColonne.getChildren().addAll(titreColonne, modif, suppr);
 
 
-                VBox vbox = new VBox();
+            VBox vbox = new VBox();
 
-                vbox.getChildren().addAll(titreColonne, zoneHauteColonne);
-                zoneHauteColonne.setAlignment(Pos.CENTER);
+            vbox.getChildren().addAll(titreColonne, zoneHauteColonne);
+            zoneHauteColonne.setAlignment(Pos.CENTER);
 
-                vbox.setAlignment(Pos.CENTER);
-                colonnetmp.getChildren().addAll(vbox);
-                ControleurTache ct = null;
+            vbox.setAlignment(Pos.CENTER);
+            colonnetmp.getChildren().addAll(vbox);
+            ControleurTache ct = null;
 
-                //Pour chaque tache on crée une Hbox comportant le nom de la tache et on l'ajoute à la vue
-                for (Tache t : tab.getColonnes().get(i).getTaches()) {
-                    HBox tachetmp = new HBox();
-                    tachetmp.setAlignment(Pos.CENTER_LEFT);
-                    HBox boutonstachetmp = new HBox();
-                    boutonstachetmp.setAlignment(Pos.CENTER_LEFT);
-                    //Button et Controleur
-                    ct = new ControleurTache(tab, t);
-                    ajouterBouton(boutonstachetmp, ct);
+            //Pour chaque tache on crée une Hbox comportant le nom de la tache et on l'ajoute à la vue
+            for (Tache t : tab.getColonnes().get(i).getTaches()) {
+                HBox tachetmp = new HBox();
+                tachetmp.setAlignment(Pos.CENTER_LEFT);
+                HBox boutonstachetmp = new HBox();
+                boutonstachetmp.setAlignment(Pos.CENTER_LEFT);
+                //Button et Controleur
+                ct = new ControleurTache(tab, t);
+                ajouterBouton(boutonstachetmp, ct);
 
-                    Label ll = new Label(t.getNom());
-                    ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
-                    tachetmp.getChildren().addAll(ll,boutonstachetmp);
-                    colonnetmp.getChildren().addAll(tachetmp);
+                Label ll = new Label(t.getNom());
+                ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
+                tachetmp.getChildren().addAll(ll,boutonstachetmp);
+                colonnetmp.getChildren().addAll(tachetmp);
 
-                    //Sous taches
-                    if (t instanceof TacheMere) {
-                        ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
-                        for (HBox hbox : listeSoustache) {
-                            colonnetmp.getChildren().addAll(hbox);
-                        }
+                //Sous taches
+                if (t instanceof TacheMere) {
+                    ArrayList<HBox> listeSoustache = ajoutersoustache((TacheMere) t, tab,25);
+                    for (HBox hbox : listeSoustache) {
+                        colonnetmp.getChildren().addAll(hbox);
                     }
-
                 }
-                ct = new ControleurTache(tab, null);
-                Button ajouterTache = new Button("Ajouter une tâche");
-                ajouterTache.setOnAction(ct);
 
-                ////***** Buton supprimer //////
-
-                ajouterTache.setStyle(
-                        "-fx-font-size: 10px; " +
-                                "-fx-padding: 5px; " +
-                                "-fx-background-color: #ffe1fd; " + // Couleur de fond
-                                "-fx-text-fill: #000000; " + // Couleur du texte
-                                "-fx-border-color: #cea1c9; " + // Couleur de la bordure
-                                "-fx-border-width: 2px; " +
-                                "-fx-border-radius: 50px;" + // Bordure arrondie
-                                "-fx-background-radius: 50px;" + // Coin arrondi pour le fond
-                                "-fx-font-size:  15px;"
-                );
-
-                // Style pour le survol
-                ajouterTache.setOnMouseEntered(e -> ajouterTache.setStyle(
-                        "-fx-font-size: 10px; " +
-                                "-fx-padding: 5px; " +
-                                "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                                "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                                "-fx-border-color: #ffc3f8; " +
-                                "-fx-border-width: 2px; " +
-                                "-fx-border-radius: 50px;" + // Bordure arrondie
-                                "-fx-background-radius: 50px;"+
-                                "-fx-font-size:  15px;"
-                ));
-
-                // Style par défaut après le survol
-                ajouterTache.setOnMouseExited(e -> ajouterTache.setStyle(
-                        "-fx-font-size: 10px; " +
-                                "-fx-padding: 5px; " +
-                                "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
-                                "-fx-text-fill: #000000; " + // Retour à la couleur du texte blanche
-                                "-fx-border-color: #cea1c9; " + // Retour à la couleur de bordure initiale
-                                "-fx-border-width: 2px; " +
-                                "-fx-border-radius: 50px;" + // Bordure arrondie
-                                "-fx-background-radius: 50px;" +
-                                "-fx-font-size:  15px;" // Coin arrondi pour le fond
-                ));
-
-                /////////////////////////////////
-                ajouterTache.setAlignment(Pos.CENTER);
-                
-                ajouterTache.setPadding(new Insets(20,0,0,0));
-                colonnetmp.getChildren().addAll(ajouterTache);
-                colonnetmp.setMinHeight(650);
-                colonnetmp.setPadding(new Insets(20));
-                this.getChildren().addAll(colonnetmp);
             }
+            ct = new ControleurTache(tab, null);
+            Button ajouterTache = new Button("Ajouter une tâche");
+            ajouterTache.setOnAction(ct);
 
+            ////***** Buton supprimer //////
 
-            VBox ajoutColonne= new VBox();
-            ajoutColonne.setStyle("-fx-border-color: green; -fx-border-width: 5px;-fx-border-radius: 50px");
-            ajoutColonne.setPadding(new Insets(50));
-            Button ajouterColonne = new Button("Ajouter Colonne");
-            ajouterColonne.setStyle(
+            ajouterTache.setStyle(
                     "-fx-font-size: 10px; " +
-                    "-fx-background-color: #aedc93; " + // Couleur de fond
-                    "-fx-text-fill: #ffffff; " + // Couleur du texte
-                    "-fx-border-color: #6a8759; " + // Couleur de la bordure
-                    "-fx-border-width: 2px; " +
-                    "-fx-border-radius: 50px;" + // Bordure arrondie
-                    "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+                            "-fx-padding: 5px; " +
+                            "-fx-background-color: #ffe1fd; " + // Couleur de fond
+                            "-fx-text-fill: #000000; " + // Couleur du texte
+                            "-fx-border-color: #cea1c9; " + // Couleur de la bordure
+                            "-fx-border-width: 2px; " +
+                            "-fx-border-radius: 50px;" + // Bordure arrondie
+                            "-fx-background-radius: 50px;" + // Coin arrondi pour le fond
+                            "-fx-font-size:  15px;"
             );
 
             // Style pour le survol
-            ajouterColonne.setOnMouseEntered(e -> ajouterColonne.setStyle(
+            ajouterTache.setOnMouseEntered(e -> ajouterTache.setStyle(
                     "-fx-font-size: 10px; " +
-                    "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                    "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
-                    "-fx-border-color: #6a8759; " +
-                    "-fx-border-width: 2px; " +
-                    "-fx-border-radius: 50px;" + // Bordure arrondie
-                    "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;"
+                            "-fx-padding: 5px; " +
+                            "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
+                            "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
+                            "-fx-border-color: #ffc3f8; " +
+                            "-fx-border-width: 2px; " +
+                            "-fx-border-radius: 50px;" + // Bordure arrondie
+                            "-fx-background-radius: 50px;"+
+                            "-fx-font-size:  15px;"
             ));
 
             // Style par défaut après le survol
-            ajouterColonne.setOnMouseExited(e -> ajouterColonne.setStyle(
+            ajouterTache.setOnMouseExited(e -> ajouterTache.setStyle(
                     "-fx-font-size: 10px; " +
-                            "-fx-background-color: #aedc93; " + // Retour à la couleur de fond transparente
-                            "-fx-text-fill: #ffffff; " + // Retour à la couleur du texte blanche
-                            "-fx-border-color: #6a8759; " + // Retour à la couleur de bordure initiale
+                            "-fx-padding: 5px; " +
+                            "-fx-background-color: #ffe1fd; " + // Retour à la couleur de fond transparente
+                            "-fx-text-fill: #000000; " + // Retour à la couleur du texte blanche
+                            "-fx-border-color: #cea1c9; " + // Retour à la couleur de bordure initiale
                             "-fx-border-width: 2px; " +
                             "-fx-border-radius: 50px;" + // Bordure arrondie
-                            "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+                            "-fx-background-radius: 50px;" +
+                            "-fx-font-size:  15px;" // Coin arrondi pour le fond
             ));
 
-            ajoutColonne.setAlignment(Pos.CENTER);
-            ajoutColonne.getChildren().addAll(ajouterColonne);
-            ajouterColonne.setOnAction(new ControleurColonne(tab,new Colonne(null)));
+            /////////////////////////////////
+            ajouterTache.setAlignment(Pos.CENTER);
 
-            this.getChildren().addAll(ajoutColonne);
-            //============================
-            addPlaceholders(this, tab);
-
+            ajouterTache.setPadding(new Insets(20,0,0,0));
+            colonnetmp.getChildren().addAll(ajouterTache);
+            colonnetmp.setMinHeight(650);
+            colonnetmp.setPadding(new Insets(20));
+            this.getChildren().addAll(colonnetmp);
         }
 
 
-        /**
-         * Méthode ajoutersoustache qui permet d'ajouter les sous taches d'une tache mère
-         * @param t tache mère dont on veut ajouter les sous taches
-         * @param tab tableau où se trouve la tache mère
-         * @return liste des sous taches
-         */
+        VBox ajoutColonne= new VBox();
+        ajoutColonne.setStyle("-fx-border-color: green; -fx-border-width: 5px;-fx-border-radius: 50px");
+        ajoutColonne.setPadding(new Insets(50));
+        Button ajouterColonne = new Button("Ajouter Colonne");
+        ajouterColonne.setStyle(
+                "-fx-font-size: 10px; " +
+                "-fx-background-color: #aedc93; " + // Couleur de fond
+                "-fx-text-fill: #ffffff; " + // Couleur du texte
+                "-fx-border-color: #6a8759; " + // Couleur de la bordure
+                "-fx-border-width: 2px; " +
+                "-fx-border-radius: 50px;" + // Bordure arrondie
+                "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+        );
+
+        // Style pour le survol
+        ajouterColonne.setOnMouseEntered(e -> ajouterColonne.setStyle(
+                "-fx-font-size: 10px; " +
+                "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
+                "-fx-text-fill: #000000; " + // Nouvelle couleur du texte au survol
+                "-fx-border-color: #6a8759; " +
+                "-fx-border-width: 2px; " +
+                "-fx-border-radius: 50px;" + // Bordure arrondie
+                "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;"
+        ));
+
+        // Style par défaut après le survol
+        ajouterColonne.setOnMouseExited(e -> ajouterColonne.setStyle(
+                "-fx-font-size: 10px; " +
+                        "-fx-background-color: #aedc93; " + // Retour à la couleur de fond transparente
+                        "-fx-text-fill: #ffffff; " + // Retour à la couleur du texte blanche
+                        "-fx-border-color: #6a8759; " + // Retour à la couleur de bordure initiale
+                        "-fx-border-width: 2px; " +
+                        "-fx-border-radius: 50px;" + // Bordure arrondie
+                        "-fx-background-radius: 50px;-fx-font-weight: bold; -fx-font-size: 14px;" // Coin arrondi pour le fond
+        ));
+
+        ajoutColonne.setAlignment(Pos.CENTER);
+        ajoutColonne.getChildren().addAll(ajouterColonne);
+        ajouterColonne.setOnAction(new ControleurColonne(tab,new Colonne(null)));
+
+        this.getChildren().addAll(ajoutColonne);
+        //============================
+        addPlaceholders(this, tab);
+
+    }
+
+
+    /**
+     * Méthode ajoutersoustache qui permet d'ajouter les sous taches d'une tache mère
+     * @param t tache mère dont on veut ajouter les sous taches
+     * @param tab tableau où se trouve la tache mère
+     * @return liste des sous taches
+     */
 
     public ArrayList<HBox> ajoutersoustache(TacheMere t, Tableau tab,int padding) {
         ArrayList<HBox> taches = new ArrayList<>();
@@ -269,8 +263,14 @@ public class VueBureau extends HBox implements Observateur {
         }
 
         return taches;
-        }
+    }
 
+    /**
+     * Méthode qui crée les escpaces concernant le drag and drop
+     * @param tab le tableau en question
+     * @param vb la vue en question
+     * @return
+     */
     private VBox createPlaceholder(Tableau tab, VueBureau vb) {
         VBox placeholder = new VBox();
         placeholder.setPrefWidth(30);
@@ -294,7 +294,11 @@ public class VueBureau extends HBox implements Observateur {
     }
 
 
-
+    /**
+     * Méthode findNodebyId qui permet de trouver un noeud par son id
+     * @param id
+     * @return
+     */
     private Node findNodeById(String id) {
         for (Node child : getChildren()) {
             if (id.equals(child.getId())) {
@@ -304,18 +308,26 @@ public class VueBureau extends HBox implements Observateur {
         return null;
     }
 
+    /**
+     * Ajoute les place holder créés par la méthode createPlaceholder
+     * @param vb
+     * @param tab
+     */
     private void addPlaceholders(VueBureau vb, Tableau tab) {
-//        System.out.println("size = " + getChildren().size());
         int size = getChildren().size();
         for (int i = 0; i < size; i++) {
             VBox placeholder = createPlaceholder(tab, vb);
-//            placeholder.setId(i+"pl");
+    //            placeholder.setId(i+"pl");
             getChildren().add(i*2, placeholder);
         }
 
     }
 
-
+    /**
+     * Méthode ajouterBouton qui permet d'ajouter un bouton à une tache
+     * @param tache à laquelle on veut ajouter un bouton
+     * @param c controleur du bouton
+     */
     public void ajouterBouton(HBox tache, Controleur c){
             String[] action= {"Modifier","Archiver","Supprimer"};
             Button[] buttons = new Button[3];
