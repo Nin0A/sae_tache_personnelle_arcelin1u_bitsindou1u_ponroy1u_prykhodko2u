@@ -51,6 +51,7 @@ public class VuePopUpModifierColonne extends Stage implements Observateur {
             // Fermer la fenêtre pop-up après validation
             this.close();
             tableau.notifierObservateur();
+            Principale.system.notifierObservateur();
 
         });
 

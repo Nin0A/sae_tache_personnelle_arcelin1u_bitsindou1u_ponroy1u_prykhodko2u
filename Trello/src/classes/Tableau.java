@@ -35,6 +35,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             this.liste.add(c);
             notifierObservateur();
         }
+        Principale.system.notifierObservateur();
 
 
     }
@@ -57,6 +58,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
 
         this.liste.remove(c);
         notifierObservateur();
+        Principale.system.notifierObservateur();
     }
 
     /**
@@ -121,7 +123,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         arrivee.liste.addAll(sousTaches);
 
         notifierObservateur();
-
+        Principale.system.notifierObservateur();
     }
 
     /**
@@ -142,6 +144,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             t.colonneOrigine.liste.remove(t);
         }
         notifierObservateur();
+        Principale.system.notifierObservateur();
     }
 
 
@@ -176,6 +179,8 @@ public class Tableau extends Composant<Colonne> implements Sujet {
         //on ajoute la tache à la colonne des archives
         depart.liste.add(t);
         notifierObservateur();
+        Principale.system.notifierObservateur();
+
     }
 
 
@@ -216,6 +221,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
        Colonne colonne = chercherColonne(tache);
        colonne.supprimerTache(tache);
        notifierObservateur();
+       Principale.system.notifierObservateur();
     }
 
 
@@ -229,6 +235,7 @@ public class Tableau extends Composant<Colonne> implements Sujet {
             colonne.ajouterTache(tache);
         }
         notifierObservateur();
+        Principale.system.notifierObservateur();
     }
 
 /*

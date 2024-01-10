@@ -47,8 +47,11 @@ public class ControleurTache implements Controleur<ActionEvent>{
                 Label labeltmp = (Label) vboxtmp2.getChildren().get(1);
                 VuePopUpAjouter vpu = new VuePopUpAjouter(modele, modele.getColonneById(Integer.parseInt(labeltmp.getText())));
                 vpu.actualiser(modele);
+
             break;
         }
+
+
     }
 
 }

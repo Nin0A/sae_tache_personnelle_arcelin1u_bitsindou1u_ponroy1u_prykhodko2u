@@ -24,6 +24,7 @@ public class VuePopUpAjouter extends Stage implements Observateur {
         this.colonneCourante = colonne;
         this.tacheMere=null;
         this.sujet=sujet;
+
     }
     /**
      * Méthode actualiser d'ouvrir une pop up pour ajouter une tache
@@ -80,7 +81,10 @@ public class VuePopUpAjouter extends Stage implements Observateur {
                 }
 
                 this.close();
+
                 t.notifierObservateur();
+                Principale.system.notifierObservateur();
+
             }
 
             //on verifie que les dates et la durée des sous taches sont valides
