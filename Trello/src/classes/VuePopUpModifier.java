@@ -104,6 +104,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
             // Close the pop-up window after validation
             this.close();
             sujet.notifierObservateur();
+            Principale.system.notifierObservateur();
         });
 
         annulerButton.setOnAction(event -> {
