@@ -46,7 +46,7 @@ public class TestTacheMere {
 
         //on ajoute les sous taches 5 et 6 à la tache 1
         t1.ajouterSousTache(t5);
-        t1.ajouterSousTache(t6);
+        t1.ajouterSousTache(t2);
 
         //on ajoute les taches 1 et 2 comme antécédents de la tache 3
         t3.ajouterAntecedent(t1);
@@ -140,6 +140,16 @@ public class TestTacheMere {
     //test de la methode verifChevauche quand les sous taches se chevauchent entre elles et ne sont donc pas espacées
     @Test
     public void testVerifChevauche_KO2(){
+        assertFalse(t1.verifChevauche());
+    }
+
+    //test de la methode verifChevauche quand les sous taches dont une tache se chevauchent entre elles
+    @Test
+    public void testVerifChevauche_KO3(){
+        System.out.println(t2.getDateDebut());
+        System.out.println(t2.getDateFin());
+        System.out.println(t5.getDateDebut());
+        System.out.println(t5.getDateFin());
         assertFalse(t1.verifChevauche());
     }
 }

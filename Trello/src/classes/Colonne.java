@@ -63,6 +63,10 @@ public class Colonne extends Composant<Tache> {
         supprimerOcurance(t);
 
     }
+    /**
+     * Méthode supprimerOcurance qui supprime une tache de la liste des antécédents et des SousTaches de toutes les taches de la colonne
+     * @param tache tache à supprimer
+     */
     public void supprimerOcurance(Tache tache){
         for(Tache tachetmp : liste){
             tachetmp.supprimerAntecedent(tache);
@@ -80,7 +84,6 @@ public class Colonne extends Composant<Tache> {
      */
     public TacheMere getTacheMere(Tache tCherchee, ArrayList<Tache> list) {
         TacheMere tMere = null;
-
         // On parcourt la liste de taches
         for (Tache t : list) {
 

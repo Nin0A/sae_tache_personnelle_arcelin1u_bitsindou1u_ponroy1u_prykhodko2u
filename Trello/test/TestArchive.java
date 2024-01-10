@@ -30,6 +30,7 @@ public class TestArchive {
         //creer 2 sous taches
         t5 = new SousTache("Tache 5", col, 5,  1, 1, 1);
         t6 = new SousTache("Tache 6", col, 5, 1, 1, 1);
+
         //t7 = new SousTache("Tache 7", 5, 1, 1, 1);
 
         //on ajoute la colonne à la liste de colonnes du tableau

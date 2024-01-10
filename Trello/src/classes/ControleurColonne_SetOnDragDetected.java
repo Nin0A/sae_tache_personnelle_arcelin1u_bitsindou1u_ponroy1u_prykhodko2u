@@ -11,11 +11,19 @@ public class ControleurColonne_SetOnDragDetected implements Controleur<MouseEven
    private VBox col;
    private HBox root;
 
+    /**
+     * Constructeur de la classe ControleurColonne_SetOnDragDetected
+     * @param c colonne sur laquelle on fait un drag
+     * @param r racine de la vue
+     */
     ControleurColonne_SetOnDragDetected(VBox c, HBox r){
         col = c;
         root = r;
     }
-
+    /**
+     * Méthode handle qui gère les actions sur les boutons
+     * @param event action sur un bouton
+     */
     @Override
     public void handle(MouseEvent event) {
         Dragboard db = col.startDragAndDrop(TransferMode.MOVE);

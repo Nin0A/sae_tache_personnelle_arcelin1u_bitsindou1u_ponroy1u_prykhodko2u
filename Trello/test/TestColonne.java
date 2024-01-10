@@ -22,15 +22,15 @@ public class TestColonne {
         col = new Colonne("Colonne A");
 
         //créer 4 taches mères
-        t1 = new TacheMere("Tache 1", col, 7, 1 , 1, 1);
-        t2 = new TacheMere("Tache 2", col, 10, 1 , 1, 1);
-        t3 = new TacheMere("Tache 3", col, 5, 1 , 1, 1);
-        t4 = new TacheMere("Tache 4", col, 5, 1 , 1, 1);
+        t1 = new TacheMere("Tache 1",col, 7, 1 , 1, 1);
+        t2 = new TacheMere("Tache 2",col, 10, 1 , 1, 1);
+        t3 = new TacheMere("Tache 3",col, 5, 1 , 1, 1);
+        t4 = new TacheMere("Tache 4",col, 5, 1 , 1, 1);
 
         //creer 2 sous taches
-        t5 = new SousTache("Tache 5", col, 5,  1, 1, 1);
-        t6 = new TacheMere("Tache 6", col, 5 , 1, 1, 1);
-        t7 = new SousTache("Tache 7", col, 5 , 1, 1, 1);
+        t5 = new SousTache("Tache 5", col,5,  1, 1, 1);
+        t6 = new TacheMere("Tache 6",col, 5 , 1, 1, 1);
+        t7 = new SousTache("Tache 7", col,5 , 1, 1, 1);
         t6.ajouterSousTache(t7);
         //créer des sous taches
 

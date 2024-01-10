@@ -107,6 +107,11 @@ public class TacheMere extends Tache {
         }
         return res;
     }
+    /**
+     * Méthode tacheById qui retourne la tache qui a l'id passé en paramètre
+     * @param id id de la tache recherchée
+     * @return la tache qui a l'id passé en paramètre
+     */
     public Tache tacheById(int id){
         if(this.idTache==id){
             return this;
@@ -253,7 +258,7 @@ public class TacheMere extends Tache {
 //                LocalDate dateFinSuivante = tacheSuivante.getDateDebut().plusDays((long) tacheSuivante.getDuree());
                 //on verifie que la date de début de la sous tache suivante soit supérieure à la date de fin de la sous tache
                 //courante
-                if (dateDebutSuivante.isBefore(dateFin)) {
+                if (dateDebutSuivante.isBefore(dateFin)|| dateFin.isAfter(dateDebutSuivante)) {
                     res = false;
                 }
             }
@@ -269,7 +274,11 @@ public class TacheMere extends Tache {
     public boolean verifSousTaches(Tache t) {
         return verifDureeSousTaches(t) && verifDateDebutSousTaches(t) && verifDateFinSousTaches(t) && verifChevauche(t);
     }
-
+    /**
+     * Méthode verifAjout qui vérifie que l'ajout d'une sous tache soit correcte
+     * @param t tache à ajouter
+     * @return true si l'ajout est correcte, false sinon
+     */
     public boolean verifAjout(Tache t){
 
         System.out.println(verifDureeSousTaches(t));

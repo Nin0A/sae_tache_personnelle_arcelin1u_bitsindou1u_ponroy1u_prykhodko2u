@@ -6,6 +6,10 @@ import javafx.scene.layout.VBox;
 
 public class ControleurTachePlaceholder_SetOnDragOver implements Controleur<DragEvent> {
 
+    /**
+     * Méthode handle
+     * @param event action
+     */
     @Override
     public void handle(DragEvent event) {
         if (event.getGestureSource() != event.getTarget() &&

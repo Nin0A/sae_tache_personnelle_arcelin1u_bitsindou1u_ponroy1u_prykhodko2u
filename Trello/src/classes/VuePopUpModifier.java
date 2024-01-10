@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VuePopUpModifier extends Stage implements Observateur {
     private TacheMere tache;
@@ -26,7 +28,10 @@ public class VuePopUpModifier extends Stage implements Observateur {
         this.tableau = (Tableau) sujet;
         this.colonne=tache.getColonneOrigine();
     }
-
+    /**
+     * Méthode actualiser d'ouvrir une pop up pour modifier une tache
+     * @param sujet sujet à actualiser
+     */
     @Override
     public void actualiser(Sujet sujet) {
         VBox vbox = new VBox();
@@ -61,6 +66,25 @@ public class VuePopUpModifier extends Stage implements Observateur {
         hbox3.getChildren().addAll(dateLabel, datePicker);
         vbox.getChildren().add(hbox3);
 
+        //ajouter Antécédents
+        Button ajouterAntecedentsButton = new Button("Ajouter Antécédents");
+        ajouterAntecedentsButton.setOnAction(event -> {
+            ArrayList liste;
+            TacheMere tm= this.colonne.getTacheMere(tache, colonne.getTaches());
+            if(tm==null){
+                liste = new ArrayList();
+                for (Colonne c : this.tableau.getColonnes()) {
+                        liste.addAll(c.getTaches());
+                }
+            }else{
+                liste = tm.getSousTaches();
+            }
+            VueChoixAntecedents vueChoixAntecedents = new VueChoixAntecedents(liste, tache);
+            vueChoixAntecedents.actualiser(tableau);
+        });
+        vbox.getChildren().add(ajouterAntecedentsButton);
+
+
         // Display existing subtasks with text fields for modification
         VBox vboxcontainer = new VBox();
         vboxcontainer.setStyle("-fx-border-color: black");
@@ -93,7 +117,13 @@ public class VuePopUpModifier extends Stage implements Observateur {
         this.setScene(scene);
         this.show();
     }
-
+    /**
+     * Méthode displaySubtasks d'afficher les sous taches
+     * @param tache tache à afficher
+     * @param container container à afficher
+     * @param rangTache rang de la tache
+     * @param marge marge de la tache
+     */
     private void displaySubtasks(Tache tache, VBox container,int rangTache, int marge) {
         //création
 
@@ -103,7 +133,6 @@ public class VuePopUpModifier extends Stage implements Observateur {
                 VBox vBoxSousTachetmp = new VBox();
                 HBox sousTacheBox = new HBox();
 
-                System.out.println(rangTache);
                 sousTacheBox.setId("#id"+rangTache);
                 sousTacheBox.setPadding(new Insets(0, 0, 0, marge*30));
 
@@ -125,9 +154,8 @@ public class VuePopUpModifier extends Stage implements Observateur {
                 datePicker.setValue(sousTache.getDateDebut());
                 sousTacheBox.getChildren().addAll(dateLabel, datePicker);
 
-                System.out.println("lolilll+ : "+sousTache.getId());
                 Label id = new Label(String.valueOf(sousTache.getId()));
-
+                id.setVisible(false);
                 sousTacheBox.getChildren().add(id);
 
                 //button ajouter sous tache
@@ -167,13 +195,17 @@ public class VuePopUpModifier extends Stage implements Observateur {
             }
         }
     }
-
+    /**
+     * Méthode majSousTachesRecursive de mettre à jour les sous taches
+     * @param tacheMere tache mère des sousTaches à mettre à jour
+     * @param vbox vbox à mettre à jour
+     */
     private void majSousTachesRecursive(TacheMere tacheMere, VBox vbox) {
         if (vbox != null) {
             for (Node vboxtmp : vbox.getChildren()) {
                 if (vboxtmp instanceof VBox) {
                     VBox vboxcast = (VBox) vboxtmp;
-                    System.out.println(vboxcast.getChildren());
+
                     HBox hbox = (HBox) vboxcast.getChildren().get(0);
 
                     // Récupérer les champs du formulaire depuis lastHBox
@@ -183,7 +215,6 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
                     Label idLabel = (Label) hbox.getChildren().get(6);
 
-                    System.out.println(idLabel);
 
                     // Vérifiez si la sous-tâche existe déjà en comparant l'ID
                     if (Integer.parseInt(idLabel.getText()) > -1) {
@@ -203,9 +234,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
                         nouvelleSousTache.setDuree(Double.parseDouble(dureeTextField.getText()));
                         nouvelleSousTache.setDate(datePicker.getValue());
 
-                        System.out.println("test"+((TacheMere) tacheMere).getSousTaches());
                         tacheMere.ajouterSousTache(nouvelleSousTache);
-                        System.out.println("test"+((TacheMere)tacheMere).getSousTaches());
 
                         // Appel récursif pour traiter les sous-sous-tâches
                         majSousTachesRecursive(nouvelleSousTache, vboxcast);
@@ -220,7 +249,11 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
 
 
-
+    /** Méthode creerFormSousTache de créer un formulaire pour une sous tache
+     * @param vbox vbox à mettre à jour
+     * @param rangTache rang de la tache
+     * @param marge marge de la tache
+     */
     public void creerFormSousTache(VBox vbox,int rangTache,int marge) {
         //création
         VBox vBoxSousTache = new VBox();
@@ -244,6 +277,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
         hbox.getChildren().addAll(dateLabel, datePicker);
 
         Label id = new Label("-1");
+        id.setVisible(false);
         hbox.getChildren().add(id);
 
         //button ajouter sous tache
@@ -255,6 +289,7 @@ public class VuePopUpModifier extends Stage implements Observateur {
             vboxtmp.setSpacing(5);
             creerFormSousTache(vboxtmp,rangTache+1,marge+1);  // Appel récursif pour créer des sous-tâches de la sous-tâche
         });
+        //ajouter antécédents
 
         Button supprimer = new Button("Supprimer");
         hbox.getChildren().add(supprimer);
@@ -273,8 +308,6 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
         });
 
-
-        System.out.println(rangTache);
         hbox.setId("#id"+rangTache);
 
 

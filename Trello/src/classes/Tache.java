@@ -24,6 +24,15 @@ public abstract class Tache extends Composant<Tache> {
    // private ArrayList<Tache> antecedents; //liste des antécedents de la tache
 
     //constructeur
+    /**
+     * Constructeur de Tache
+     * @param desc description de la tache
+     * @param colCourante colonne de la tache
+     * @param duree durée de la tache
+     * @param jourDebut jour de la tache
+     * @param moisDebut mois de la tache
+     * @param anneeDebut année de la tache
+     */
     public Tache(String desc,Colonne colCourante, double duree, int jourDebut, int moisDebut ,int anneeDebut) {
         super(desc);
         this.duree = duree;
@@ -32,6 +41,16 @@ public abstract class Tache extends Composant<Tache> {
         idTache = nbTaches;
         this.colonneOrigine = colCourante;
     }
+    /**
+     * Constructeur de Tache avec un id défini
+     * @param desc description de la tache
+     * @param colCourante colonne de la tache
+     * @param duree durée de la tache
+     * @param jourDebut jour de la tache
+     * @param moisDebut mois de la tache
+     * @param anneeDebut année de la tache
+     * @param id id de la tache
+     */
     public Tache(String desc,Colonne colCourante, double duree, int jourDebut, int moisDebut ,int anneeDebut,int id) {
         super(desc);
         this.duree = duree;
@@ -48,9 +67,13 @@ public abstract class Tache extends Composant<Tache> {
      */
     public void ajouterAntecedent(Tache t){
         //on vérifie que la tache n'est pas déjà dans la liste
-        if (!this.liste.contains(t)) {
+        //on verifie que la tache (this) n'est pas déjà dans la liste des antécédents de la tache t
+        if (!this.liste.contains(t)&&!t.etreAntecedent(this)&&t.getDateFin().isBefore(this.getDateDebut())) {
             this.liste.add(t);
+
         }
+
+
     }
 
     /**
@@ -103,32 +126,41 @@ public abstract class Tache extends Composant<Tache> {
            return null;
        }
     }
-
+    /**
+     * Méthode afficher qui affiche la tache
+     */
     public void afficher() {
         System.out.println("\t\t- " + this.nom);
     }
-
+    /**
+     * Méthode setDuree qui modifie la durée de la tache
+     * @param duree la durée de la tache
+     */
     public void setDuree(double duree) {
         this.duree = duree;
     }
 
-
+    /**
+     * Méthode setColonneOrigine qui modifie la colonne d'origine de la tache
+     * @param colonneOrigine la colonne d'origine de la tache
+     */
     public void setColonneOrigine(Colonne colonneOrigine) {
         this.colonneOrigine = colonneOrigine;
     }
-
+    /**
+     * Méthode setDate qui modifie la date de début de la tache
+     * @param date la date de début de la tache
+     */
     public void setDate(LocalDate date){
         this.dateDebut=date;
 
     }
 
-    public void ajoutSupprAntecedent(Tache t){
-        if (etreAntecedent(t))
-            liste.remove(t);
-        else
-            liste.add(t);
-    }
-
+    /**
+     * Méthode etreAntecedent qui retourne true si la tache est un antécédent de la tache en paramètre
+     * @param t la tache à tester
+     * @return true si la tache est un antécédent de la tache en paramètre, false sinon
+     */
     public boolean etreAntecedent(Tache t){
         boolean res = false;
         for (Tache tache : this.liste ) {
@@ -138,10 +170,12 @@ public abstract class Tache extends Composant<Tache> {
             }
         }
         return res;
-
     }
 
-
+    /**
+     * Méthode getDuree qui retourne la durée de la tache
+     * @return la durée de la tache
+     */
     public double getDuree() {
         return duree;
     }
@@ -163,29 +197,33 @@ public abstract class Tache extends Composant<Tache> {
         return dateDebut.plusDays((long) duree-1);
     }
 
-
+    /**
+     * Méthode getColonneOrigine qui retourne la colonne d'origine de la tache
+     * @return la colonne d'origine de la tache
+     */
     public Colonne getColonneOrigine() {
         return colonneOrigine;
     }
-
+    /**
+     * Méthode getId qui retourne l'id de la tache
+     * @return l'id de la tache
+     */
     public int getId() {
         return idTache;
     }
 
-    public void reinitialiser(){}
 
-
+    /**
+     * Méthode equals qui compare deux taches
+     * @param o la tache à comparer
+     * @return true si les deux taches sont égales, false sinon
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!super.equals(o)) return false;
         Tache tache = (Tache) o;
         return tache.idTache==this.idTache;
-    }
-
-
-    public void setId(int id){
-        this.idTache=id;
     }
 
 

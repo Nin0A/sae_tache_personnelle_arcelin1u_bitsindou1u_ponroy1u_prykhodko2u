@@ -4,7 +4,6 @@ import javafx.scene.input.DragEvent;
 import javafx.event.EventHandler;
 
 public class ControleurTache_SetOnDragDone implements Controleur<DragEvent> {
-
     private Sujet s;
     private Observateur v;
 
@@ -12,6 +11,11 @@ public class ControleurTache_SetOnDragDone implements Controleur<DragEvent> {
         v = vue;
         s =sujet;
     }
+
+    /**
+     * Méthode handle
+     * @param event action
+     */
 
     @Override
     public void handle(DragEvent event) {
