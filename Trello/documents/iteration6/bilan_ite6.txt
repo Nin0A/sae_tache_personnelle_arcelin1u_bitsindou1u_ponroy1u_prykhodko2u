@@ -1,0 +1,18 @@
+Bilan de l'itération n°6, fin du projet :
+
+Lors de l'itération n°6, nous avons reussi à faire:
+
+    - Faire la JavaDoc de toutes les classes --> Célie
+    - Faire les tests de Arche --> Célie, Maëlle
+    - Ajouter le choix des antécédents --> Célie
+    - Régler les problèmes de Drag and Drop --> Yehor
+    - Drag and Drop des tâches dans la vue Liste--> Yehor
+    - Ajouter la sélection des tâches pour la vue Gantt --> Nino
+    - Faire le diagramme de classe final --> Maëlle
+    - L'implémentation des  --> Maëlle
+    - Ajouter des messages d'erreurs lors de l'ajout de tâches --> Maëlle
+
+En conclusion, lors de cette itération, nous avons pu finir les fonctionnalités inachevées de l'itération précédente.
+Nous avons décider de faire l'impasse sur la sauvergarde des données. Mais nous avons réussi à implémenter un application
+fonctionnelle et ergonomique.
+
