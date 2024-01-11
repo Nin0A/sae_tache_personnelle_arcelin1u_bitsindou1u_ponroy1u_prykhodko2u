@@ -1,0 +1,24 @@
+1.Sélectionner et commencer à déplacer une tâche (drag) :
+  L'utilisateur clique sur une tâche et commence à la déplacer.
+ Le gestionnaire ControleurTache_SetOnDragDetected est activé, initialisant le processus de glissement (drag).
+
+2.Afficher les emplacements où la tâche peut être déposée dans la même colonne :
+  Pendant le glissement, des emplacements de dépôt s'affichent dans la colonne actuelle.
+ Le gestionnaire ControleurTache_SetOnDragDetected est activé pour montrer où la tâche peut être relâchée.
+
+3.Relâcher la tâche dans un nouvel emplacement de la même colonne (drop) :
+ L'utilisateur relâche la tâche dans un nouvel emplacement.
+ Les gestionnaire ControleurTache_SetOnDragDropped et ControleurTache_SetOnDragDone sont activé pour mettre à jour l'ordre des tâches.
+
+4.Déplacer une tâche entre différentes colonnes :
+  L'utilisateur glisse une tâche vers une autre colonne.
+ Le gestionnaire ControleurColonne_SetOnDragDetected est activé dans la nouvelle colonne pour montrer les emplacements de dépôt disponibles.
+
+5.Relâcher la tâche dans une nouvelle colonne :
+  L'utilisateur relâche la tâche dans une colonne différente.
+ Les gestionnaire ControleurColonne_SetOnDragDropped et ControleurTache_SetOnDragDone sont activé pour déplacer la tâche vers cette nouvelle colonne.
+
+6.sIntégrer une tâche comme sous-tâche d'une autre tâche :
+ L'utilisateur glisse une tâche sur une autre tâche pour créer une relation parent-enfant.
+ L'utilisateur relâche la tâche.
+      Le gestionnaire ControleurTache_SetOnDragDropped est activé pour ajouter la tâche glissée en tant que sous-tâche.

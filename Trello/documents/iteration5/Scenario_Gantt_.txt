@@ -1,0 +1,14 @@
+1. Initialisation de la VueGantt.
+2. Collecte des données des tâches à partir du tableau.
+3. Calcul de la date de début et de fin du projet.
+4. Définition des paramètres visuels de la diagramme de Gantt.
+5. Création d'une ligne de temps horizontale avec marquage des jours et des mois.
+6. Création de CheckBox pour chaque tâche dans le projet.
+7. Ajout d'un bouton "Valider" pour confirmer la sélection des tâches.
+8. Configuration d'un gestionnaire d'événements pour le bouton "Valider".
+9. Création des éléments graphiques pour chaque tâche sélectionnée.
+10. Positionnement des tâches sur la diagramme selon leur date de début et durée.
+11. Ajout des noms des tâches sur la diagramme.
+12. Dessin des dépendances entre les tâches avec des lignes ou des flèches.
+13. Mise en place d'un système de défilement pour gérer les grandes diagrammes.
+14. Finalisation et affichage de la diagramme de Gantt mise à jour.
