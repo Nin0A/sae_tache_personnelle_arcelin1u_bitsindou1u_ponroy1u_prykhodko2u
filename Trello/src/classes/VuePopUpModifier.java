@@ -85,7 +85,6 @@ public class VuePopUpModifier extends Stage implements Observateur {
 
         // Display existing subtasks with text fields for modification
         VBox vboxcontainer = new VBox();
-        vboxcontainer.setStyle("-fx-border-color: black");
         displaySubtasks(tache, vboxcontainer,1,1);
 
         Button validerButton = new Button("Valider");
@@ -263,7 +262,6 @@ public class VuePopUpModifier extends Stage implements Observateur {
         //création
         VBox vBoxSousTache = new VBox();
 
-        //vBoxSousTache.setStyle("-fx-border-color: black ");
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(3);
