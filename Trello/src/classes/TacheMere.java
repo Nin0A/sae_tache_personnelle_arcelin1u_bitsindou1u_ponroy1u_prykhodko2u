@@ -268,15 +268,6 @@ public class TacheMere extends Tache {
      */
     public boolean verifAjout(Tache t){
 
-        System.out.println();
-        System.out.println("Start--------------------------");
-        System.out.println(verifDureeSousTaches(t));
-        System.out.println(verifDateDebutSousTaches(t));
-        System.out.println(verifDateFinSousTaches(t));
-        System.out.println(verifChevauche(t));
-        System.out.println("END*-----------------------");
-        System.out.println();
-
         return verifSousTaches(t);
     }
 
