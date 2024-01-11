@@ -1,0 +1,7 @@
+Fonctionnalités prévues lors de l'itération n°6 :
+
+    - Optimiser le code
+    - Ajouter le choix des antécédents quand on ajoute une tâche
+    - Faire la JavaDoc
+    - Implémenter la sauvegarde du Trello
+    - Finaliser l'interface graphique
