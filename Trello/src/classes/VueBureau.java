@@ -122,6 +122,7 @@ public class VueBureau extends HBox implements Observateur {
 
                     tachetmp.setAlignment(Pos.CENTER_LEFT);
                     HBox boutonstachetmp = new HBox();
+                    boutonstachetmp.setSpacing(3);
                     boutonstachetmp.setAlignment(Pos.CENTER_LEFT);
                     //Button et Controleur
                     ct = new ControleurTache(tab, t);
@@ -140,8 +141,9 @@ public class VueBureau extends HBox implements Observateur {
 
 
                 Label ll = new Label(t.getNom());
-                ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats'");
+                ll.setStyle("-fx-font-size: 20;-fx-font-family: 'Zapf Dingbats';-fx-text-fill: #6a8759;");
                 HBox tmp = new HBox();
+                tmp.setSpacing(3);
                 tmp.getChildren().addAll(ll,boutonstachetmp);
                 tachetmp.getChildren().addAll(tmp);
 
@@ -258,7 +260,7 @@ public class VueBureau extends HBox implements Observateur {
             soutache.setPadding(new Insets(0,0,0,padding));
             Label l = new Label(st.getNom());
             l.setPadding(new Insets(0,0,0,5));
-            l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats';");
+            l.setStyle("-fx-font-size: 18;-fx-font-family: 'Zapf Dingbats';-fx-text-fill: #6a8759;");
             soutache.setAlignment(Pos.CENTER_LEFT);
             soutache.getChildren().addAll(createArrow(),l);
             soutache.setId("soustache"+sousTacheId);
@@ -365,7 +367,7 @@ public class VueBureau extends HBox implements Observateur {
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
                             "-fx-background-color: #bde7cc; " + // Couleur de fond
-                            "-fx-text-fill: white; " + // Couleur du texte
+                            "-fx-text-fill: #6a8759; " + // Couleur du texte
                             "-fx-border-color: #ffffff; " + // Couleur de la bordure
                             "-fx-border-width: 2px; "+
                             "-fx-border-radius: 50px;" + // Bordure arrondie
@@ -378,7 +380,7 @@ public class VueBureau extends HBox implements Observateur {
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
                             "-fx-background-color: #fffefe; " + // Nouvelle couleur de fond au survol
-                            "-fx-text-fill: #95c2a8; " + // Nouvelle couleur du texte au survol
+                            "-fx-text-fill: #6a8759; " + // Nouvelle couleur du texte au survol
                             "-fx-border-color: #95c2a8; "+
                             "-fx-border-width: 2px; "+
                             "-fx-border-radius: 50px;" + // Bordure arrondie
@@ -391,7 +393,7 @@ public class VueBureau extends HBox implements Observateur {
                     "-fx-font-size: 10px; " +
                             "-fx-padding: 5px; " +
                             "-fx-background-color: #bde7cc; " + // Retour à la couleur de fond transparente
-                            "-fx-text-fill: white; " + // Retour à la couleur du texte blanche
+                            "-fx-text-fill: #6a8759; " + // Retour à la couleur du texte blanche
                             "-fx-border-color: #ffffff; " + // Retour à la couleur de bordure initiale
                             "-fx-border-width: 2px; " +
                             "-fx-border-radius: 50px;" + // Bordure arrondie
