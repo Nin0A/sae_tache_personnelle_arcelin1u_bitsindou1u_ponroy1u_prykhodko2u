@@ -41,7 +41,8 @@ public class Systeme implements Sujet {
      * @param t tableau à supprimer de la liste
      */
     public void supprimerTab(Tableau t){
-        listTab.remove(t);
+        if(listTab.size()>1)
+            listTab.remove(t);
         if(tableauCourant == t){
             tableauCourant = this.listTab.get(0);
         }
